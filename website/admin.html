@@ -359,6 +359,7 @@
               <option value="all">All</option>
               <option value="upcoming">Upcoming</option>
               <option value="past">Past</option>
+              <option value="Pending">Pending</option>
               <option value="Confirmed">Confirmed</option>
               <option value="Cancelled">Cancelled</option>
             </select>
@@ -575,35 +576,50 @@
       el.innerHTML = `
         <table class="admin-table">
           <thead><tr>
-            <th>Date</th><th>Time</th><th>Client</th><th>Contact</th><th>Service</th><th>Status</th><th>Action</th>
+            <th>Date & Time</th><th>Client</th><th>Service</th><th>Status</th><th>Action</th>
           </tr></thead>
           <tbody>
             ${list.map(b => `
               <tr>
-                <td style="white-space:nowrap;">${b.date}</td>
-                <td style="white-space:nowrap;"><strong>${b.time}</strong></td>
-                <td>
-                  <strong>${b.name}</strong>
-                  ${b.dob ? '<br><span style="font-size:11px;color:var(--text-light);">DOB: ' + b.dob + '</span>' : ''}
+                <td style="white-space:nowrap; min-width:110px;">
+                  <strong>${fmtBookingDate(b.date)}</strong><br>
+                  <span style="font-size:13px; color:var(--text-mid);">${fmtBookingTime(b.time)}</span>
                 </td>
-                <td style="font-size:12px; white-space:nowrap;">
-                  ${b.phone}<br>${b.email}
-                  ${b.referral ? '<br><span style="color:var(--text-light);">via ' + b.referral + '</span>' : ''}
+                <td style="min-width:140px;">
+                  <strong>${b.name}</strong><br>
+                  <span style="font-size:12px; color:var(--text-light);">${b.phone}</span><br>
+                  <span style="font-size:12px; color:var(--text-light);">${b.email}</span>
+                  ${b.dob ? '<br><span style="font-size:11px; color:var(--text-light);">DOB: ' + b.dob + '</span>' : ''}
                 </td>
-                <td style="font-size:12px; max-width:180px;">
+                <td style="font-size:12px; max-width:200px;">
                   ${b.service}<br>
                   <span style="color:var(--text-light);">${b.duration} min</span>
-                  ${b.notes ? '<br><em style="color:var(--text-light);">' + b.notes + '</em>' : ''}
+                  ${b.notes ? '<br><em style="color:var(--text-light); font-size:11px;">' + escHtml(b.notes) + '</em>' : ''}
                 </td>
                 <td><span class="badge badge-${b.status.toLowerCase()}">${b.status}</span></td>
-                <td>
-                  ${b.status !== 'Cancelled'
+                <td style="white-space:nowrap;">
+                  ${b.status === 'Pending'
+                    ? `<button class="act-btn act-approve" onclick="confirmBooking(${b.row}, this)" style="display:block; margin-bottom:4px;">Confirm</button>
+                       <button class="act-btn act-cancel" onclick="cancelBooking(${b.row}, this)">Cancel</button>`
+                    : b.status === 'Confirmed'
                     ? `<button class="act-btn act-cancel" onclick="cancelBooking(${b.row}, this)">Cancel</button>`
                     : '<span style="color:var(--text-light); font-size:11px;">—</span>'}
                 </td>
               </tr>`).join('')}
           </tbody>
         </table>`;
+    }
+
+    function confirmBooking(row, btn) {
+      if (!confirm('이 예약을 컨펌하시겠어요?\n손님에게 컨펌 메일이 자동 발송됩니다.')) return;
+      btn.disabled = true; btn.textContent = '…';
+      jsonp(APPS_SCRIPT_URL + '?action=updateBooking&admin_key=' + ADMIN_KEY + '&row=' + row + '&status=Confirmed', data => {
+        if (data.success) {
+          const b = allBookings.find(b => b.row === row);
+          if (b) b.status = 'Confirmed';
+          renderBookings(); renderUpcoming(); renderStats();
+        } else { btn.disabled = false; btn.textContent = 'Confirm'; }
+      });
     }
 
     function cancelBooking(row, btn) {
@@ -725,11 +741,27 @@
     // =====================
     function todayStr() { return new Date().toISOString().slice(0, 10); }
     function addDays(str, n) {
-      const d = new Date(str); d.setDate(d.getDate() + n);
+      const d = new Date(str + 'T00:00:00'); d.setDate(d.getDate() + n);
       return d.toISOString().slice(0, 10);
     }
     function fmtDate(str) {
       try { return new Date(str).toLocaleDateString('en-CA'); } catch(e) { return str; }
+    }
+    function fmtBookingDate(str) {
+      // str: 'yyyy-MM-dd'
+      try {
+        const d = new Date(str + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' });
+      } catch(e) { return str; }
+    }
+    function fmtBookingTime(str) {
+      // str: 'HH:mm'
+      try {
+        const [h, m] = str.split(':').map(Number);
+        const suffix = h >= 12 ? 'PM' : 'AM';
+        const h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+        return h12 + ':' + String(m).padStart(2,'0') + ' ' + suffix;
+      } catch(e) { return str; }
     }
     function escHtml(s) {
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
