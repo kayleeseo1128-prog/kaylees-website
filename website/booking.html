@@ -520,6 +520,12 @@
               <h3>Your Information</h3>
               <p class="step-desc">Almost done — just a few details.</p>
 
+              <!-- 재방문 손님 감지 배너 -->
+              <div id="returningBanner" style="display:none; background:var(--green-light); border:1px solid var(--green-mid); border-radius:12px; padding:14px 18px; margin-bottom:20px; display:none; justify-content:space-between; align-items:center; gap:12px;">
+                <span style="font-size:14px; color:var(--green-dark);">👋 Welcome back, <strong id="returningName"></strong>! Your info has been filled in.</span>
+                <button onclick="clearSavedInfo()" style="background:none; border:none; font-size:12px; color:var(--text-light); cursor:pointer; white-space:nowrap; text-decoration:underline;">Not you?</button>
+              </div>
+
               <div class="booking-summary" id="bookingSummary"></div>
 
               <div class="form-group">
@@ -941,6 +947,31 @@
     const serviceNames = selectedServices.map(s => s.value).join('<br>+ ');
     document.getElementById('bookingSummary').innerHTML =
       `<strong>${serviceNames}</strong><br>${dateStr} at ${formatTime(selectedTime)} · ${selectedDuration} min · $${totalPrice}`;
+
+    // 저장된 손님 정보 불러오기
+    try {
+      const saved = JSON.parse(localStorage.getItem('kaylees_client') || 'null');
+      if (saved && saved.name) {
+        document.getElementById('clientName').value     = saved.name;
+        document.getElementById('clientPhone').value    = saved.phone;
+        document.getElementById('clientDob').value      = saved.dob;
+        document.getElementById('clientEmail').value    = saved.email;
+        document.getElementById('clientReferral').value = 'Returning Client';
+
+        const banner = document.getElementById('returningBanner');
+        document.getElementById('returningName').textContent = saved.name.split(' ')[0];
+        banner.style.display = 'flex';
+      }
+    } catch(e) {}
+  }
+
+  function clearSavedInfo() {
+    localStorage.removeItem('kaylees_client');
+    ['clientName','clientPhone','clientDob','clientEmail'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('clientReferral').value = '';
+    document.getElementById('returningBanner').style.display = 'none';
   }
 
   function submitBooking() {
@@ -989,6 +1020,16 @@
   }
 
   function showSuccess() {
+    // 손님 정보 localStorage에 저장 (재방문 시 자동 채움)
+    const info = {
+      name:     document.getElementById('clientName').value.trim(),
+      phone:    document.getElementById('clientPhone').value.trim(),
+      dob:      document.getElementById('clientDob').value.trim(),
+      email:    document.getElementById('clientEmail').value.trim(),
+      referral: document.getElementById('clientReferral').value.trim()
+    };
+    if (info.name) localStorage.setItem('kaylees_client', JSON.stringify(info));
+
     document.getElementById('bookingWizard').querySelectorAll('.booking-steps, .step-panel').forEach(el => el.style.display = 'none');
     document.getElementById('bookingSuccess').style.display = 'block';
   }
