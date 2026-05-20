@@ -1016,8 +1016,8 @@ section    { padding: 80px 0; }
   .menu-table tbody tr {
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
-    gap: 4px;
+    padding: 16px 0;
+    gap: 2px;
     border-bottom: 1px solid var(--beige-dark);
   }
 
@@ -1032,14 +1032,14 @@ section    { padding: 80px 0; }
   }
 
   .menu-item-name {
-    font-size: 17px;
+    font-size: 20px;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
 
   .menu-item-desc {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   /* 2열: Duration → 3열 가격과 같은 줄, 우측정렬 */
