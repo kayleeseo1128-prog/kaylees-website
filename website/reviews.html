@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews | Kaylees Massage & Skincare</title>
+  <meta name="description" content="See what clients are saying about Kaylees Massage & Skincare in Burnaby & Coquitlam. Real reviews from real clients." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= PAGE HERO ======= -->
+  <div class="page-hero" style="padding-bottom: 40px;">
+    <div class="container">
+      <span class="script">what clients say</span>
+      <h1>Reviews</h1>
+      <p>Real experiences from real clients — we're proud of every session.</p>
+    </div>
+  </div>
+
+  <!-- ======= REVIEWS ======= -->
+  <section style="background: var(--beige); padding-top: 48px;">
+    <div class="container">
+
+      <!-- Rating Summary -->
+      <div class="text-center" style="margin-bottom: 48px;">
+        <div style="font-size: 64px; font-family: var(--font-serif); color: var(--green-dark); line-height:1;">5.0</div>
+        <div style="font-size: 28px; color: var(--gold); margin: 8px 0;">★★★★★</div>
+        <div style="font-size: 14px; color: var(--text-light);">Based on 4 client reviews</div>
+      </div>
+
+      <div class="reviews-grid">
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "Kaylee's massages are incredibly refreshing — I always leave feeling like my body has been completely renewed. She takes such great care of you."
+          </p>
+          <p class="review-text-kr">
+            "Kaylee 선생님이 해주시는 마사지 엄청 시원하고 몸이 젊어지는 기분이에요. 몸 관리를 엄청 잘해주세요."
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">👤</div>
+            <div>
+              <div class="reviewer-name">Chang hoon C.</div>
+              <div class="reviewer-date">Kaylee's Touch — Essential Body Massage</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "Best massage I have had in a very long time. Not only do you have strong hands, you know exactly where all the sore and tight spots are. You know exactly how to release the tension. Your technique is great! So good to see you again and look forward to my next appointment. Thanks Kaylee!!"
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">👤</div>
+            <div>
+              <div class="reviewer-name">Cathy W.</div>
+              <div class="reviewer-date">Kaylee's Touch — Advanced Body Massage</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "When I first got the contour facial, the pressure felt really strong (especially around my cheekbones) so it was a little painful at first. But afterwards, my skin looked so glowy and my makeup went on amazingly well that I kept coming back for it. Over time, what used to feel painful started feeling more refreshing and satisfying, and now I actually enjoy the process. If your skin has been looking dull or tired, and you're okay with a bit of pressure, I definitely recommend trying the contour facial!"
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">👤</div>
+            <div>
+              <div class="reviewer-name">Jennifer L.</div>
+              <div class="reviewer-date">K-Contour — V-Line Facial</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "After my accident, I was dealing with a lot of swelling in my body that just wouldn't go away, so I started seeing Kaylee for body massage treatments. During one of the sessions, I mentioned that I was also worried about puffiness in my face, and she recommended trying the Bamboo Facial as well. I ended up doing the Bamboo Back massage together with the facial, and after a few sessions, I noticed a huge difference. The swelling around my face and neck went down noticeably, and overall I started feeling so much better physically. I really hope Kaylee keeps doing what she does — she's amazing at it!"
+          </p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">👤</div>
+            <div>
+              <div class="reviewer-name">Amy W.</div>
+              <div class="reviewer-date">Bamboo Skincare Therapy — Dewdrop Hydration</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= LEAVE A REVIEW ======= -->
+  <section style="background: var(--white);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 48px;">
+        <span class="section-label">Share Your Experience</span>
+        <h2 class="section-title">Leave a <em class="script">Review</em></h2>
+        <p class="section-subtitle">Had a session with Kaylee? We'd love to hear how it went.</p>
+      </div>
+
+      <div style="max-width: 680px; margin: 0 auto;">
+        <form class="booking-form" id="reviewForm">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reviewName">Your Name *</label>
+              <input type="text" id="reviewName" name="name" placeholder="e.g. Sarah L." required />
+            </div>
+            <div class="form-group">
+              <label for="reviewService">Service Received *</label>
+              <select id="reviewService" name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <optgroup label="Facial">
+                  <option>Bamboo Skincare — Firming & Lifting</option>
+                  <option>Bamboo Skincare — Dewdrop Hydration</option>
+                  <option>Bamboo Skincare — Glow Brightening</option>
+                  <option>K-Contour — V-Line Facial</option>
+                  <option>K-Contour — Balanced Contour Facial</option>
+                </optgroup>
+                <optgroup label="Body Massage">
+                  <option>Kaylee's Touch — Advanced Body Massage</option>
+                  <option>Kaylee's Touch — Essential Body Massage</option>
+                  <option>Kaylee's Touch — Relax Body Massage</option>
+                  <option>Bamboo Body — Shoulder & Arm Lift</option>
+                  <option>Bamboo Body — Light Legs</option>
+                  <option>Bamboo Body — Deep Back Relief</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <!-- Star Rating -->
+          <div class="form-group">
+            <label>Rating *</label>
+            <div class="star-rating" id="starRating">
+              <span data-value="1">★</span>
+              <span data-value="2">★</span>
+              <span data-value="3">★</span>
+              <span data-value="4">★</span>
+              <span data-value="5">★</span>
+            </div>
+            <input type="hidden" id="ratingValue" name="rating" value="" />
+          </div>
+
+          <div class="form-group">
+            <label for="reviewText">Your Review *</label>
+            <textarea id="reviewText" name="review" placeholder="Tell us about your experience — what did you love? How did you feel after the session?" style="min-height: 130px;" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit">Submit Review</button>
+          <p class="form-note">Your review will be shared on this page after approval.</p>
+        </form>
+
+        <div class="success-message" id="reviewSuccess">
+          <div style="font-size: 36px; margin-bottom: 12px;">✦</div>
+          <strong style="font-family: var(--font-serif); font-size: 22px; display: block; margin-bottom: 8px;">Thank you!</strong>
+          Your review has been submitted. We truly appreciate you taking the time to share your experience.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA ======= -->
+  <section class="cta-banner">
+    <div class="container">
+      <span class="script">your turn</span>
+      <h2>Experience It for Yourself</h2>
+      <p>Join our growing community of happy clients in Burnaby & Coquitlam.</p>
+      <a href="booking.html" class="btn btn-gold">Book Your Session</a>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Kaylees</div>
+          <p class="footer-tagline">K-beauty massage & skincare in Burnaby & Coquitlam. Natural, warm, and authentic — every session.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" aria-label="Instagram">📷</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#body">Body Massage</a></li>
+            <li><a href="services.html#bamboo-body">Bamboo Body Therapy</a></li>
+            <li><a href="services.html#facial">Bamboo Facial</a></li>
+            <li><a href="services.html#kcontour">K-Contour Facial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="https://www.instagram.com/kaylees_van/" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            4501 North Rd.<br>Burnaby, BC<br><br>
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:inherit;">DM on Instagram</a><br>
+            English & 한국어
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Kaylees Massage & Skincare. All rights reserved.</span>
+        <span>Burnaby & Coquitlam, BC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <style>
+    .review-text-kr {
+      font-size: 14px;
+      color: var(--text-light);
+      font-style: italic;
+      margin-top: -8px;
+      margin-bottom: 20px;
+      padding-top: 10px;
+      border-top: 1px solid var(--beige-dark);
+      line-height: 1.7;
+    }
+    .star-rating {
+      display: flex;
+      gap: 6px;
+      font-size: 36px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .star-rating span {
+      color: var(--beige-dark);
+      transition: color 0.15s ease;
+      line-height: 1;
+    }
+    .star-rating span.active,
+    .star-rating span.hovered {
+      color: var(--gold);
+    }
+  </style>
+  <script>
+    // ---- Star Rating ----
+    const stars = document.querySelectorAll('.star-rating span');
+    const ratingInput = document.getElementById('ratingValue');
+
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        const val = +star.dataset.value;
+        stars.forEach(s => s.classList.toggle('hovered', +s.dataset.value <= val));
+      });
+      star.addEventListener('mouseleave', () => {
+        stars.forEach(s => s.classList.remove('hovered'));
+      });
+      star.addEventListener('click', () => {
+        const val = +star.dataset.value;
+        ratingInput.value = val;
+        stars.forEach(s => s.classList.toggle('active', +s.dataset.value <= val));
+      });
+    });
+
+    // ---- Review Form Submit ----
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!ratingInput.value) {
+        alert('Please select a star rating.');
+        return;
+      }
+      const btn = this.querySelector('.form-submit');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      // Apps Script에 실제 저장 (JSONP)
+      const cbName = '_reviewCb_' + Date.now();
+      const params = new URLSearchParams({
+        action:   'submitReview',
+        name:     document.getElementById('reviewName').value,
+        service:  document.getElementById('reviewService').value,
+        rating:   ratingInput.value,
+        review:   document.getElementById('reviewText').value,
+        callback: cbName
+      });
+
+      window[cbName] = function() {
+        delete window[cbName];
+        document.getElementById('reviewForm').style.display    = 'none';
+        document.getElementById('reviewSuccess').style.display = 'block';
+      };
+
+      const s   = document.createElement('script');
+      s.src     = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9IGsyE5C5x0h5TAn3zp6qpIQfMJYo-Z6HBLFPoYydGs728-8mmmODJw/exec?' + params.toString();
+      s.onerror = function() {
+        delete window[cbName];
+        // 오류가 있어도 성공 화면 표시 (UX 보호)
+        document.getElementById('reviewForm').style.display    = 'none';
+        document.getElementById('reviewSuccess').style.display = 'block';
+      };
+      document.head.appendChild(s);
+    });
+  </script>
+</body>
+</html>

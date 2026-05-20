@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Kaylees</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { background: var(--beige); }
+
+    /* ---- Login ---- */
+    .admin-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .login-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .login-logo  { font-family: var(--font-script); font-size: 40px; color: var(--green-dark); margin-bottom: 4px; }
+    .login-sub   { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 32px; }
+    .admin-input {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--beige-dark); border-radius: var(--radius);
+      font-size: 15px; font-family: var(--font-body);
+      margin-bottom: 14px; outline: none; transition: border-color 0.2s;
+    }
+    .admin-input:focus { border-color: var(--green-mid); }
+    .login-error { color: #e05252; font-size: 13px; margin-top: -6px; margin-bottom: 12px; display: none; }
+
+    /* ---- Admin Shell ---- */
+    .admin-page  { display: none; min-height: 100vh; }
+    .admin-header {
+      background: var(--green-dark); color: var(--white);
+      padding: 0 32px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-logo  { font-family: var(--font-script); font-size: 26px; }
+    .admin-badge { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .admin-logout {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); cursor: pointer; background: none; border: none;
+      transition: color 0.2s;
+    }
+    .admin-logout:hover { color: var(--white); }
+
+    /* ---- Tabs ---- */
+    .admin-tabs {
+      background: var(--white);
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 0 32px;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .admin-tab {
+      padding: 15px 24px; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--text-light); cursor: pointer;
+      border-bottom: 2px solid transparent; white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .admin-tab.active { color: var(--green-dark); border-bottom-color: var(--green-dark); }
+    .admin-tab:hover:not(.active) { color: var(--text-mid); }
+
+    /* ---- Content ---- */
+    .admin-content { padding: 32px; max-width: 1100px; margin: 0 auto; }
+    .admin-panel   { display: none; }
+    .admin-panel.active { display: block; }
+
+    /* ---- Stat Cards ---- */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card { background: var(--white); border-radius: 14px; padding: 24px 20px; box-shadow: var(--shadow); text-align: center; }
+    .stat-num  { font-family: var(--font-serif); font-size: 44px; color: var(--green-dark); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-light); }
+
+    /* ---- Admin Cards ---- */
+    .admin-card { background: var(--white); border-radius: 16px; padding: 28px 32px; box-shadow: var(--shadow); margin-bottom: 24px; }
+    .admin-card h3 { font-family: var(--font-serif); font-size: 22px; color: var(--text-dark); margin-bottom: 6px; }
+    .admin-card .card-desc { font-size: 13px; color: var(--text-light); margin-bottom: 24px; line-height: 1.6; }
+
+    /* ---- Form Fields ---- */
+    .f-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-group { margin-bottom: 16px; }
+    .f-group label {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: 6px;
+    }
+    .f-group input, .f-group select, .f-group textarea {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--beige-dark); border-radius: var(--radius);
+      font-size: 14px; font-family: var(--font-body); outline: none;
+      transition: border-color 0.2s; background: var(--white);
+    }
+    .f-group input:focus, .f-group select:focus { border-color: var(--green-mid); }
+
+    /* ---- Toggle ---- */
+    .toggle-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .toggle { position: relative; width: 48px; height: 26px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0;
+      background: var(--beige-dark); border-radius: 26px; cursor: pointer; transition: 0.3s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 20px; height: 20px; left: 3px; top: 3px;
+      background: var(--white); border-radius: 50%; transition: 0.3s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--green-mid); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(22px); }
+    .toggle-label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+
+    /* ---- Color Picker ---- */
+    .color-options { display: flex; gap: 10px; margin-top: 4px; }
+    .color-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 3px solid transparent; cursor: pointer; transition: border-color 0.2s, transform 0.1s;
+    }
+    .color-btn:hover { transform: scale(1.1); }
+    .color-btn.selected { border-color: var(--text-dark); }
+    .color-btn.clr-green { background: #3D6347; }
+    .color-btn.clr-gold  { background: #C4A35A; }
+    .color-btn.clr-rose  { background: #b06070; }
+
+    /* ---- Banner Preview ---- */
+    .banner-preview { border-radius: 10px; overflow: hidden; margin-top: 8px; }
+    .bp-inner {
+      padding: 12px 24px; display: flex; align-items: center;
+      justify-content: center; gap: 16px; font-size: 14px;
+      font-family: var(--font-body);
+    }
+    .bp-inner.clr-green { background: #3D6347; color: #fff; }
+    .bp-inner.clr-gold  { background: #C4A35A; color: #2A2A2A; }
+    .bp-inner.clr-rose  { background: #b06070; color: #fff; }
+    .bp-cta {
+      background: rgba(255,255,255,0.22); padding: 4px 14px;
+      border-radius: 20px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+    }
+
+    /* ---- Save Button ---- */
+    .save-btn {
+      background: var(--green-dark); color: var(--white); border: none;
+      padding: 12px 28px; border-radius: var(--radius);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .save-btn:hover { background: var(--green-mid); }
+    .save-msg {
+      display: inline-block; margin-left: 14px; font-size: 13px;
+      font-weight: 700; opacity: 0; transition: opacity 0.3s;
+    }
+    .save-msg.show { opacity: 1; }
+
+    /* ---- Filter Bar ---- */
+    .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-bar select, .filter-bar input {
+      padding: 8px 12px; border: 1.5px solid var(--beige-dark);
+      border-radius: var(--radius); font-size: 13px; font-family: var(--font-body);
+      outline: none; background: var(--white);
+    }
+    .filter-bar input { flex: 1; min-width: 160px; }
+
+    /* ---- Tables ---- */
+    .table-wrap { overflow-x: auto; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .admin-table th {
+      text-align: left; padding: 10px 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--text-light); border-bottom: 1px solid var(--beige-dark); white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 12px 14px; border-bottom: 1px solid var(--beige-dark);
+      color: var(--text-dark); vertical-align: top;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: var(--beige); }
+
+    /* ---- Badges ---- */
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .badge-confirmed { background: #e3f5e8; color: #2d7a45; }
+    .badge-cancelled { background: #fde8e8; color: #c04040; }
+    .badge-pending   { background: #fff3e0; color: #d07000; }
+    .badge-approved  { background: #e3f5e8; color: #2d7a45; }
+    .badge-rejected  { background: #fde8e8; color: #c04040; }
+
+    /* ---- Action Buttons ---- */
+    .act-btn {
+      padding: 4px 11px; border-radius: 6px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.03em; cursor: pointer; border: none; transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .act-btn + .act-btn { margin-top: 4px; }
+    .act-btn:hover { opacity: 0.8; }
+    .act-approve { background: var(--green-mid); color: #fff; }
+    .act-reject  { background: #e05252; color: #fff; }
+    .act-cancel  { background: var(--beige-dark); color: var(--text-dark); }
+
+    /* ---- States ---- */
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); font-size: 14px; }
+    .loading-state { color: var(--text-light); font-size: 14px; padding: 24px 0; }
+    .review-body { max-width: 300px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+    .stars { color: var(--gold); letter-spacing: 1px; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 720px) {
+      .admin-content { padding: 16px; }
+      .admin-header  { padding: 0 16px; }
+      .f-row2        { grid-template-columns: 1fr; }
+      .admin-card    { padding: 20px; }
+      .stat-num      { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= LOGIN ======= -->
+  <div class="admin-login" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">Kaylees</div>
+      <div class="login-sub">Admin Dashboard</div>
+      <input type="password" class="admin-input" id="adminKeyInput" placeholder="Admin password" />
+      <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+      <button class="btn btn-primary" style="width:100%; padding:13px;" onclick="doLogin()">Sign In</button>
+    </div>
+  </div>
+
+  <!-- ======= ADMIN PAGE ======= -->
+  <div class="admin-page" id="adminPage">
+
+    <div class="admin-header">
+      <div class="admin-logo">Kaylees</div>
+      <div class="admin-badge">Admin</div>
+      <button class="admin-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="switchTab('overview')">Overview</div>
+      <div class="admin-tab" onclick="switchTab('banner')">Promo Banner</div>
+      <div class="admin-tab" onclick="switchTab('bookings')">Bookings</div>
+      <div class="admin-tab" onclick="switchTab('reviews')">Reviews</div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ======= OVERVIEW ======= -->
+      <div class="admin-panel active" id="panel-overview">
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="s-today">—</div>
+            <div class="stat-label">Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-week">—</div>
+            <div class="stat-label">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-total">—</div>
+            <div class="stat-label">All Bookings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-reviews">—</div>
+            <div class="stat-label">Pending Reviews</div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Upcoming Bookings</h3>
+          <div id="upcomingWrap" class="loading-state">Loading…</div>
+        </div>
+
+      </div>
+
+      <!-- ======= BANNER ======= -->
+      <div class="admin-panel" id="panel-banner">
+        <div class="admin-card">
+          <h3>Promotion Banner</h3>
+          <p class="card-desc">배너가 활성화되면 웹사이트 모든 페이지 상단에 자동으로 표시됩니다. 만료일을 설정하면 해당 날짜 이후 자동으로 숨겨집니다.</p>
+
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="bannerActive" onchange="updatePreview()" />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="toggleLabel">Banner Off</span>
+          </div>
+
+          <div class="f-row2">
+            <div class="f-group">
+              <label>Title (굵게 표시)</label>
+              <input type="text" id="bannerTitle" placeholder="e.g. May Special" oninput="updatePreview()" />
+            </div>
+            <div class="f-group">
+              <label>CTA Button Text</label>
+              <input type="text" id="bannerCta" placeholder="Book Now" oninput="updatePreview()" />
+            </div>
+          </div>
+
+          <div class="f-group">
+            <label>Description</label>
+            <input type="text" id="bannerText" placeholder="e.g. 20% off all facials this month — limited spots available." oninput="updatePreview()" />
+          </div>
+
+          <div class="f-row2">
+            <div class="f-group">
+              <label>Color</label>
+              <div class="color-options">
+                <div class="color-btn clr-green selected" onclick="selectColor('green',this)" title="Green"></div>
+                <div class="color-btn clr-gold"  onclick="selectColor('gold',this)"  title="Gold"></div>
+                <div class="color-btn clr-rose"  onclick="selectColor('rose',this)"  title="Rose"></div>
+              </div>
+              <input type="hidden" id="bannerColor" value="green" />
+            </div>
+            <div class="f-group">
+              <label>Expiry Date (선택)</label>
+              <input type="date" id="bannerExpiry" />
+            </div>
+          </div>
+
+          <div class="f-group">
+            <label>Preview</label>
+            <div class="banner-preview">
+              <div class="bp-inner clr-green" id="bannerPreview">
+                <span><strong>May Special</strong> — Enter your promotion description here.</span>
+                <span class="bp-cta">Book Now</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; display:flex; align-items:center;">
+            <button class="save-btn" onclick="saveBanner()">Save Banner</button>
+            <span class="save-msg" id="bannerMsg"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= BOOKINGS ======= -->
+      <div class="admin-panel" id="panel-bookings">
+        <div class="admin-card">
+          <h3>All Bookings</h3>
+          <div class="filter-bar">
+            <select id="bFilter" onchange="renderBookings()">
+              <option value="all">All</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="past">Past</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+            <input type="text" id="bSearch" placeholder="Search name, service, email…" oninput="renderBookings()" />
+          </div>
+          <div class="table-wrap" id="bookingsWrap">
+            <div class="loading-state">Loading…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= REVIEWS ======= -->
+      <div class="admin-panel" id="panel-reviews">
+        <div class="admin-card">
+          <h3>Review Queue</h3>
+          <p class="card-desc">사이트 리뷰 폼을 통해 제출된 리뷰입니다. 승인된 리뷰는 <code>reviews.html</code>에 직접 복사해서 추가하세요.</p>
+          <div class="filter-bar">
+            <select id="rFilter" onchange="renderReviews()">
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+              <option value="all">All</option>
+            </select>
+          </div>
+          <div class="table-wrap" id="reviewsWrap">
+            <div class="loading-state">Loading…</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-page -->
+
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9IGsyE5C5x0h5TAn3zp6qpIQfMJYo-Z6HBLFPoYydGs728-8mmmODJw/exec';
+    const ADMIN_KEY = 'kaylees2026';
+
+    let allBookings = [];
+    let allReviews  = [];
+    let selColor    = 'green';
+
+    // =====================
+    // Login / Logout
+    // =====================
+    function doLogin() {
+      if (document.getElementById('adminKeyInput').value === ADMIN_KEY) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPage').style.display   = 'block';
+        loadAll();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+    document.getElementById('adminKeyInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+    function doLogout() {
+      document.getElementById('adminPage').style.display   = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('adminKeyInput').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+
+    // =====================
+    // Tab Switching
+    // =====================
+    const TAB_NAMES = ['overview','banner','bookings','reviews'];
+    function switchTab(tab) {
+      document.querySelectorAll('.admin-tab').forEach((el, i) => {
+        el.classList.toggle('active', TAB_NAMES[i] === tab);
+      });
+      document.querySelectorAll('.admin-panel').forEach(el => el.classList.remove('active'));
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    // =====================
+    // JSONP Helper
+    // =====================
+    function jsonp(url, cb) {
+      const name = '_cb_' + Math.random().toString(36).slice(2);
+      window[name] = function(data) {
+        delete window[name];
+        script.parentNode && script.parentNode.removeChild(script);
+        cb(data);
+      };
+      const script = document.createElement('script');
+      script.src   = url + (url.includes('?') ? '&' : '?') + 'callback=' + name;
+      document.head.appendChild(script);
+    }
+
+    // =====================
+    // Load All Data
+    // =====================
+    function loadAll() {
+      loadBookings();
+      loadReviews();
+      loadBanner();
+    }
+
+    function loadBookings() {
+      jsonp(APPS_SCRIPT_URL + '?action=getBookings&admin_key=' + ADMIN_KEY, data => {
+        if (data.success) {
+          allBookings = data.bookings;
+          renderStats();
+          renderUpcoming();
+          renderBookings();
+        }
+      });
+    }
+
+    function loadReviews() {
+      jsonp(APPS_SCRIPT_URL + '?action=getReviews&admin_key=' + ADMIN_KEY, data => {
+        if (data.success) {
+          allReviews = data.reviews;
+          document.getElementById('s-reviews').textContent =
+            allReviews.filter(r => r.status === 'Pending').length;
+          renderReviews();
+        }
+      });
+    }
+
+    function loadBanner() {
+      jsonp(APPS_SCRIPT_URL + '?action=getBanner', data => {
+        if (!data.success || !data.banner) return;
+        const b = data.banner;
+        document.getElementById('bannerActive').checked = b.banner_active === 'true';
+        document.getElementById('bannerTitle').value  = b.banner_title  || '';
+        document.getElementById('bannerText').value   = b.banner_text   || '';
+        document.getElementById('bannerCta').value    = b.banner_cta    || 'Book Now';
+        document.getElementById('bannerExpiry').value = b.banner_expiry || '';
+        const colorEl = document.querySelector('.color-btn.clr-' + (b.banner_color || 'green'));
+        selectColor(b.banner_color || 'green', colorEl);
+        updatePreview();
+      });
+    }
+
+    // =====================
+    // Stats
+    // =====================
+    function renderStats() {
+      const today   = todayStr();
+      const weekEnd = addDays(today, 7);
+      const active  = allBookings.filter(b => b.status !== 'Cancelled');
+
+      document.getElementById('s-today').textContent = active.filter(b => b.date === today).length;
+      document.getElementById('s-week').textContent  = active.filter(b => b.date >= today && b.date <= weekEnd).length;
+      document.getElementById('s-total').textContent = active.length;
+    }
+
+    // =====================
+    // Upcoming (Overview)
+    // =====================
+    function renderUpcoming() {
+      const today    = todayStr();
+      const upcoming = allBookings
+        .filter(b => b.date >= today && b.status !== 'Cancelled')
+        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+        .slice(0, 8);
+
+      const el = document.getElementById('upcomingWrap');
+      if (!upcoming.length) {
+        el.innerHTML = '<div class="empty-state">No upcoming bookings.</div>';
+        return;
+      }
+      el.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>
+            <th>Date</th><th>Time</th><th>Name</th><th>Service</th><th>Duration</th><th>Status</th>
+          </tr></thead>
+          <tbody>
+            ${upcoming.map(b => `
+              <tr>
+                <td>${b.date}</td>
+                <td><strong>${b.time}</strong></td>
+                <td>
+                  <strong>${b.name}</strong><br>
+                  <span style="font-size:11px; color:var(--text-light);">${b.phone}</span>
+                </td>
+                <td style="max-width:200px; font-size:12px;">${b.service}</td>
+                <td style="font-size:12px;">${b.duration} min</td>
+                <td><span class="badge badge-${b.status.toLowerCase()}">${b.status}</span></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    // =====================
+    // Bookings Table
+    // =====================
+    function renderBookings() {
+      const filter = document.getElementById('bFilter').value;
+      const search = document.getElementById('bSearch').value.toLowerCase();
+      const today  = todayStr();
+      let   list   = [...allBookings];
+
+      if      (filter === 'upcoming')   list = list.filter(b => b.date >= today);
+      else if (filter === 'past')       list = list.filter(b => b.date < today);
+      else if (filter === 'Confirmed' || filter === 'Cancelled') list = list.filter(b => b.status === filter);
+
+      if (search) list = list.filter(b =>
+        b.name.toLowerCase().includes(search) ||
+        b.service.toLowerCase().includes(search) ||
+        b.email.toLowerCase().includes(search) ||
+        b.phone.includes(search)
+      );
+
+      list.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+
+      const el = document.getElementById('bookingsWrap');
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-state">No bookings found.</div>';
+        return;
+      }
+      el.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>
+            <th>Date</th><th>Time</th><th>Client</th><th>Contact</th><th>Service</th><th>Status</th><th>Action</th>
+          </tr></thead>
+          <tbody>
+            ${list.map(b => `
+              <tr>
+                <td style="white-space:nowrap;">${b.date}</td>
+                <td style="white-space:nowrap;"><strong>${b.time}</strong></td>
+                <td>
+                  <strong>${b.name}</strong>
+                  ${b.dob ? '<br><span style="font-size:11px;color:var(--text-light);">DOB: ' + b.dob + '</span>' : ''}
+                </td>
+                <td style="font-size:12px; white-space:nowrap;">
+                  ${b.phone}<br>${b.email}
+                  ${b.referral ? '<br><span style="color:var(--text-light);">via ' + b.referral + '</span>' : ''}
+                </td>
+                <td style="font-size:12px; max-width:180px;">
+                  ${b.service}<br>
+                  <span style="color:var(--text-light);">${b.duration} min</span>
+                  ${b.notes ? '<br><em style="color:var(--text-light);">' + b.notes + '</em>' : ''}
+                </td>
+                <td><span class="badge badge-${b.status.toLowerCase()}">${b.status}</span></td>
+                <td>
+                  ${b.status !== 'Cancelled'
+                    ? `<button class="act-btn act-cancel" onclick="cancelBooking(${b.row}, this)">Cancel</button>`
+                    : '<span style="color:var(--text-light); font-size:11px;">—</span>'}
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function cancelBooking(row, btn) {
+      if (!confirm('이 예약을 취소하시겠어요?')) return;
+      btn.disabled = true; btn.textContent = '…';
+      jsonp(APPS_SCRIPT_URL + '?action=updateBooking&admin_key=' + ADMIN_KEY + '&row=' + row + '&status=Cancelled', data => {
+        if (data.success) {
+          const b = allBookings.find(b => b.row === row);
+          if (b) b.status = 'Cancelled';
+          renderBookings(); renderUpcoming(); renderStats();
+        } else { btn.disabled = false; btn.textContent = 'Cancel'; }
+      });
+    }
+
+    // =====================
+    // Reviews Table
+    // =====================
+    function renderReviews() {
+      const filter = document.getElementById('rFilter').value;
+      let list = filter === 'all' ? [...allReviews] : allReviews.filter(r => r.status === filter);
+      list.sort((a, b) => b.row - a.row);
+
+      const el = document.getElementById('reviewsWrap');
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-state">No reviews in this category.</div>';
+        return;
+      }
+      el.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>
+            <th>Name</th><th>Service</th><th>Rating</th><th>Review</th><th>Submitted</th><th>Status</th><th>Action</th>
+          </tr></thead>
+          <tbody>
+            ${list.map(r => `
+              <tr>
+                <td><strong>${r.name}</strong></td>
+                <td style="font-size:12px; max-width:130px;">${r.service}</td>
+                <td class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</td>
+                <td><div class="review-body">${escHtml(r.review)}</div></td>
+                <td style="font-size:11px; color:var(--text-light); white-space:nowrap;">${fmtDate(r.submitted)}</td>
+                <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+                <td style="white-space:nowrap;">
+                  ${r.status !== 'Approved'
+                    ? `<button class="act-btn act-approve" onclick="setReview(${r.row},'Approved',this)">Approve</button><br>`
+                    : ''}
+                  ${r.status !== 'Rejected'
+                    ? `<button class="act-btn act-reject" onclick="setReview(${r.row},'Rejected',this)" style="margin-top:4px;">Reject</button>`
+                    : ''}
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function setReview(row, status, btn) {
+      btn.disabled = true; btn.textContent = '…';
+      jsonp(APPS_SCRIPT_URL + '?action=updateReview&admin_key=' + ADMIN_KEY + '&row=' + row + '&status=' + status, data => {
+        if (data.success) {
+          const r = allReviews.find(r => r.row === row);
+          if (r) r.status = status;
+          renderReviews();
+          document.getElementById('s-reviews').textContent =
+            allReviews.filter(r => r.status === 'Pending').length;
+        } else { btn.disabled = false; }
+      });
+    }
+
+    // =====================
+    // Banner
+    // =====================
+    function selectColor(color, el) {
+      selColor = color;
+      document.getElementById('bannerColor').value = color;
+      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+      if (el) el.classList.add('selected');
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const active = document.getElementById('bannerActive').checked;
+      document.getElementById('toggleLabel').textContent = active ? 'Banner On' : 'Banner Off';
+
+      const title  = document.getElementById('bannerTitle').value || 'Promotion Title';
+      const text   = document.getElementById('bannerText').value;
+      const cta    = document.getElementById('bannerCta').value || 'Book Now';
+
+      const el = document.getElementById('bannerPreview');
+      el.className = 'bp-inner clr-' + selColor;
+      el.innerHTML = `
+        <span>
+          <strong style="font-family:var(--font-serif);">${title}</strong>
+          ${text ? ' — ' + text : ''}
+        </span>
+        <span class="bp-cta">${cta}</span>`;
+    }
+
+    function saveBanner() {
+      const params = new URLSearchParams({
+        action:         'setBanner',
+        admin_key:      ADMIN_KEY,
+        banner_active:  document.getElementById('bannerActive').checked ? 'true' : 'false',
+        banner_title:   document.getElementById('bannerTitle').value,
+        banner_text:    document.getElementById('bannerText').value,
+        banner_cta:     document.getElementById('bannerCta').value,
+        banner_color:   selColor,
+        banner_expiry:  document.getElementById('bannerExpiry').value
+      });
+      const msg = document.getElementById('bannerMsg');
+      jsonp(APPS_SCRIPT_URL + '?' + params.toString(), data => {
+        msg.textContent  = data.success ? '✓ Saved!' : '✗ Error saving.';
+        msg.style.color  = data.success ? 'var(--green-mid)' : '#e05252';
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 3000);
+      });
+    }
+
+    // =====================
+    // Helpers
+    // =====================
+    function todayStr() { return new Date().toISOString().slice(0, 10); }
+    function addDays(str, n) {
+      const d = new Date(str); d.setDate(d.getDate() + n);
+      return d.toISOString().slice(0, 10);
+    }
+    function fmtDate(str) {
+      try { return new Date(str).toLocaleDateString('en-CA'); } catch(e) { return str; }
+    }
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  </script>
+</body>
+</html>

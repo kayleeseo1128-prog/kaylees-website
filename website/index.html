@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaylees Massage & Skincare | Metro Vancouver</title>
+  <meta name="description" content="K-beauty facial and body massage in Metro Vancouver. Specializing in bamboo skincare therapy, K-contour facial, and body massage. Book your session today." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Hero profile photo ---- */
+    .hero-image-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    /* Profile photo placeholder — remove when real photo is added */
+    .hero-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, #5B8C6A 0%, #3D6347 100%);
+      color: rgba(255,255,255,0.55);
+      font-family: var(--font-serif);
+      font-size: 15px;
+      text-align: center;
+      gap: 8px;
+    }
+    .hero-photo-placeholder .script {
+      font-size: 52px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ---- USP icons — no emoji ---- */
+    .usp-icon svg {
+      width: 28px; height: 28px;
+      stroke: rgba(255,255,255,0.9);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ---- Service card image ---- */
+    .service-card-img {
+      height: 220px;
+      overflow: hidden;
+      background: var(--green-light);
+    }
+    .service-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .service-card:hover .service-card-img img {
+      transform: scale(1.05);
+    }
+
+    /* ---- About image ---- */
+    .about-img-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, var(--green-light), var(--beige-dark));
+    }
+    .about-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* ---- Instagram grid ---- */
+    .ig-cell {
+      background: linear-gradient(135deg, var(--green-light), var(--beige-dark));
+      position: relative;
+    }
+    .ig-follow-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding: 24px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    .ig-handle {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--text-dark);
+    }
+    .ig-handle span {
+      color: var(--green-mid);
+    }
+    .ig-follow-note {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* ---- Cred icons — no emoji ---- */
+    .cred-icon {
+      background: var(--green-light);
+    }
+    .cred-icon svg {
+      width: 15px; height: 15px;
+      stroke: var(--green-dark);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= HERO ======= -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="hero-eyebrow">K-Beauty · Metro Vancouver</span>
+        <h1 class="hero-title">
+          Your skin,<br>
+          <em>naturally</em><br>
+          glowing.
+        </h1>
+        <p class="hero-desc">
+          Experience the art of K-beauty facial contouring and bamboo body therapy — designed to deeply relax, restore, and reveal your natural glow.
+        </p>
+        <div class="hero-actions">
+          <a href="booking.html" class="btn btn-primary">Book a Session</a>
+          <a href="services.html" class="btn btn-outline">View Services</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-image-wrap">
+          <img src="images/bamboo faicial image.png" alt="Facial massage therapy" style="object-position: center center;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= USP STRIP ======= -->
+  <div class="usp-strip">
+    <div class="container">
+      <div class="usp-grid">
+        <div class="usp-item">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"/></svg>
+          </div>
+          <h4>K-Beauty Expertise</h4>
+          <p>Korean techniques for facial contouring & lymphatic care</p>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>
+          </div>
+          <h4>Bamboo Therapy</h4>
+          <p>Signature bamboo techniques for lift, glow & relaxation</p>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h4>Medical-Grade Products</h4>
+          <p>Korean aesthetic-grade skincare — Histolab, L-Iancell & more</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= SERVICES OVERVIEW ======= -->
+  <section class="services-home">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">What We Offer</span>
+        <h2 class="section-title">Services for Your<br><em class="script">skin & soul</em></h2>
+        <p class="section-subtitle">From tension-relieving body massage to K-beauty facial contouring — every treatment is crafted for your wellbeing.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-card-img">
+            <!-- Body massage image — Unsplash (free license) -->
+            <img
+              src="images/body%20massage%20image.jpg"
+              alt="Body massage therapy"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-card-body">
+            <h3>Body Massage</h3>
+            <p>From gentle hand massage that melts away tension to targeted bamboo body therapy for muscle release and slimming effects — tailored to what your body needs.</p>
+            <a href="services.html#body" class="service-card-link">View Details</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-img">
+            <img
+              src="images/bamboo faicial image.png"
+              alt="Bamboo facial skincare therapy"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-card-body">
+            <h3>Bamboo Facial Therapy</h3>
+            <p>Signature bamboo techniques for facial lift, hydration, and lymphatic flow. Glow from within.</p>
+            <a href="services.html#facial" class="service-card-link">View Details</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card-img">
+            <img
+              src="images/Contour faicial image.jpg"
+              alt="K-contour facial treatment"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-card-body">
+            <h3>K-Contour Facial</h3>
+            <p>K-beauty facial contouring focused on definition and facial harmony. Achieve your natural V-line.</p>
+            <a href="services.html#kcontour" class="service-card-link">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: 48px;">
+        <a href="services.html" class="btn btn-outline">See All Services & Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= ABOUT ======= -->
+  <section>
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-image-wrap">
+          <div class="about-img-main">
+            <img
+              src="images/profile2.JPG"
+              alt="Kaylee — licensed esthetician"
+              style="object-position: center top;"
+            />
+          </div>
+          <div class="about-img-badge">
+            <strong>5+</strong>
+            <span>Years of<br>Experience</span>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <span class="section-label">About Kaylee</span>
+          <h2 class="section-title">Korean expertise,<br><em class="script">with warmth.</em></h2>
+          <p>Hi, I'm Kaylee — a licensed Korean esthetician with over 5 years of hands-on experience in facial and body care. More than 3 of those years were spent at Yaksonmyeongga, one of Korea's most respected premium spa brands, where I refined my craft in K-beauty contouring and bamboo therapy.</p>
+          <p>What drives me every day is simple: seeing someone leave feeling more confident, relaxed, and at home in their own skin. That moment of transformation — when a client glows from the inside out — is why I do this work, and it never gets old.</p>
+          <p>Now based in Burnaby, I bring that same care and expertise to Metro Vancouver, using Korean medical-grade products and authentic techniques tailored to each person.</p>
+
+          <div class="about-creds">
+            <div class="cred-item">
+              <div class="cred-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <span>Licensed Esthetician — Korean Certification</span>
+            </div>
+            <div class="cred-item">
+              <div class="cred-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span>3+ Years at Yaksonmyeongga — Premium K-beauty Spa, Korea</span>
+            </div>
+            <div class="cred-item">
+              <div class="cred-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <span>Medical-grade products — Histolab, L-Iancell, Yaksonmyeongga</span>
+            </div>
+            <div class="cred-item">
+              <div class="cred-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span>Serving Metro Vancouver — Studio at 4501 North Rd., Burnaby BC</span>
+            </div>
+          </div>
+
+          <a href="booking.html" class="btn btn-primary">Book Your Session</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA BANNER ======= -->
+  <section class="cta-banner">
+    <div class="container">
+      <span class="script">Ready to glow?</span>
+      <h2>Book Your Session Today</h2>
+      <p>Available in Metro Vancouver. DM on Instagram or book directly below.</p>
+      <a href="booking.html" class="btn btn-gold">Reserve Your Spot</a>
+    </div>
+  </section>
+
+  <!-- ======= INSTAGRAM ======= -->
+  <section class="instagram-strip">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">Follow Along</span>
+        <h2 class="section-title"><span class="script">@kaylees_van</span></h2>
+        <p class="section-subtitle">See our latest treatments, skincare tips, and behind-the-scenes on Instagram.</p>
+      </div>
+
+      <!-- Instagram Live Feed — Behold.so (@kaylees_van) -->
+      <div style="margin-top: 40px;">
+        <behold-widget feed-id="KPnIuPsTVDpXuIiLkbEW"></behold-widget>
+        <script>
+          (() => {
+            const d=document,s=d.createElement("script");s.type="module";
+            s.src="https://w.behold.so/widget.js";d.head.append(s);
+          })();
+        </script>
+      </div>
+
+      <div class="ig-follow-banner">
+        <div>
+          <div class="ig-handle"><span>@</span>kaylees_van</div>
+          <div class="ig-follow-note">Follow for treatments, tips & behind-the-scenes</div>
+        </div>
+        <a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener" class="btn btn-outline" style="padding: 10px 24px; font-size: 13px;">Follow on Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Kaylees</div>
+          <p class="footer-tagline">K-beauty massage & skincare in Metro Vancouver. Natural, warm, and authentic — every session.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener" aria-label="Instagram @kaylees_van">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#body">Body Massage</a></li>
+            <li><a href="services.html#bamboo-body">Bamboo Body Therapy</a></li>
+            <li><a href="services.html#facial">Bamboo Facial</a></li>
+            <li><a href="services.html#kcontour">K-Contour Facial</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            4501 North Rd.<br>
+            Burnaby, BC<br>
+            <br>
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener" style="color: inherit;">DM on Instagram</a><br>
+            English &amp; 한국어
+          </address>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Kaylees Massage &amp; Skincare. All rights reserved.</span>
+        <span>Metro Vancouver, BC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

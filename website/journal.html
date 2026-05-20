@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journal | Kaylees Massage & Skincare</title>
+  <meta name="description" content="Expert insights on K-beauty, massage therapy, and skincare from Kaylees in Burnaby & Coquitlam." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    @media (max-width: 768px) {
+      .journal-grid { grid-template-columns: 1fr; }
+    }
+    .journal-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .journal-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+    .journal-card-img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+    .journal-card-body { padding: 28px 30px 32px; }
+    .journal-card-cat {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .journal-card-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    .journal-card-excerpt {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+    .journal-read-more {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= PAGE HERO ======= -->
+  <div class="page-hero" style="padding-bottom: 40px;">
+    <div class="container">
+      <span class="script">insights & guides</span>
+      <h1>Journal</h1>
+      <p>Expert knowledge on K-beauty, massage therapy, and taking care of your skin — from Kaylee's studio to you.</p>
+    </div>
+  </div>
+
+  <!-- ======= ARTICLES ======= -->
+  <section style="background: var(--beige); padding-top: 48px;">
+    <div class="container">
+      <div class="journal-grid">
+
+        <!-- Article 1 -->
+        <a href="journal/bamboo-vs-hands.html" class="journal-card">
+          <img class="journal-card-img"
+               src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80"
+               alt="Bamboo massage tools" />
+          <div class="journal-card-body">
+            <div class="journal-card-cat">Body Massage</div>
+            <div class="journal-card-title">Bamboo vs. Hands — What's the difference?</div>
+            <p class="journal-card-excerpt">Both are at the heart of what we do at Kaylees — but they work in very different ways. Here's what sets them apart, and how combining both can transform your results.</p>
+            <span class="journal-read-more">Read →</span>
+          </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="journal/home-skincare.html" class="journal-card">
+          <img class="journal-card-img"
+               src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80"
+               alt="Skincare routine at home" />
+          <div class="journal-card-body">
+            <div class="journal-card-cat">Skincare Guide</div>
+            <div class="journal-card-title">How to Start Your Skincare Routine — A Home Self-Care Guide</div>
+            <p class="journal-card-excerpt">Good skin starts at home. A simple, consistent routine — done right — can make the difference between surviving your skin and actually loving it. Here's where to begin.</p>
+            <span class="journal-read-more">Read →</span>
+          </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="journal/k-contour-facial.html" class="journal-card">
+          <img class="journal-card-img"
+               src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80"
+               alt="K-Contour facial massage" />
+          <div class="journal-card-body">
+            <div class="journal-card-cat">Facial</div>
+            <div class="journal-card-title">What is K-Contour Facial — and is it right for you?</div>
+            <p class="journal-card-excerpt">If you've ever seen a friend come back from a facial looking noticeably more sculpted, chances are they had a contour facial. Here's what it actually is and what to expect.</p>
+            <span class="journal-read-more">Read →</span>
+          </div>
+        </a>
+
+        <!-- Article 4 -->
+        <a href="journal/before-after-session.html" class="journal-card">
+          <img class="journal-card-img"
+               src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80"
+               alt="Relaxing spa session" />
+          <div class="journal-card-body">
+            <div class="journal-card-cat">Session Guide</div>
+            <div class="journal-card-title">Before & After Your Session: What to Know</div>
+            <p class="journal-card-excerpt">Getting the most from your treatment starts before you even arrive — and continues after you leave. A complete guide to preparing for and recovering from your session.</p>
+            <span class="journal-read-more">Read →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Kaylees</div>
+          <p class="footer-tagline">K-beauty massage & skincare in Burnaby & Coquitlam. Natural, warm, and authentic — every session.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#facial">Bamboo Skincare Therapy</a></li>
+            <li><a href="services.html#kcontour">K-Contour Facial</a></li>
+            <li><a href="services.html#body">Kaylee's Touch</a></li>
+            <li><a href="services.html#bamboo-body">Bamboo Body Therapy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="https://www.instagram.com/kaylees_van/" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            4501 North Rd.<br>Burnaby, BC<br><br>
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:inherit;">DM on Instagram</a><br>
+            English & 한국어
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Kaylees Massage & Skincare. All rights reserved.</span>
+        <span>Burnaby & Coquitlam, BC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
