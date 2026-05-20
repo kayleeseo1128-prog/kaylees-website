@@ -1015,20 +1015,19 @@ section    { padding: 80px 0; }
 
   .menu-table tbody tr {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
     padding: 16px 0;
-    gap: 2px;
+    gap: 0;
     border-bottom: 1px solid var(--beige-dark);
   }
 
-  .menu-table td {
-    padding: 0;
-    display: block;
-  }
+  .menu-table td { padding: 0; }
 
-  /* 1열: 서비스명 + 설명 (두 줄로 분리) */
+  /* 1열: 서비스명 + 설명 — 전체 너비 */
   .menu-table tbody tr td:nth-child(1) {
-    display: contents;
+    flex: 0 0 100%;
+    margin-bottom: 8px;
   }
 
   .menu-item-name {
@@ -1039,22 +1038,23 @@ section    { padding: 80px 0; }
 
   .menu-item-desc {
     display: block;
-    margin-bottom: 6px;
   }
 
-  /* 2열: Duration → 3열 가격과 같은 줄, 우측정렬 */
+  /* 2열: Duration 숨김 */
   .menu-table tbody tr td:nth-child(2) {
     display: none;
   }
 
-  /* 3열: duration + 가격 한 줄 (우측정렬) */
+  /* 3열: duration + 가격 — 좌측 */
   .menu-table tbody tr td:nth-child(3) {
-    text-align: right;
-    margin-bottom: 10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .menu-table tbody tr td:nth-child(3)::before {
-    content: attr(data-duration) " · ";
+    content: attr(data-duration) " ·";
     font-size: 13px;
     color: var(--text-light);
     font-family: var(--font-body);
@@ -1063,8 +1063,8 @@ section    { padding: 80px 0; }
 
   .menu-price { font-size: 18px; }
 
-  /* 4열: Book 버튼 (우측정렬) */
+  /* 4열: Book 버튼 — 우측 */
   .menu-table tbody tr td:nth-child(4) {
-    text-align: right;
+    flex: 0 0 auto;
   }
 }
