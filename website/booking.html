@@ -571,8 +571,8 @@
               <div class="success-icon">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <h3>Booking Confirmed!</h3>
-              <p>Thank you! A confirmation has been sent to your email.<br>Kaylee looks forward to seeing you.</p>
+              <h3>Request Received!</h3>
+              <p>Thank you! We'll review and confirm your appointment shortly.<br>A confirmation email will be sent to you once approved.</p>
               <a href="index.html" class="btn btn-outline" style="margin-top: 28px;">Back to Home</a>
             </div>
 
@@ -841,25 +841,31 @@
       return;
     }
 
-    // Netlify Function 경유로 슬롯 로딩 (모바일 호환)
-    const controller = new AbortController();
-    const fetchTimeout = setTimeout(() => controller.abort(), 20000);
+    // Apps Script 직접 JSONP 호출 (Netlify Function 불필요)
+    const cbName = 'getSlotsCallback_' + Date.now();
+    const slotTimeout = setTimeout(function() {
+      delete window[cbName];
+      document.getElementById('slotsScript') && document.getElementById('slotsScript').remove();
+      container.innerHTML = '<div class="no-slots">Request timed out. Please try again.</div>';
+    }, 20000);
 
-    fetch(`/.netlify/functions/getSlots?date=${selectedDate}&duration=${selectedDuration}`, {
-      signal: controller.signal
-    })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        clearTimeout(fetchTimeout);
-        if (data.success) renderTimeSlots(data.slots, []);
-        else container.innerHTML = '<div class="no-slots">No available times for this date.<br>Please choose another day.</div>';
-      })
-      .catch(function(err) {
-        clearTimeout(fetchTimeout);
-        container.innerHTML = err.name === 'AbortError'
-          ? '<div class="no-slots">Request timed out. Please try again.</div>'
-          : '<div class="no-slots">Could not load available times.<br>Please try again.</div>';
-      });
+    window[cbName] = function(data) {
+      clearTimeout(slotTimeout);
+      delete window[cbName];
+      document.getElementById('slotsScript') && document.getElementById('slotsScript').remove();
+      if (data.success && data.slots && data.slots.length > 0) {
+        renderTimeSlots(data.slots, []);
+      } else if (data.success) {
+        container.innerHTML = '<div class="no-slots">No available times for this date.<br>Please choose another day.</div>';
+      } else {
+        container.innerHTML = '<div class="no-slots">Error loading times.<br>Please try again.</div>';
+      }
+    };
+
+    const slotsScript = document.createElement('script');
+    slotsScript.id  = 'slotsScript';
+    slotsScript.src = `${APPS_SCRIPT_URL}?action=getSlots&date=${selectedDate}&duration=${selectedDuration}&callback=${cbName}`;
+    document.head.appendChild(slotsScript);
   }
 
   function generateDemoSlots() {
