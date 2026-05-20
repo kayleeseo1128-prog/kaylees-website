@@ -35,79 +35,62 @@
     </div>
   </div>
 
-  <!-- ======= REVIEWS ======= -->
-  <section style="background: var(--beige); padding-top: 48px;">
+  <!-- ======= REVIEWS CAROUSEL ======= -->
+  <section style="background: var(--beige); padding: 56px 0;">
     <div class="container">
 
-      <!-- Rating Summary -->
-      <div class="text-center" style="margin-bottom: 48px;">
-        <div style="font-size: 64px; font-family: var(--font-serif); color: var(--green-dark); line-height:1;">5.0</div>
-        <div style="font-size: 28px; color: var(--gold); margin: 8px 0;">★★★★★</div>
-        <div style="font-size: 14px; color: var(--text-light);">Based on 4 client reviews</div>
+      <!-- Carousel -->
+      <div class="review-carousel-wrap">
+        <div class="carousel-nav-btns">
+          <button class="carousel-btn" id="carouselPrev" aria-label="Previous">←</button>
+          <button class="carousel-btn" id="carouselNext" aria-label="Next">→</button>
+        </div>
+
+        <div class="review-carousel" id="reviewCarousel">
+
+          <div class="carousel-slide active">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">Kaylee's massages are incredibly refreshing — I always leave feeling like my body has been completely renewed. She takes such great care of you.</p>
+            <div class="carousel-author">Chang hoon C.</div>
+            <div class="carousel-service">Kaylee's Touch — Essential Body Massage</div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">Best massage I have had in a very long time. Not only do you have strong hands, you know exactly where all the sore and tight spots are. You know exactly how to release the tension. Your technique is great! So good to see you again and look forward to my next appointment. Thanks Kaylee!!</p>
+            <div class="carousel-author">Cathy W.</div>
+            <div class="carousel-service">Kaylee's Touch — Advanced Body Massage</div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">When I first got the contour facial, the pressure felt really strong (especially around my cheekbones) so it was a little painful at first. But afterwards, my skin looked so glowy and my makeup went on amazingly well that I kept coming back for it. Over time, what used to feel painful started feeling more refreshing and satisfying, and now I actually enjoy the process. Highly recommend!</p>
+            <div class="carousel-author">Jennifer L.</div>
+            <div class="carousel-service">K-Contour — V-Line Facial</div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">After my accident, I was dealing with swelling that just wouldn't go away. After a few sessions with Kaylee combining body massage and the Bamboo Facial, I noticed a huge difference. The swelling around my face and neck went down noticeably, and I started feeling so much better physically. She's amazing at what she does!</p>
+            <div class="carousel-author">Amy W.</div>
+            <div class="carousel-service">Bamboo Skincare Therapy — Dewdrop Hydration</div>
+          </div>
+
+        </div>
+
+        <!-- Dots -->
+        <div class="carousel-dots" id="carouselDots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
       </div>
 
-      <div class="reviews-grid">
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">
-            "Kaylee's massages are incredibly refreshing — I always leave feeling like my body has been completely renewed. She takes such great care of you."
-          </p>
-          <p class="review-text-kr">
-            "Kaylee 선생님이 해주시는 마사지 엄청 시원하고 몸이 젊어지는 기분이에요. 몸 관리를 엄청 잘해주세요."
-          </p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">👤</div>
-            <div>
-              <div class="reviewer-name">Chang hoon C.</div>
-              <div class="reviewer-date">Kaylee's Touch — Essential Body Massage</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">
-            "Best massage I have had in a very long time. Not only do you have strong hands, you know exactly where all the sore and tight spots are. You know exactly how to release the tension. Your technique is great! So good to see you again and look forward to my next appointment. Thanks Kaylee!!"
-          </p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">👤</div>
-            <div>
-              <div class="reviewer-name">Cathy W.</div>
-              <div class="reviewer-date">Kaylee's Touch — Advanced Body Massage</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">
-            "When I first got the contour facial, the pressure felt really strong (especially around my cheekbones) so it was a little painful at first. But afterwards, my skin looked so glowy and my makeup went on amazingly well that I kept coming back for it. Over time, what used to feel painful started feeling more refreshing and satisfying, and now I actually enjoy the process. If your skin has been looking dull or tired, and you're okay with a bit of pressure, I definitely recommend trying the contour facial!"
-          </p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">👤</div>
-            <div>
-              <div class="reviewer-name">Jennifer L.</div>
-              <div class="reviewer-date">K-Contour — V-Line Facial</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">
-            "After my accident, I was dealing with a lot of swelling in my body that just wouldn't go away, so I started seeing Kaylee for body massage treatments. During one of the sessions, I mentioned that I was also worried about puffiness in my face, and she recommended trying the Bamboo Facial as well. I ended up doing the Bamboo Back massage together with the facial, and after a few sessions, I noticed a huge difference. The swelling around my face and neck went down noticeably, and overall I started feeling so much better physically. I really hope Kaylee keeps doing what she does — she's amazing at it!"
-          </p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">👤</div>
-            <div>
-              <div class="reviewer-name">Amy W.</div>
-              <div class="reviewer-date">Bamboo Skincare Therapy — Dewdrop Hydration</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 
@@ -238,6 +221,136 @@
 
   <script src="js/main.js"></script>
   <style>
+    /* ===== REVIEW CAROUSEL ===== */
+    .review-carousel-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .carousel-nav-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .carousel-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--green-dark);
+      background: transparent;
+      color: var(--green-dark);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .carousel-btn:hover {
+      background: var(--green-dark);
+      color: white;
+    }
+
+    .review-carousel {
+      position: relative;
+      min-height: 320px;
+    }
+
+    .review-carousel {
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+    }
+
+    .carousel-slide {
+      display: none;
+      text-align: center;
+      padding: 0 24px;
+      width: 100%;
+      animation: slideIn 0.5s ease;
+    }
+    .carousel-slide.active { display: block; }
+    .carousel-slide.slide-out {
+      animation: slideOut 0.5s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(60px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(-60px); }
+    }
+
+    .carousel-quote {
+      font-family: var(--font-serif);
+      font-size: 80px;
+      color: var(--green-mid);
+      opacity: 0.35;
+      line-height: 0.6;
+      margin-bottom: 16px;
+    }
+
+    .carousel-stars {
+      font-size: 22px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+    }
+
+    .carousel-text {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-dark);
+      font-style: italic;
+      margin-bottom: 12px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .carousel-text-kr {
+      font-size: 14px;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .carousel-author {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--green-dark);
+      font-weight: 600;
+      margin-bottom: 4px;
+      margin-top: 28px;
+    }
+
+    .carousel-service {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 36px;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--beige-dark);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .dot.active { background: var(--green-dark); }
+
     .review-text-kr {
       font-size: 14px;
       color: var(--text-light);
@@ -266,6 +379,48 @@
     }
   </style>
   <script>
+    // ---- Review Carousel ----
+    (function() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots   = document.querySelectorAll('.dot');
+      let current  = 0;
+      let timer;
+
+      function goTo(n) {
+        const prev = current;
+        current = (n + slides.length) % slides.length;
+        if (prev === current) return;
+
+        // 현재 슬라이드 슬라이드아웃
+        slides[prev].classList.add('slide-out');
+        setTimeout(() => {
+          slides[prev].classList.remove('active', 'slide-out');
+        }, 450);
+
+        // 새 슬라이드 슬라이드인
+        setTimeout(() => {
+          slides[current].classList.add('active');
+          dots[prev].classList.remove('active');
+          dots[current].classList.add('active');
+        }, 450);
+      }
+
+      function startTimer() {
+        timer = setInterval(() => goTo(current + 1), 8000);
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        startTimer();
+      }
+
+      document.getElementById('carouselNext').addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+      document.getElementById('carouselPrev').addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+      dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); resetTimer(); }));
+
+      startTimer();
+    })();
+
     // ---- Star Rating ----
     const stars = document.querySelectorAll('.star-rating span');
     const ratingInput = document.getElementById('ratingValue');
