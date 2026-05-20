@@ -217,6 +217,38 @@
     .review-body { max-width: 300px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
     .stars { color: var(--gold); letter-spacing: 1px; }
 
+    /* ---- Client Chart ---- */
+    .client-list-item {
+      padding: 10px 14px; border-radius: 10px; cursor: pointer;
+      display: flex; align-items: center; gap: 12px; transition: background 0.15s;
+    }
+    .client-list-item:hover  { background: var(--beige); }
+    .client-list-item.active { background: var(--green-light); }
+    .client-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--green-mid); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 16px; font-weight: 700;
+      flex-shrink: 0; text-transform: uppercase;
+    }
+    .client-list-name { font-weight: 600; font-size: 14px; line-height: 1.3; }
+    .client-list-meta { font-size: 12px; color: var(--text-light); }
+
+    .chart-area-wrap { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+    .chart-diagram   { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .chart-diagram h4 {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); margin: 0;
+    }
+    .chart-svg-wrap {
+      border: 1.5px solid var(--beige-dark); border-radius: 12px;
+      padding: 14px 18px; background: var(--white); cursor: crosshair;
+      user-select: none;
+    }
+    .chart-marker { cursor: pointer; transition: opacity 0.15s; }
+    .chart-marker:hover { opacity: 0.4 !important; }
+    .chart-hint { font-size: 11px; color: var(--text-light); text-align: center; margin-top: 4px; }
+
     /* ---- Responsive ---- */
     @media (max-width: 720px) {
       .admin-content { padding: 16px; }
@@ -254,6 +286,7 @@
       <div class="admin-tab" onclick="switchTab('banner')">Promo Banner</div>
       <div class="admin-tab" onclick="switchTab('bookings')">Bookings</div>
       <div class="admin-tab" onclick="switchTab('reviews')">Reviews</div>
+      <div class="admin-tab" onclick="switchTab('clients')">Clients</div>
     </div>
 
     <div class="admin-content">
@@ -390,6 +423,138 @@
         </div>
       </div>
 
+      <!-- ======= CLIENTS ======= -->
+      <div class="admin-panel" id="panel-clients">
+        <div style="display:grid; grid-template-columns:270px 1fr; gap:20px; align-items:start;">
+
+          <!-- Left: Client List -->
+          <div class="admin-card" style="padding:20px;">
+            <h3 style="margin-bottom:12px;">Clients</h3>
+            <input type="text" id="clientSearch" placeholder="Search name or phone…" oninput="filterClients()"
+              style="width:100%; padding:8px 12px; border:1.5px solid var(--beige-dark); border-radius:var(--radius); font-size:13px; font-family:var(--font-body); outline:none; margin-bottom:10px; box-sizing:border-box;"/>
+            <div id="clientListWrap" style="max-height:65vh; overflow-y:auto;">
+              <div class="loading-state">Loading…</div>
+            </div>
+          </div>
+
+          <!-- Right: Client Detail -->
+          <div id="clientDetail" style="display:none;">
+
+            <!-- Info Card -->
+            <div class="admin-card" style="margin-bottom:20px;">
+              <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div class="client-avatar" id="detailAvatar" style="width:52px;height:52px;font-size:20px;"></div>
+                <div>
+                  <div style="font-family:var(--font-serif); font-size:22px; margin-bottom:2px;" id="detailName"></div>
+                  <div style="font-size:13px; color:var(--text-light);" id="detailContact"></div>
+                </div>
+                <div class="stat-card" style="padding:10px 18px; margin-left:auto; text-align:center;">
+                  <div class="stat-num" style="font-size:32px;" id="detailVisits">0</div>
+                  <div class="stat-label">Visits</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:32px; flex-wrap:wrap; font-size:13px; color:var(--text-mid); line-height:2;">
+                <div id="detailDates"></div>
+                <div>
+                  <div style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-bottom:4px;">Services</div>
+                  <div id="detailServices" style="font-size:12px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visit History -->
+            <div class="admin-card" style="margin-bottom:20px;">
+              <h3 style="margin-bottom:14px;">Visit History</h3>
+              <div class="table-wrap" id="visitHistoryWrap"></div>
+            </div>
+
+            <!-- Treatment Charts -->
+            <div class="admin-card" style="margin-bottom:20px;">
+              <h3 style="margin-bottom:4px;">Treatment Chart</h3>
+              <p style="font-size:13px; color:var(--text-light); margin-bottom:20px;">클릭하여 시술 부위 표시 · 마커 클릭 시 삭제</p>
+              <div class="chart-area-wrap">
+
+                <!-- BODY SVG -->
+                <div class="chart-diagram">
+                  <h4>Body</h4>
+                  <div class="chart-svg-wrap">
+                    <svg id="bodyChart" viewBox="0 0 140 400" xmlns="http://www.w3.org/2000/svg" style="width:130px;height:370px;display:block;">
+                      <g stroke="#5c6f5e" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <ellipse cx="70" cy="28" rx="22" ry="26"/>
+                        <path d="M48,20 Q42,28 48,38"/>
+                        <path d="M92,20 Q98,28 92,38"/>
+                        <line x1="62" y1="52" x2="59" y2="70"/>
+                        <line x1="78" y1="52" x2="81" y2="70"/>
+                        <path d="M59,70 C52,70 38,76 28,90"/>
+                        <path d="M81,70 C88,70 102,76 112,90"/>
+                        <path d="M28,90 L14,195 L12,222"/>
+                        <path d="M40,80 L27,192 L25,220"/>
+                        <path d="M12,222 Q14,234 20,235 Q25,235 25,228"/>
+                        <path d="M112,90 L126,195 L128,222"/>
+                        <path d="M100,80 L113,192 L115,220"/>
+                        <path d="M128,222 Q126,234 120,235 Q115,235 115,228"/>
+                        <path d="M40,80 C40,80 37,115 38,165 L40,244"/>
+                        <path d="M100,80 C100,80 103,115 102,165 L100,244"/>
+                        <path d="M40,244 C36,254 34,264 37,274"/>
+                        <path d="M100,244 C104,254 106,264 103,274"/>
+                        <path d="M37,274 Q70,284 103,274"/>
+                        <path d="M37,274 L30,392"/>
+                        <path d="M63,280 L59,392"/>
+                        <path d="M30,392 Q28,398 34,399 L59,399 Q63,397 59,392"/>
+                        <path d="M103,274 L110,392"/>
+                        <path d="M77,280 L81,392"/>
+                        <path d="M81,392 Q79,398 84,399 L110,399 Q114,397 110,392"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="chart-hint">Click to mark · Click marker to remove</p>
+                </div>
+
+                <!-- FACE SVG -->
+                <div class="chart-diagram">
+                  <h4>Face</h4>
+                  <div class="chart-svg-wrap">
+                    <svg id="faceChart" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:210px;display:block;">
+                      <g stroke="#5c6f5e" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M80,8 C116,8 148,38 148,92 C148,148 118,196 80,202 C42,196 12,148 12,92 C12,38 44,8 80,8 Z"/>
+                        <path d="M12,80 Q5,94 12,110"/>
+                        <path d="M148,80 Q155,94 148,110"/>
+                        <path d="M35,62 Q50,54 65,60"/>
+                        <path d="M95,60 Q110,54 125,62"/>
+                        <ellipse cx="50" cy="78" rx="15" ry="9"/>
+                        <circle cx="50" cy="78" r="5" fill="#5c6f5e" stroke="none"/>
+                        <ellipse cx="110" cy="78" rx="15" ry="9"/>
+                        <circle cx="110" cy="78" r="5" fill="#5c6f5e" stroke="none"/>
+                        <path d="M80,70 L74,104 Q80,112 86,104 L80,70"/>
+                        <path d="M68,106 Q72,110 74,104"/>
+                        <path d="M92,106 Q88,110 86,104"/>
+                        <path d="M64,126 Q72,120 80,124 Q88,120 96,126"/>
+                        <path d="M60,132 Q80,148 100,132"/>
+                        <path d="M62,164 Q80,174 98,164"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="chart-hint">Click to mark · Click marker to remove</p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Memo -->
+            <div class="admin-card">
+              <h3 style="margin-bottom:12px;">Notes & Memo</h3>
+              <textarea id="clientMemoInput" placeholder="피부 타입, 특이사항, 알레르기, 시술 강도 선호도 등…"
+                style="width:100%; min-height:120px; padding:12px; border:1.5px solid var(--beige-dark); border-radius:var(--radius); font-size:14px; font-family:var(--font-body); resize:vertical; outline:none; box-sizing:border-box;"></textarea>
+              <div style="display:flex; align-items:center; gap:16px; margin-top:16px;">
+                <button class="save-btn" onclick="saveCurrentChart()">Save Chart</button>
+                <span class="save-msg" id="chartSaveMsg"></span>
+              </div>
+            </div>
+
+          </div><!-- /clientDetail -->
+        </div>
+      </div>
+
     </div><!-- /admin-content -->
   </div><!-- /admin-page -->
 
@@ -426,7 +591,7 @@
     // =====================
     // Tab Switching
     // =====================
-    const TAB_NAMES = ['overview','banner','bookings','reviews'];
+    const TAB_NAMES = ['overview','banner','bookings','reviews','clients'];
     function switchTab(tab) {
       document.querySelectorAll('.admin-tab').forEach((el, i) => {
         el.classList.toggle('active', TAB_NAMES[i] === tab);
@@ -457,6 +622,7 @@
       loadBookings();
       loadReviews();
       loadBanner();
+      loadClients();
     }
 
     function loadBookings() {
@@ -731,6 +897,152 @@
       jsonp(APPS_SCRIPT_URL + '?' + params.toString(), data => {
         msg.textContent  = data.success ? '✓ Saved!' : '✗ Error saving.';
         msg.style.color  = data.success ? 'var(--green-mid)' : '#e05252';
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 3000);
+      });
+    }
+
+    // =====================
+    // Clients
+    // =====================
+    let allClients    = [];
+    let currentClient = null;
+    let chartData     = { b: [], f: [], m: '' };
+
+    function loadClients() {
+      jsonp(APPS_SCRIPT_URL + '?action=getClients&admin_key=' + ADMIN_KEY, data => {
+        if (data.success) { allClients = data.clients; renderClientList(allClients); }
+      });
+    }
+
+    function filterClients() {
+      const q = document.getElementById('clientSearch').value.toLowerCase();
+      renderClientList(q ? allClients.filter(c =>
+        c.name.toLowerCase().includes(q) || c.phone.includes(q)) : allClients);
+    }
+
+    function renderClientList(list) {
+      const wrap = document.getElementById('clientListWrap');
+      if (!list.length) { wrap.innerHTML = '<div class="empty-state">No clients found.</div>'; return; }
+      wrap.innerHTML = list.map(c => `
+        <div class="client-list-item ${currentClient && currentClient.key === c.key ? 'active' : ''}"
+             onclick="selectClient(${JSON.stringify(c.key)})">
+          <div class="client-avatar">${c.name.charAt(0)}</div>
+          <div>
+            <div class="client-list-name">${escHtml(c.name)}</div>
+            <div class="client-list-meta">${c.visits} visit${c.visits !== 1 ? 's' : ''} · ${c.lastVisit || '—'}</div>
+          </div>
+        </div>`).join('');
+    }
+
+    function selectClient(key) {
+      currentClient = allClients.find(c => c.key === key);
+      if (!currentClient) return;
+      renderClientList(allClients);
+
+      document.getElementById('clientDetail').style.display = 'block';
+
+      // Avatar initials
+      const initials = currentClient.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('detailAvatar').textContent  = initials;
+      document.getElementById('detailName').textContent    = currentClient.name;
+      document.getElementById('detailContact').textContent = currentClient.phone + (currentClient.email ? ' · ' + currentClient.email : '');
+      document.getElementById('detailVisits').textContent  = currentClient.visits;
+      document.getElementById('detailDates').innerHTML =
+        (currentClient.firstVisit ? 'First visit: <strong>' + currentClient.firstVisit + '</strong><br>' : '') +
+        (currentClient.lastVisit  ? 'Last visit: <strong>'  + currentClient.lastVisit  + '</strong><br>' : '') +
+        (currentClient.dob        ? 'DOB: <strong>'         + currentClient.dob        + '</strong>' : '');
+      document.getElementById('detailServices').innerHTML =
+        currentClient.services.map(s => '· ' + escHtml(s)).join('<br>') || '—';
+
+      // Visit history from allBookings
+      const [cName, cPhone] = key.split('|');
+      const visits = allBookings
+        .filter(b => b.name === cName && b.phone === cPhone && b.status !== 'Cancelled')
+        .sort((a, b) => b.date.localeCompare(a.date));
+      document.getElementById('visitHistoryWrap').innerHTML = visits.length ? `
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Time</th><th>Service</th><th>Duration</th><th>Status</th></tr></thead>
+          <tbody>${visits.map(v => `
+            <tr>
+              <td>${fmtBookingDate(v.date)}</td>
+              <td>${fmtBookingTime(v.time)}</td>
+              <td style="font-size:12px;">${escHtml(v.service)}</td>
+              <td style="font-size:12px;">${v.duration} min</td>
+              <td><span class="badge badge-${v.status.toLowerCase()}">${v.status}</span></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : '<div class="empty-state">No visits yet.</div>';
+
+      // Reset chart
+      chartData = { b: [], f: [], m: '' };
+      document.getElementById('clientMemoInput').value = '';
+      initCharts();
+
+      // Load saved chart from server
+      jsonp(APPS_SCRIPT_URL + '?action=getChart&admin_key=' + ADMIN_KEY +
+        '&clientKey=' + encodeURIComponent(key), data => {
+        if (data.success && data.chart) {
+          chartData = data.chart;
+          document.getElementById('clientMemoInput').value = chartData.m || '';
+          renderMarkers('bodyChart', chartData.b || [], 'b');
+          renderMarkers('faceChart', chartData.f || [], 'f');
+        }
+      });
+    }
+
+    // ---- SVG Chart Interaction ----
+    function initCharts() {
+      [['bodyChart','b'], ['faceChart','f']].forEach(([svgId, type]) => {
+        const svg = document.getElementById(svgId);
+        if (!svg) return;
+        svg.querySelectorAll('.chart-marker').forEach(m => m.remove());
+        if (svg._chartClick) svg.removeEventListener('click', svg._chartClick);
+        svg._chartClick = function(e) {
+          if (e.target.classList.contains('chart-marker')) return;
+          const rect = svg.getBoundingClientRect();
+          const vb   = svg.viewBox.baseVal;
+          const x    = Math.round((e.clientX - rect.left) / rect.width  * vb.width);
+          const y    = Math.round((e.clientY - rect.top)  / rect.height * vb.height);
+          chartData[type] = chartData[type] || [];
+          chartData[type].push([x, y]);
+          addMarkerEl(svg, x, y, type, chartData[type].length - 1);
+        };
+        svg.addEventListener('click', svg._chartClick);
+      });
+    }
+
+    function addMarkerEl(svg, x, y, type, idx) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', '9');
+      c.setAttribute('fill', '#3D6347'); c.setAttribute('opacity', '0.75');
+      c.setAttribute('class', 'chart-marker');
+      c.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chartData[type].splice(idx, 1);
+        const svgEl = document.getElementById(type === 'b' ? 'bodyChart' : 'faceChart');
+        svgEl.querySelectorAll('.chart-marker').forEach(m => m.remove());
+        (chartData[type] || []).forEach((m, i) => addMarkerEl(svgEl, m[0], m[1], type, i));
+      });
+      svg.appendChild(c);
+    }
+
+    function renderMarkers(svgId, markers, type) {
+      const svg = document.getElementById(svgId);
+      if (!svg) return;
+      svg.querySelectorAll('.chart-marker').forEach(m => m.remove());
+      (markers || []).forEach((m, i) => addMarkerEl(svg, m[0], m[1], type, i));
+    }
+
+    function saveCurrentChart() {
+      if (!currentClient) return;
+      chartData.m = document.getElementById('clientMemoInput').value;
+      const msg = document.getElementById('chartSaveMsg');
+      jsonp(APPS_SCRIPT_URL + '?action=saveChart&admin_key=' + ADMIN_KEY +
+        '&clientKey=' + encodeURIComponent(currentClient.key) +
+        '&chartData=' + encodeURIComponent(JSON.stringify(chartData)), data => {
+        msg.textContent = data.success ? '✓ Saved!' : '✗ Error saving.';
+        msg.style.color = data.success ? 'var(--green-mid)' : '#e05252';
         msg.classList.add('show');
         setTimeout(() => msg.classList.remove('show'), 3000);
       });
