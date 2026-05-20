@@ -253,25 +253,25 @@
 
     .review-carousel {
       position: relative;
-      min-height: 320px;
-    }
-
-    .review-carousel {
       overflow: hidden;
-      min-height: 340px;
-      display: flex;
-      align-items: center;
+      /* height is set by JS to match the tallest slide */
     }
 
     .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
       display: none;
       text-align: center;
       padding: 0 24px;
       width: 100%;
+      box-sizing: border-box;
       animation: slideIn 0.5s ease;
     }
     .carousel-slide.active { display: block; }
     .carousel-slide.slide-out {
+      display: block;
       animation: slideOut 0.5s ease forwards;
     }
 
@@ -385,6 +385,22 @@
       const dots   = document.querySelectorAll('.dot');
       let current  = 0;
       let timer;
+
+      // Fix carousel height to the tallest slide (so layout never jumps)
+      function fixCarouselHeight() {
+        var carousel = document.getElementById('reviewCarousel');
+        var maxH = 0;
+        slides.forEach(function(slide) {
+          slide.style.display = 'block';
+          slide.style.visibility = 'hidden';
+          if (slide.offsetHeight > maxH) maxH = slide.offsetHeight;
+          slide.style.display = '';
+          slide.style.visibility = '';
+        });
+        carousel.style.height = maxH + 'px';
+      }
+      fixCarouselHeight();
+      window.addEventListener('resize', fixCarouselHeight);
 
       function goTo(n) {
         const prev = current;
