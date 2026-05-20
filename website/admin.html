@@ -287,6 +287,7 @@
       <div class="admin-tab" onclick="switchTab('bookings')">Bookings</div>
       <div class="admin-tab" onclick="switchTab('reviews')">Reviews</div>
       <div class="admin-tab" onclick="switchTab('clients')">Clients</div>
+      <div class="admin-tab" onclick="switchTab('journal')">Journal</div>
     </div>
 
     <div class="admin-content">
@@ -478,32 +479,74 @@
                 <div class="chart-diagram">
                   <h4>Body</h4>
                   <div class="chart-svg-wrap">
-                    <svg id="bodyChart" viewBox="0 0 140 400" xmlns="http://www.w3.org/2000/svg" style="width:130px;height:370px;display:block;">
-                      <g stroke="#5c6f5e" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <ellipse cx="70" cy="28" rx="22" ry="26"/>
-                        <path d="M48,20 Q42,28 48,38"/>
-                        <path d="M92,20 Q98,28 92,38"/>
-                        <line x1="62" y1="52" x2="59" y2="70"/>
-                        <line x1="78" y1="52" x2="81" y2="70"/>
-                        <path d="M59,70 C52,70 38,76 28,90"/>
-                        <path d="M81,70 C88,70 102,76 112,90"/>
-                        <path d="M28,90 L14,195 L12,222"/>
-                        <path d="M40,80 L27,192 L25,220"/>
-                        <path d="M12,222 Q14,234 20,235 Q25,235 25,228"/>
-                        <path d="M112,90 L126,195 L128,222"/>
-                        <path d="M100,80 L113,192 L115,220"/>
-                        <path d="M128,222 Q126,234 120,235 Q115,235 115,228"/>
-                        <path d="M40,80 C40,80 37,115 38,165 L40,244"/>
-                        <path d="M100,80 C100,80 103,115 102,165 L100,244"/>
-                        <path d="M40,244 C36,254 34,264 37,274"/>
-                        <path d="M100,244 C104,254 106,264 103,274"/>
-                        <path d="M37,274 Q70,284 103,274"/>
-                        <path d="M37,274 L30,392"/>
-                        <path d="M63,280 L59,392"/>
-                        <path d="M30,392 Q28,398 34,399 L59,399 Q63,397 59,392"/>
-                        <path d="M103,274 L110,392"/>
-                        <path d="M77,280 L81,392"/>
-                        <path d="M81,392 Q79,398 84,399 L110,399 Q114,397 110,392"/>
+                    <svg id="bodyChart" viewBox="0 0 160 470" xmlns="http://www.w3.org/2000/svg" style="width:130px;height:383px;display:block;">
+                      <g stroke="#5c6f5e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- HEAD -->
+                        <ellipse cx="80" cy="38" rx="24" ry="28"/>
+                        <!-- HAIR arc -->
+                        <path d="M60,22 C64,6 76,3 80,3 C84,3 96,6 100,22"/>
+                        <!-- EARS -->
+                        <path d="M56,35 C51,37 48,43 48,50 C48,57 51,63 56,65"/>
+                        <path d="M104,35 C109,37 112,43 112,50 C112,57 109,63 104,65"/>
+                        <!-- NECK -->
+                        <path d="M70,64 C70,72 69,82 68,90"/>
+                        <path d="M90,64 C90,72 91,82 92,90"/>
+                        <!-- COLLARBONE -->
+                        <path d="M68,90 C72,96 80,98 92,90"/>
+                        <!-- SHOULDERS -->
+                        <path d="M68,90 C58,93 42,104 30,118 C24,127 20,140 20,155"/>
+                        <path d="M92,90 C102,93 118,104 130,118 C136,127 140,140 140,155"/>
+                        <!-- LEFT ARM outer -->
+                        <path d="M20,155 C17,178 15,206 16,232 C17,246 18,256 20,265"/>
+                        <!-- LEFT ARM inner -->
+                        <path d="M42,108 C40,138 38,170 38,200 C38,218 39,236 40,252"/>
+                        <!-- LEFT HAND -->
+                        <path d="M20,265 C18,275 20,283 27,285 L39,285 C43,284 43,278 40,268"/>
+                        <!-- RIGHT ARM outer -->
+                        <path d="M140,155 C143,178 145,206 144,232 C143,246 142,256 140,265"/>
+                        <!-- RIGHT ARM inner -->
+                        <path d="M118,108 C120,138 122,170 122,200 C122,218 121,236 120,252"/>
+                        <!-- RIGHT HAND -->
+                        <path d="M140,265 C142,275 140,283 133,285 L121,285 C117,284 117,278 120,268"/>
+                        <!-- LEFT TORSO side -->
+                        <path d="M42,108 C44,120 48,134 48,148 C48,162 44,173 42,186 C40,200 42,218 48,234"/>
+                        <!-- RIGHT TORSO side -->
+                        <path d="M118,108 C116,120 112,134 112,148 C112,162 116,173 118,186 C120,200 118,218 112,234"/>
+                        <!-- BUST (subtle) -->
+                        <path d="M48,130 C56,140 66,145 72,141 C77,137 80,130 80,126"/>
+                        <path d="M112,130 C104,140 94,145 88,141 C83,137 80,130 80,126"/>
+                        <!-- CENTER LINE dashed -->
+                        <line x1="80" y1="100" x2="80" y2="240" stroke-dasharray="2,5" stroke-width="0.8"/>
+                        <!-- NAVEL -->
+                        <circle cx="80" cy="220" r="2.5" stroke-width="1.2"/>
+                        <!-- WAIST TO HIPS -->
+                        <path d="M48,234 C44,252 44,272 54,290 C62,303 72,308 80,310 C88,308 98,303 106,290 C116,272 116,252 112,234"/>
+                        <!-- LEFT LEG outer -->
+                        <path d="M54,290 C50,318 48,350 47,382 L46,406"/>
+                        <!-- LEFT LEG inner -->
+                        <path d="M72,308 C71,336 70,364 70,390 L70,406"/>
+                        <!-- LEFT KNEE CAP -->
+                        <path d="M50,406 C53,401 58,399 64,400 C69,402 70,407 67,412 C63,416 53,416 49,412 C47,409 48,407 50,406 Z" stroke-width="1"/>
+                        <!-- LEFT LOWER LEG outer -->
+                        <path d="M46,406 C44,422 43,440 44,456 L45,462"/>
+                        <!-- LEFT LOWER LEG inner -->
+                        <path d="M70,406 C70,422 70,440 70,456 L70,462"/>
+                        <!-- LEFT FOOT -->
+                        <path d="M45,462 C43,468 39,470 33,470 L20,470 C16,468 16,464 20,462"/>
+                        <path d="M70,462 C72,467 72,469 70,470"/>
+                        <!-- RIGHT LEG outer -->
+                        <path d="M106,290 C110,318 112,350 113,382 L114,406"/>
+                        <!-- RIGHT LEG inner -->
+                        <path d="M88,308 C89,336 90,364 90,390 L90,406"/>
+                        <!-- RIGHT KNEE CAP -->
+                        <path d="M92,406 C95,401 100,399 106,400 C111,402 112,407 109,412 C105,416 95,416 91,412 C89,409 90,407 92,406 Z" stroke-width="1"/>
+                        <!-- RIGHT LOWER LEG outer -->
+                        <path d="M114,406 C116,422 117,440 116,456 L115,462"/>
+                        <!-- RIGHT LOWER LEG inner -->
+                        <path d="M90,406 C90,422 90,440 90,456 L90,462"/>
+                        <!-- RIGHT FOOT -->
+                        <path d="M115,462 C117,468 121,470 127,470 L140,470 C144,468 144,464 140,462"/>
+                        <path d="M90,462 C88,467 88,469 90,470"/>
                       </g>
                     </svg>
                   </div>
@@ -514,23 +557,56 @@
                 <div class="chart-diagram">
                   <h4>Face</h4>
                   <div class="chart-svg-wrap">
-                    <svg id="faceChart" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:210px;display:block;">
-                      <g stroke="#5c6f5e" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M80,8 C116,8 148,38 148,92 C148,148 118,196 80,202 C42,196 12,148 12,92 C12,38 44,8 80,8 Z"/>
-                        <path d="M12,80 Q5,94 12,110"/>
-                        <path d="M148,80 Q155,94 148,110"/>
-                        <path d="M35,62 Q50,54 65,60"/>
-                        <path d="M95,60 Q110,54 125,62"/>
-                        <ellipse cx="50" cy="78" rx="15" ry="9"/>
-                        <circle cx="50" cy="78" r="5" fill="#5c6f5e" stroke="none"/>
-                        <ellipse cx="110" cy="78" rx="15" ry="9"/>
-                        <circle cx="110" cy="78" r="5" fill="#5c6f5e" stroke="none"/>
-                        <path d="M80,70 L74,104 Q80,112 86,104 L80,70"/>
-                        <path d="M68,106 Q72,110 74,104"/>
-                        <path d="M92,106 Q88,110 86,104"/>
-                        <path d="M64,126 Q72,120 80,124 Q88,120 96,126"/>
-                        <path d="M60,132 Q80,148 100,132"/>
-                        <path d="M62,164 Q80,174 98,164"/>
+                    <svg id="faceChart" viewBox="0 0 180 230" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:205px;display:block;">
+                      <g stroke="#5c6f5e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- HAIR / HEAD silhouette -->
+                        <path d="M44,90 C42,62 56,28 74,15 C80,10 90,8 90,8 C90,8 100,10 106,15 C124,28 138,62 136,90"/>
+                        <path d="M62,16 C70,6 80,3 90,3 C100,3 110,6 118,16"/>
+                        <path d="M44,90 C40,110 40,132 42,150"/>
+                        <path d="M136,90 C140,110 140,132 138,150"/>
+                        <!-- FACE OUTLINE -->
+                        <path d="M46,98 C44,118 46,142 54,164 C62,186 74,206 84,216 C87,219 90,221 90,221 C90,221 93,219 96,216 C106,206 118,186 126,164 C134,142 136,118 134,98 C130,80 116,72 90,72 C64,72 50,80 46,98 Z"/>
+                        <!-- EARS -->
+                        <path d="M46,112 C40,114 36,120 36,128 C36,136 40,142 46,144"/>
+                        <path d="M44,117 C40,120 38,124 38,130 C38,136 40,140 44,142"/>
+                        <path d="M134,112 C140,114 144,120 144,128 C144,136 140,142 134,144"/>
+                        <path d="M136,117 C140,120 142,124 142,130 C142,136 140,140 136,142"/>
+                        <!-- EYEBROWS -->
+                        <path d="M58,108 C66,102 75,100 85,103" stroke-width="2.2" stroke-linecap="round"/>
+                        <path d="M95,103 C105,100 114,102 122,108" stroke-width="2.2" stroke-linecap="round"/>
+                        <!-- LEFT EYE -->
+                        <path d="M58,124 C64,117 74,115 83,118 C89,121 91,126 89,131 C83,136 65,136 59,131 C56,128 57,125 58,124 Z"/>
+                        <circle cx="74" cy="125" r="6" stroke-width="1.2"/>
+                        <circle cx="74" cy="125" r="2.5" fill="#5c6f5e" stroke="none"/>
+                        <circle cx="76" cy="123" r="1" fill="white" stroke="none"/>
+                        <path d="M58,124 C62,118 68,115 74,114" stroke-width="1.5"/>
+                        <path d="M84,117 C87,116 89,117 91,120" stroke-width="1.5"/>
+                        <!-- RIGHT EYE -->
+                        <path d="M89,124 C95,117 106,115 115,118 C121,121 122,126 120,131 C114,136 97,136 91,131 C88,128 88,125 89,124 Z"/>
+                        <circle cx="106" cy="125" r="6" stroke-width="1.2"/>
+                        <circle cx="106" cy="125" r="2.5" fill="#5c6f5e" stroke="none"/>
+                        <circle cx="108" cy="123" r="1" fill="white" stroke="none"/>
+                        <path d="M89,124 C93,118 100,115 106,114" stroke-width="1.5"/>
+                        <path d="M116,117 C119,116 121,117 122,120" stroke-width="1.5"/>
+                        <!-- NOSE bridge -->
+                        <path d="M82,114 C81,124 79,136 78,144"/>
+                        <path d="M98,114 C99,124 101,136 102,144"/>
+                        <!-- NOSE tip & nostrils -->
+                        <path d="M78,144 C80,152 84,156 90,156 C96,156 100,152 102,144"/>
+                        <path d="M78,144 C74,146 72,150 74,154 C76,158 80,158 82,154"/>
+                        <path d="M102,144 C106,146 108,150 106,154 C104,158 100,158 98,154"/>
+                        <path d="M74,154 C80,158 90,159 90,159 C90,159 100,158 106,154"/>
+                        <!-- PHILTRUM -->
+                        <path d="M86,162 C87,167 88,170 90,172" stroke-width="0.9" opacity="0.6"/>
+                        <path d="M94,162 C93,167 92,170 90,172" stroke-width="0.9" opacity="0.6"/>
+                        <!-- LIPS upper -->
+                        <path d="M68,176 C74,170 82,167 90,169 C98,167 106,170 112,176"/>
+                        <!-- Cupid's bow crease -->
+                        <path d="M68,176 C74,173 83,175 90,173 C97,175 106,173 112,176" stroke-width="0.9"/>
+                        <!-- LIPS lower -->
+                        <path d="M68,176 C72,186 80,194 90,194 C100,194 108,186 112,176"/>
+                        <!-- CHIN subtle -->
+                        <path d="M86,218 C88,222 92,222 94,218" stroke-width="0.9" opacity="0.45"/>
                       </g>
                     </svg>
                   </div>
@@ -553,6 +629,79 @@
 
           </div><!-- /clientDetail -->
         </div>
+      </div>
+
+      <!-- ======= JOURNAL ======= -->
+      <div class="admin-panel" id="panel-journal">
+
+        <!-- Form (hidden by default) -->
+        <div id="journalFormWrap" style="display:none; margin-bottom:24px;">
+          <div class="admin-card">
+            <h3 id="journalFormTitle" style="margin-bottom:20px;">New Journal Entry</h3>
+            <input type="hidden" id="jRow" value="0"/>
+            <div class="f-row2">
+              <div class="f-group">
+                <label>Date</label>
+                <input type="date" id="jDate" class="admin-input"/>
+              </div>
+              <div class="f-group">
+                <label>Category</label>
+                <select id="jCategory" class="admin-input">
+                  <option>Body Massage</option>
+                  <option>Facial</option>
+                  <option>Skincare Guide</option>
+                  <option>Session Guide</option>
+                  <option>K-beauty</option>
+                  <option>Studio Life</option>
+                </select>
+              </div>
+            </div>
+            <div class="f-group">
+              <label>Title</label>
+              <input type="text" id="jTitle" class="admin-input" placeholder="e.g. Why Bamboo Tools Change Everything"/>
+            </div>
+            <div class="f-group">
+              <label>Excerpt <span style="font-weight:400; text-transform:none; font-size:11px; color:var(--text-light);">— 1–2 줄 요약 (카드 미리보기용)</span></label>
+              <textarea id="jExcerpt" class="admin-input" rows="2" style="resize:vertical;" placeholder="Short summary shown on the journal grid…"></textarea>
+            </div>
+            <div class="f-group">
+              <label>Content <span style="font-weight:400; text-transform:none; font-size:11px; color:var(--text-light);">— 빈 줄로 단락 구분</span></label>
+              <textarea id="jContent" class="admin-input" rows="10" style="resize:vertical;" placeholder="Write your full journal post here…&#10;&#10;Use a blank line to separate paragraphs."></textarea>
+            </div>
+            <div class="f-group">
+              <label>Image URL <span style="font-weight:400; text-transform:none; font-size:11px; color:var(--text-light);">— Google Drive 공유 링크 or 이미지 URL</span></label>
+              <input type="text" id="jImageUrl" class="admin-input" placeholder="https://drive.google.com/file/d/…/view  or  https://…/image.jpg"/>
+              <div style="font-size:11px; color:var(--text-light); margin-top:6px;">💡 Google Drive: 파일 우클릭 → 공유 → 링크 복사</div>
+              <div id="jImagePreview" style="margin-top:10px; display:none;">
+                <img id="jPreviewImg" src="" alt="preview" style="max-height:160px; border-radius:10px; object-fit:cover;"/>
+              </div>
+            </div>
+            <div class="f-group">
+              <label>Status</label>
+              <select id="jStatus" class="admin-input">
+                <option value="Draft">Draft — 비공개</option>
+                <option value="Published">Published — 공개</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:12px; align-items:center; margin-top:8px;">
+              <button class="save-btn" onclick="submitJournalForm()">Save Entry</button>
+              <button onclick="closeJournalForm()" style="background:none; border:none; color:var(--text-light); font-size:13px; cursor:pointer;">Cancel</button>
+              <span id="journalSaveMsg" class="save-msg"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="admin-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="margin:0;">Journal Entries</h3>
+            <button class="save-btn" onclick="openJournalForm(null)" style="padding:10px 20px;">+ New Entry</button>
+          </div>
+          <div class="table-wrap" id="journalListWrap">
+            <div class="loading-state">Loading…</div>
+          </div>
+        </div>
+
       </div>
 
     </div><!-- /admin-content -->
@@ -591,13 +740,14 @@
     // =====================
     // Tab Switching
     // =====================
-    const TAB_NAMES = ['overview','banner','bookings','reviews','clients'];
+    const TAB_NAMES = ['overview','banner','bookings','reviews','clients','journal'];
     function switchTab(tab) {
       document.querySelectorAll('.admin-tab').forEach((el, i) => {
         el.classList.toggle('active', TAB_NAMES[i] === tab);
       });
       document.querySelectorAll('.admin-panel').forEach(el => el.classList.remove('active'));
       document.getElementById('panel-' + tab).classList.add('active');
+      if (tab === 'journal') loadJournal();
     }
 
     // =====================
@@ -1048,6 +1198,138 @@
         msg.style.color = data.success ? 'var(--green-mid)' : '#e05252';
         msg.classList.add('show');
         setTimeout(() => msg.classList.remove('show'), 3000);
+      });
+    }
+
+    // =====================
+    // Journal
+    // =====================
+    let journalEntries = [];
+
+    function loadJournal() {
+      const el = document.getElementById('journalListWrap');
+      el.innerHTML = '<div class="loading-state">Loading…</div>';
+      jsonp(APPS_SCRIPT_URL + '?action=getJournalAdmin&admin_key=' + ADMIN_KEY, data => {
+        if (!data.success) { el.innerHTML = '<div class="loading-state">Error loading.</div>'; return; }
+        journalEntries = data.entries || [];
+        renderJournalList();
+      });
+    }
+
+    function renderJournalList() {
+      const el = document.getElementById('journalListWrap');
+      if (!journalEntries.length) {
+        el.innerHTML = '<div class="loading-state">No entries yet. Click "+ New Entry" to create one.</div>';
+        return;
+      }
+      el.innerHTML = `<table class="admin-table">
+        <thead><tr><th>Date</th><th>Category</th><th>Title</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>${journalEntries.map(e => `
+          <tr>
+            <td style="white-space:nowrap;">${escHtml(e.date)}</td>
+            <td><span style="font-size:11px; color:var(--green-mid); font-weight:700; text-transform:uppercase;">${escHtml(e.category)}</span></td>
+            <td style="max-width:300px;">${escHtml(e.title)}</td>
+            <td><span class="status-badge status-${e.status === 'Published' ? 'confirmed' : 'pending'}">${escHtml(e.status)}</span></td>
+            <td style="white-space:nowrap;">
+              <button data-jrow="${e.row}" class="j-edit-btn" style="font-size:12px; padding:6px 12px; background:var(--green-dark); color:white; border:none; border-radius:8px; cursor:pointer; margin-right:6px;">Edit</button>
+              <button data-jrow="${e.row}" class="j-del-btn" style="font-size:12px; padding:6px 12px; background:#e05252; color:white; border:none; border-radius:8px; cursor:pointer;">Delete</button>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+      el.querySelectorAll('.j-edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const entry = journalEntries.find(e => e.row === parseInt(btn.dataset.jrow));
+          if (entry) openJournalForm(entry);
+        });
+      });
+      el.querySelectorAll('.j-del-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!confirm('Delete this entry?')) return;
+          jsonp(APPS_SCRIPT_URL + '?action=deleteJournal&admin_key=' + ADMIN_KEY + '&row=' + btn.dataset.jrow, data => {
+            if (data.success) loadJournal();
+            else alert('Error deleting.');
+          });
+        });
+      });
+    }
+
+    function openJournalForm(entry) {
+      document.getElementById('journalFormWrap').style.display = 'block';
+      document.getElementById('journalFormWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('journalFormTitle').textContent = entry ? 'Edit Entry' : 'New Journal Entry';
+      document.getElementById('jRow').value       = entry ? entry.row : 0;
+      document.getElementById('jDate').value      = entry ? entry.date : new Date().toISOString().slice(0,10);
+      document.getElementById('jCategory').value  = entry ? entry.category : 'Body Massage';
+      document.getElementById('jTitle').value     = entry ? entry.title : '';
+      document.getElementById('jExcerpt').value   = entry ? entry.excerpt : '';
+      document.getElementById('jContent').value   = entry ? entry.content : '';
+      document.getElementById('jImageUrl').value  = entry ? entry.imageUrl : '';
+      document.getElementById('jStatus').value    = entry ? entry.status : 'Draft';
+      previewJournalImage();
+    }
+
+    function closeJournalForm() {
+      document.getElementById('journalFormWrap').style.display = 'none';
+    }
+
+    function previewJournalImage() {
+      const url = document.getElementById('jImageUrl').value.trim();
+      const wrap = document.getElementById('jImagePreview');
+      const img  = document.getElementById('jPreviewImg');
+      if (!url) { wrap.style.display = 'none'; return; }
+      const direct = driveUrl(url);
+      img.src = direct;
+      wrap.style.display = 'block';
+    }
+
+    // Google Drive 공유 링크 → 직접 이미지 URL 변환
+    function driveUrl(url) {
+      const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (m) return 'https://drive.google.com/uc?id=' + m[1];
+      return url;
+    }
+
+    // Image URL input에 이벤트 추가 (문서 로드 후)
+    document.addEventListener('DOMContentLoaded', () => {
+      const inp = document.getElementById('jImageUrl');
+      if (inp) inp.addEventListener('input', previewJournalImage);
+    });
+
+    function submitJournalForm() {
+      const title = document.getElementById('jTitle').value.trim();
+      const date  = document.getElementById('jDate').value.trim();
+      if (!title || !date) { alert('Title and date are required.'); return; }
+
+      const rawUrl  = document.getElementById('jImageUrl').value.trim();
+      const imgUrl  = rawUrl ? driveUrl(rawUrl) : '';
+      const content = document.getElementById('jContent').value;
+      const msg     = document.getElementById('journalSaveMsg');
+
+      const params = [
+        'action=saveJournal',
+        'admin_key=' + ADMIN_KEY,
+        'row='        + document.getElementById('jRow').value,
+        'date='       + encodeURIComponent(date),
+        'category='   + encodeURIComponent(document.getElementById('jCategory').value),
+        'title='      + encodeURIComponent(title),
+        'excerpt='    + encodeURIComponent(document.getElementById('jExcerpt').value),
+        'content='    + encodeURIComponent(content),
+        'imageUrl='   + encodeURIComponent(imgUrl),
+        'status='     + encodeURIComponent(document.getElementById('jStatus').value)
+      ].join('&');
+
+      msg.textContent = 'Saving…'; msg.style.color = 'var(--text-light)'; msg.classList.add('show');
+
+      jsonp(APPS_SCRIPT_URL + '?' + params, data => {
+        if (data.success) {
+          msg.textContent = '✓ Saved!'; msg.style.color = 'var(--green-mid)';
+          setTimeout(() => { closeJournalForm(); loadJournal(); }, 1200);
+        } else {
+          msg.textContent = '✗ Error: ' + (data.error || 'unknown');
+          msg.style.color = '#e05252';
+        }
       });
     }
 

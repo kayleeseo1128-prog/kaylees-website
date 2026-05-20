@@ -95,65 +95,65 @@
   </div>
 
   <!-- ======= ARTICLES ======= -->
-  <section style="background: var(--beige); padding-top: 48px;">
+  <section style="background: var(--beige); padding-top: 48px; padding-bottom: 80px;">
     <div class="container">
-      <div class="journal-grid">
-
-        <!-- Article 1 -->
-        <a href="journal/bamboo-vs-hands.html" class="journal-card">
-          <img class="journal-card-img"
-               src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80"
-               alt="Bamboo massage tools" />
-          <div class="journal-card-body">
-            <div class="journal-card-cat">Body Massage</div>
-            <div class="journal-card-title">Bamboo vs. Hands — What's the difference?</div>
-            <p class="journal-card-excerpt">Both are at the heart of what we do at Kaylees — but they work in very different ways. Here's what sets them apart, and how combining both can transform your results.</p>
-            <span class="journal-read-more">Read →</span>
-          </div>
-        </a>
-
-        <!-- Article 2 -->
-        <a href="journal/home-skincare.html" class="journal-card">
-          <img class="journal-card-img"
-               src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80"
-               alt="Skincare routine at home" />
-          <div class="journal-card-body">
-            <div class="journal-card-cat">Skincare Guide</div>
-            <div class="journal-card-title">How to Start Your Skincare Routine — A Home Self-Care Guide</div>
-            <p class="journal-card-excerpt">Good skin starts at home. A simple, consistent routine — done right — can make the difference between surviving your skin and actually loving it. Here's where to begin.</p>
-            <span class="journal-read-more">Read →</span>
-          </div>
-        </a>
-
-        <!-- Article 3 -->
-        <a href="journal/k-contour-facial.html" class="journal-card">
-          <img class="journal-card-img"
-               src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80"
-               alt="K-Contour facial massage" />
-          <div class="journal-card-body">
-            <div class="journal-card-cat">Facial</div>
-            <div class="journal-card-title">What is K-Contour Facial — and is it right for you?</div>
-            <p class="journal-card-excerpt">If you've ever seen a friend come back from a facial looking noticeably more sculpted, chances are they had a contour facial. Here's what it actually is and what to expect.</p>
-            <span class="journal-read-more">Read →</span>
-          </div>
-        </a>
-
-        <!-- Article 4 -->
-        <a href="journal/before-after-session.html" class="journal-card">
-          <img class="journal-card-img"
-               src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80"
-               alt="Relaxing spa session" />
-          <div class="journal-card-body">
-            <div class="journal-card-cat">Session Guide</div>
-            <div class="journal-card-title">Before & After Your Session: What to Know</div>
-            <p class="journal-card-excerpt">Getting the most from your treatment starts before you even arrive — and continues after you leave. A complete guide to preparing for and recovering from your session.</p>
-            <span class="journal-read-more">Read →</span>
-          </div>
-        </a>
-
+      <div id="journalGrid" class="journal-grid">
+        <div style="grid-column:1/-1; text-align:center; padding:60px 0; color:var(--text-light); font-size:15px;">
+          Loading entries…
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+  (function() {
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9IGsyE5C5x0h5TAn3zp6qpIQfMJYo-Z6HBLFPoYydGs728-8mmmODJw/exec';
+
+    function loadJournal() {
+      const cb = 'jCb_' + Date.now();
+      window[cb] = function(data) {
+        delete window[cb];
+        const grid = document.getElementById('journalGrid');
+        if (!data.success || !data.entries || !data.entries.length) {
+          grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:80px 0; color:var(--text-light);">' +
+            '<p style="font-size:28px; margin-bottom:12px;">✦</p>' +
+            '<p style="font-size:16px;">New posts coming soon — check back weekly!</p></div>';
+          return;
+        }
+        grid.innerHTML = data.entries.map(e => {
+          const img = e.imageUrl
+            ? `<img class="journal-card-img" src="${e.imageUrl}" alt="${escHtml(e.title)}" onerror="this.style.display='none'" />`
+            : `<div class="journal-card-img" style="background:var(--beige-dark);"></div>`;
+          return `<a href="journal-post.html?row=${e.row}" class="journal-card">
+            ${img}
+            <div class="journal-card-body">
+              <div class="journal-card-cat">${escHtml(e.category)}</div>
+              <div class="journal-card-title">${escHtml(e.title)}</div>
+              <p class="journal-card-excerpt">${escHtml(e.excerpt)}</p>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="journal-read-more">Read →</span>
+                <span style="font-size:12px; color:var(--text-light);">${escHtml(e.date)}</span>
+              </div>
+            </div>
+          </a>`;
+        }).join('');
+      };
+      const s = document.createElement('script');
+      s.src = APPS_SCRIPT_URL + '?action=getJournal&callback=' + cb;
+      s.onerror = function() {
+        document.getElementById('journalGrid').innerHTML =
+          '<div style="grid-column:1/-1; text-align:center; padding:60px 0; color:var(--text-light);">Could not load entries. Please try again later.</div>';
+      };
+      document.head.appendChild(s);
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    loadJournal();
+  })();
+  </script>
 
   <!-- ======= FOOTER ======= -->
   <footer class="footer">
