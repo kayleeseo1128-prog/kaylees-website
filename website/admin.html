@@ -926,13 +926,16 @@
       if (!list.length) { wrap.innerHTML = '<div class="empty-state">No clients found.</div>'; return; }
       wrap.innerHTML = list.map(c => `
         <div class="client-list-item ${currentClient && currentClient.key === c.key ? 'active' : ''}"
-             onclick="selectClient(${JSON.stringify(c.key)})">
+             data-key="${escHtml(c.key)}">
           <div class="client-avatar">${c.name.charAt(0)}</div>
           <div>
             <div class="client-list-name">${escHtml(c.name)}</div>
             <div class="client-list-meta">${c.visits} visit${c.visits !== 1 ? 's' : ''} · ${c.lastVisit || '—'}</div>
           </div>
         </div>`).join('');
+      wrap.querySelectorAll('.client-list-item').forEach(el => {
+        el.addEventListener('click', () => selectClient(el.dataset.key));
+      });
     }
 
     function selectClient(key) {
