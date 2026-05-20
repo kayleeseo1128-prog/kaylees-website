@@ -4,6 +4,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9
 
 exports.handler = async function(event) {
   const { date, duration } = event.queryStringParameters || {};
+  console.log('getSlots called — date:', date, '| duration:', duration);
 
   try {
     const url = `${APPS_SCRIPT_URL}?action=getSlots&date=${encodeURIComponent(date)}&duration=${encodeURIComponent(duration)}`;
@@ -19,6 +20,7 @@ exports.handler = async function(event) {
       data = JSON.parse(text);
     }
 
+    console.log('Apps Script response slots:', JSON.stringify(data).substring(0, 200));
     return {
       statusCode: 200,
       headers: {
