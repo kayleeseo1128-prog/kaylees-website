@@ -14,12 +14,16 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaylees</a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
       </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
       <button class="nav-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -29,9 +33,9 @@
   <!-- ======= PAGE HERO ======= -->
   <div class="page-hero">
     <div class="container">
-      <span class="script">our treatments</span>
-      <h1>Services & Pricing</h1>
-      <p>Each treatment is thoughtfully designed to restore balance,<br>reveal your natural glow, and deeply relax.</p>
+      <span class="script" data-i18n="svc.eyebrow">our treatments</span>
+      <h1 data-i18n="svc.h1">Services & Pricing</h1>
+      <p data-i18n="svc.h1.p">Each treatment is thoughtfully designed to restore balance, reveal your natural glow, and deeply relax.</p>
     </div>
   </div>
 
@@ -43,7 +47,7 @@
           <span class="section-label">Facial</span>
           <h2 class="service-section-title"><span class="script">Bamboo Skincare Therapy</span></h2>
         </div>
-        <p class="service-section-desc">
+        <p class="service-section-desc" data-i18n="svc.bamboo.desc">
           Signature bamboo techniques applied to the face for natural lifting, improved lymphatic flow, and a radiant, healthy glow.
         </p>
       </div>
@@ -51,17 +55,17 @@
       <table class="menu-table">
         <thead>
           <tr>
-            <th>Treatment</th>
-            <th>Duration</th>
-            <th>Price</th>
+            <th data-i18n="svc.th.treatment">Treatment</th>
+            <th data-i18n="svc.th.duration">Duration</th>
+            <th data-i18n="svc.th.price">Price</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <span class="menu-item-name">Firming & Lifting</span>
-              <span class="menu-item-desc">Deep bamboo lifting for firmer, more defined skin</span>
+              <span class="menu-item-name" data-i18n="svc.firming.name">Firming & Lifting</span>
+              <span class="menu-item-desc" data-i18n="svc.firming.desc">Deep bamboo lifting for firmer, more defined skin</span>
             </td>
             <td class="menu-duration">60 min</td>
             <td class="menu-price" data-duration="60 min">$140</td>
@@ -69,8 +73,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Dewdrop Hydration</span>
-              <span class="menu-item-desc">Intensive moisture infusion for plump, dewy skin</span>
+              <span class="menu-item-name" data-i18n="svc.dewdrop.name">Dewdrop Hydration</span>
+              <span class="menu-item-desc" data-i18n="svc.dewdrop.desc">Intensive moisture infusion for plump, dewy skin</span>
             </td>
             <td class="menu-duration">60 min</td>
             <td class="menu-price" data-duration="60 min">$120</td>
@@ -78,8 +82,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Glow Brightening</span>
-              <span class="menu-item-desc">Brightening treatment for luminous, even-toned skin</span>
+              <span class="menu-item-name" data-i18n="svc.glow.name">Glow Brightening</span>
+              <span class="menu-item-desc" data-i18n="svc.glow.desc">Brightening treatment for luminous, even-toned skin</span>
             </td>
             <td class="menu-duration">60 min</td>
             <td class="menu-price" data-duration="60 min">$120</td>
@@ -98,7 +102,7 @@
           <span class="section-label">Facial</span>
           <h2 class="service-section-title"><span class="script">K-Contour Facial</span></h2>
         </div>
-        <p class="service-section-desc">
+        <p class="service-section-desc" data-i18n="svc.kcon.desc">
           K-beauty facial contouring techniques focused on definition, facial harmony, and natural slimming — for a sculpted, balanced look.
         </p>
       </div>
@@ -106,17 +110,17 @@
       <table class="menu-table">
         <thead>
           <tr>
-            <th>Treatment</th>
-            <th>Duration</th>
-            <th>Price</th>
+            <th data-i18n="svc.th.treatment">Treatment</th>
+            <th data-i18n="svc.th.duration">Duration</th>
+            <th data-i18n="svc.th.price">Price</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <span class="menu-item-name">V-Line Facial</span>
-              <span class="menu-item-desc">Contouring treatment for a defined, slimmer jawline</span>
+              <span class="menu-item-name" data-i18n="svc.vline.name">V-Line Facial</span>
+              <span class="menu-item-desc" data-i18n="svc.vline.desc">Contouring treatment for a defined, slimmer jawline</span>
             </td>
             <td class="menu-duration">70 min</td>
             <td class="menu-price" data-duration="70 min">$170</td>
@@ -124,8 +128,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Balanced Contour Facial</span>
-              <span class="menu-item-desc">Full facial harmony treatment for symmetry and lift</span>
+              <span class="menu-item-name" data-i18n="svc.balanced.name">Balanced Contour Facial</span>
+              <span class="menu-item-desc" data-i18n="svc.balanced.desc">Full facial harmony treatment for symmetry and lift</span>
             </td>
             <td class="menu-duration">70 min</td>
             <td class="menu-price" data-duration="70 min">$180</td>
@@ -144,7 +148,7 @@
           <span class="section-label">Body Massage</span>
           <h2 class="service-section-title"><span class="script">Kaylee's Touch</span></h2>
         </div>
-        <p class="service-section-desc">
+        <p class="service-section-desc" data-i18n="svc.kaylees.desc">
           Gentle hand massage techniques designed to deeply relax the body, release muscle tension, and restore a sense of calm from head to toe.
         </p>
       </div>
@@ -152,17 +156,17 @@
       <table class="menu-table">
         <thead>
           <tr>
-            <th>Treatment</th>
-            <th>Duration</th>
-            <th>Price</th>
+            <th data-i18n="svc.th.treatment">Treatment</th>
+            <th data-i18n="svc.th.duration">Duration</th>
+            <th data-i18n="svc.th.price">Price</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <span class="menu-item-name">Advanced Body Massage</span>
-              <span class="menu-item-desc">Full-body deep relaxation with extended care</span>
+              <span class="menu-item-name" data-i18n="svc.advanced.name">Advanced Body Massage</span>
+              <span class="menu-item-desc" data-i18n="svc.advanced.desc">Full-body deep relaxation with extended care</span>
             </td>
             <td class="menu-duration">90 min</td>
             <td class="menu-price" data-duration="90 min">$160</td>
@@ -170,8 +174,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Essential Body Massage</span>
-              <span class="menu-item-desc">Classic full-body relaxation massage</span>
+              <span class="menu-item-name" data-i18n="svc.essential.name">Essential Body Massage</span>
+              <span class="menu-item-desc" data-i18n="svc.essential.desc">Classic full-body relaxation massage</span>
             </td>
             <td class="menu-duration">60 min</td>
             <td class="menu-price" data-duration="60 min">$120</td>
@@ -179,8 +183,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Relax Body Massage</span>
-              <span class="menu-item-desc">Express session for a quick recharge</span>
+              <span class="menu-item-name" data-i18n="svc.relax.name">Relax Body Massage</span>
+              <span class="menu-item-desc" data-i18n="svc.relax.desc">Express session for a quick recharge</span>
             </td>
             <td class="menu-duration">45 min</td>
             <td class="menu-price" data-duration="45 min">$100</td>
@@ -199,7 +203,7 @@
           <span class="section-label">Body Massage</span>
           <h2 class="service-section-title"><span class="script">Bamboo Body Therapy</span></h2>
         </div>
-        <p class="service-section-desc">
+        <p class="service-section-desc" data-i18n="svc.bamboo.body.desc">
           Targeted bamboo massage techniques that focus on specific areas for muscle release, improved circulation, and slimming effects.
         </p>
       </div>
@@ -207,17 +211,17 @@
       <table class="menu-table">
         <thead>
           <tr>
-            <th>Treatment</th>
-            <th>Duration</th>
-            <th>Price</th>
+            <th data-i18n="svc.th.treatment">Treatment</th>
+            <th data-i18n="svc.th.duration">Duration</th>
+            <th data-i18n="svc.th.price">Price</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <span class="menu-item-name">Shoulder & Arm Lift</span>
-              <span class="menu-item-desc">Targeted relief and toning for shoulders and arms</span>
+              <span class="menu-item-name" data-i18n="svc.shoulder.name">Shoulder & Arm Lift</span>
+              <span class="menu-item-desc" data-i18n="svc.shoulder.desc">Targeted relief and toning for shoulders and arms</span>
             </td>
             <td class="menu-duration">45 min</td>
             <td class="menu-price" data-duration="45 min">$105</td>
@@ -225,8 +229,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Light Legs</span>
-              <span class="menu-item-desc">Lymphatic drainage and slimming for legs</span>
+              <span class="menu-item-name" data-i18n="svc.lightlegs.name">Light Legs</span>
+              <span class="menu-item-desc" data-i18n="svc.lightlegs.desc">Lymphatic drainage and slimming for legs</span>
             </td>
             <td class="menu-duration">50 min</td>
             <td class="menu-price" data-duration="50 min">$110</td>
@@ -234,8 +238,8 @@
           </tr>
           <tr>
             <td>
-              <span class="menu-item-name">Deep Back Relief</span>
-              <span class="menu-item-desc">Deep bamboo work targeting back tension and knots</span>
+              <span class="menu-item-name" data-i18n="svc.backrelief.name">Deep Back Relief</span>
+              <span class="menu-item-desc" data-i18n="svc.backrelief.desc">Deep bamboo work targeting back tension and knots</span>
             </td>
             <td class="menu-duration">50 min</td>
             <td class="menu-price" data-duration="50 min">$110</td>
@@ -249,10 +253,10 @@
   <!-- ======= CTA ======= -->
   <section class="cta-banner">
     <div class="container">
-      <span class="script">let's get started</span>
-      <h2>Ready to Book?</h2>
-      <p>Reserve your session online or reach out via Instagram DM.</p>
-      <a href="booking.html" class="btn btn-gold">Book Your Session</a>
+      <span class="script" data-i18n="svc.cta.script">let's get started</span>
+      <h2 data-i18n="svc.cta.h2">Ready to Book?</h2>
+      <p data-i18n="svc.cta.p">Reserve your session online or reach out via Instagram DM.</p>
+      <a href="booking.html" class="btn btn-gold" data-i18n="svc.cta.btn">Book Your Session</a>
     </div>
   </section>
 
@@ -301,5 +305,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

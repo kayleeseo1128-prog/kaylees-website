@@ -14,12 +14,16 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaylees</a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
       </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
       <button class="nav-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -29,9 +33,9 @@
   <!-- ======= PAGE HERO ======= -->
   <div class="page-hero" style="padding-bottom: 40px;">
     <div class="container">
-      <span class="script">what clients say</span>
-      <h1>Reviews</h1>
-      <p>Real experiences from real clients — we're proud of every session.</p>
+      <span class="script" data-i18n="reviews.eyebrow">what clients say</span>
+      <h1 data-i18n="reviews.h1">Reviews</h1>
+      <p data-i18n="reviews.p">Real experiences from real clients — we're proud of every session.</p>
     </div>
   </div>
 
@@ -98,9 +102,9 @@
   <section style="background: var(--white);">
     <div class="container">
       <div class="text-center" style="margin-bottom: 48px;">
-        <span class="section-label">Share Your Experience</span>
-        <h2 class="section-title">Leave a <em class="script">Review</em></h2>
-        <p class="section-subtitle">Had a session with Kaylee? We'd love to hear how it went.</p>
+        <span class="section-label" data-i18n="reviews.form.label">Share Your Experience</span>
+        <h2 class="section-title" data-i18n-html="reviews.form.h2">Leave a <em class="script">Review</em></h2>
+        <p class="section-subtitle" data-i18n="reviews.form.sub">Had a session with Kaylee? We'd love to hear how it went.</p>
       </div>
 
       <div style="max-width: 680px; margin: 0 auto;">
@@ -108,21 +112,21 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label for="reviewName">Your Name *</label>
-              <input type="text" id="reviewName" name="name" placeholder="e.g. Sarah L." required />
+              <label for="reviewName" data-i18n="reviews.label.name">Your Name *</label>
+              <input type="text" id="reviewName" name="name" placeholder="e.g. Sarah L." data-i18n-ph="reviews.ph.name" required />
             </div>
             <div class="form-group">
-              <label for="reviewService">Service Received *</label>
+              <label for="reviewService" data-i18n="reviews.label.svc">Service Received *</label>
               <select id="reviewService" name="service" required>
-                <option value="" disabled selected>Select a service</option>
-                <optgroup label="Facial">
+                <option value="" disabled selected data-i18n="reviews.select">Select a service</option>
+                <optgroup label="Facial" data-i18n-label="reviews.grp.facial">
                   <option>Bamboo Skincare — Firming & Lifting</option>
                   <option>Bamboo Skincare — Dewdrop Hydration</option>
                   <option>Bamboo Skincare — Glow Brightening</option>
                   <option>K-Contour — V-Line Facial</option>
                   <option>K-Contour — Balanced Contour Facial</option>
                 </optgroup>
-                <optgroup label="Body Massage">
+                <optgroup label="Body Massage" data-i18n-label="reviews.grp.body">
                   <option>Kaylee's Touch — Advanced Body Massage</option>
                   <option>Kaylee's Touch — Essential Body Massage</option>
                   <option>Kaylee's Touch — Relax Body Massage</option>
@@ -136,7 +140,7 @@
 
           <!-- Star Rating -->
           <div class="form-group">
-            <label>Rating *</label>
+            <label data-i18n="reviews.label.rating">Rating *</label>
             <div class="star-rating" id="starRating">
               <span data-value="1">★</span>
               <span data-value="2">★</span>
@@ -148,12 +152,12 @@
           </div>
 
           <div class="form-group">
-            <label for="reviewText">Your Review *</label>
-            <textarea id="reviewText" name="review" placeholder="Tell us about your experience — what did you love? How did you feel after the session?" style="min-height: 130px;" required></textarea>
+            <label for="reviewText" data-i18n="reviews.label.review">Your Review *</label>
+            <textarea id="reviewText" name="review" placeholder="Tell us about your experience — what did you love? How did you feel after the session?" data-i18n-ph="reviews.ph.review" style="min-height: 130px;" required></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary form-submit">Submit Review</button>
-          <p class="form-note">Your review will be shared on this page after approval.</p>
+          <button type="submit" class="btn btn-primary form-submit" data-i18n="reviews.submit">Submit Review</button>
+          <p class="form-note" data-i18n="reviews.note">Your review will be shared on this page after approval.</p>
         </form>
 
         <div class="success-message" id="reviewSuccess">
@@ -168,10 +172,10 @@
   <!-- ======= CTA ======= -->
   <section class="cta-banner">
     <div class="container">
-      <span class="script">your turn</span>
-      <h2>Experience It for Yourself</h2>
-      <p>Join our growing community of happy clients in Burnaby & Coquitlam.</p>
-      <a href="booking.html" class="btn btn-gold">Book Your Session</a>
+      <span class="script" data-i18n="reviews.cta.script">your turn</span>
+      <h2 data-i18n="reviews.cta.h2">Experience It for Yourself</h2>
+      <p data-i18n="reviews.cta.p">Join our growing community of happy clients in Burnaby & Coquitlam.</p>
+      <a href="booking.html" class="btn btn-gold" data-i18n="reviews.cta.btn">Book Your Session</a>
     </div>
   </section>
 
@@ -220,6 +224,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
   <style>
     /* ===== REVIEW CAROUSEL ===== */
     .review-carousel-wrap {

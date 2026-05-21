@@ -311,12 +311,16 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaylees</a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
       </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
       <button class="nav-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -326,9 +330,9 @@
   <!-- ======= PAGE HERO ======= -->
   <div class="page-hero">
     <div class="container">
-      <span class="script">reserve your session</span>
-      <h1>Book an Appointment</h1>
-      <p>Select your service, pick a date and time, and you're all set.</p>
+      <span class="script" data-i18n="booking.eyebrow">reserve your session</span>
+      <h1 data-i18n="booking.h1">Book an Appointment</h1>
+      <p data-i18n="booking.p">Select your service, pick a date and time, and you're all set.</p>
     </div>
   </div>
 
@@ -339,35 +343,35 @@
 
         <!-- Info Panel -->
         <div class="booking-info">
-          <h2>What to <em class="script">expect</em></h2>
-          <p>Kaylee will send a confirmation email once your booking is received.</p>
+          <h2 data-i18n-html="booking.info.h2">What to <em class="script">expect</em></h2>
+          <p data-i18n="booking.info.p">Kaylee will send a confirmation email once your booking is received.</p>
 
           <div class="booking-detail">
             <div class="booking-detail-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
-            <div><strong>Location</strong>4501 North Rd., Burnaby, BC</div>
+            <div><strong data-i18n="booking.loc">Location</strong>4501 North Rd., Burnaby, BC</div>
           </div>
 
           <div class="booking-detail">
             <div class="booking-detail-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </div>
-            <div><strong>Contact</strong><a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:var(--green-dark);">@kaylees_van</a> · English & 한국어</div>
+            <div><strong data-i18n="booking.contact">Contact</strong><a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:var(--green-dark);">@kaylees_van</a> · English & 한국어</div>
           </div>
 
           <div class="booking-detail">
             <div class="booking-detail-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <div><strong>Hours</strong>Mon · Wed · Fri · Sat, 10am – 7pm</div>
+            <div><strong data-i18n="booking.hours">Hours</strong><span data-i18n="booking.hours.val">Mon · Wed · Fri · Sat, 10am – 7pm</span></div>
           </div>
 
           <div class="booking-detail">
             <div class="booking-detail-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
-            <div><strong>Payment</strong>e-Transfer or cash at the studio</div>
+            <div><strong data-i18n="booking.payment">Payment</strong><span data-i18n="booking.pay.val">e-Transfer or cash at the studio</span></div>
           </div>
         </div>
 
@@ -379,29 +383,29 @@
             <div class="booking-steps">
               <div class="step active" id="step-tab-1">
                 <div class="step-num">1</div>
-                <span>Service</span>
+                <span data-i18n="booking.step1">Service</span>
               </div>
               <div class="step" id="step-tab-2">
                 <div class="step-num">2</div>
-                <span>Date</span>
+                <span data-i18n="booking.step2">Date</span>
               </div>
               <div class="step" id="step-tab-3">
                 <div class="step-num">3</div>
-                <span>Time</span>
+                <span data-i18n="booking.step3">Time</span>
               </div>
               <div class="step" id="step-tab-4">
                 <div class="step-num">4</div>
-                <span>Info</span>
+                <span data-i18n="booking.step4">Info</span>
               </div>
             </div>
 
             <!-- Step 1: Service Selection -->
             <div class="step-panel active" id="panel-1">
-              <h3>Choose a Service</h3>
-              <p class="step-desc">Select up to 2 treatments to combine in one session.</p>
+              <h3 data-i18n="booking.s1.h3">Choose a Service</h3>
+              <p class="step-desc" data-i18n="booking.s1.desc">Select up to 2 treatments to combine in one session.</p>
 
               <div class="service-group">
-                <span class="service-group-label">Facial — Bamboo Skincare Therapy</span>
+                <span class="service-group-label" data-i18n="booking.grp.bamboo">Facial — Bamboo Skincare Therapy</span>
                 <div class="service-options">
                   <label class="service-option">
                     <input type="checkbox" name="service" value="Bamboo Skincare — Firming & Lifting" data-duration="60" data-price="140">
@@ -422,7 +426,7 @@
               </div>
 
               <div class="service-group">
-                <span class="service-group-label">Facial — K-Contour</span>
+                <span class="service-group-label" data-i18n="booking.grp.kcon">Facial — K-Contour</span>
                 <div class="service-options">
                   <label class="service-option">
                     <input type="checkbox" name="service" value="K-Contour — V-Line Facial" data-duration="70" data-price="170">
@@ -438,7 +442,7 @@
               </div>
 
               <div class="service-group">
-                <span class="service-group-label">Body Massage — Kaylee's Touch</span>
+                <span class="service-group-label" data-i18n="booking.grp.kaylees">Body Massage — Kaylee's Touch</span>
                 <div class="service-options">
                   <label class="service-option">
                     <input type="checkbox" name="service" value="Kaylee's Touch — Advanced Body Massage" data-duration="90" data-price="160">
@@ -459,7 +463,7 @@
               </div>
 
               <div class="service-group">
-                <span class="service-group-label">Body Massage — Bamboo Body Therapy</span>
+                <span class="service-group-label" data-i18n="booking.grp.bb">Body Massage — Bamboo Body Therapy</span>
                 <div class="service-options">
                   <label class="service-option">
                     <input type="checkbox" name="service" value="Bamboo Body — Shoulder & Arm Lift" data-duration="45" data-price="105">
@@ -486,39 +490,39 @@
 
               <div class="step-actions">
                 <span></span>
-                <button class="btn btn-primary" id="toStep2" disabled>Next — Pick a Date &rarr;</button>
+                <button class="btn btn-primary" id="toStep2" disabled data-i18n="booking.btn.next2">Next — Pick a Date →</button>
               </div>
             </div>
 
             <!-- Step 2: Date Selection -->
             <div class="step-panel" id="panel-2">
-              <h3>Pick a Date</h3>
-              <p class="step-desc">Available on Mon, Wed, Fri & Sat.</p>
+              <h3 data-i18n="booking.s2.h3">Pick a Date</h3>
+              <p class="step-desc" data-i18n="booking.s2.desc">Available on Mon, Wed, Fri & Sat.</p>
 
               <div class="calendar" id="calendar"></div>
 
               <div class="step-actions">
                 <button class="btn-back" onclick="goToStep(1)">&larr; Back</button>
-                <button class="btn btn-primary" id="toStep3" disabled>Next — Pick a Time &rarr;</button>
+                <button class="btn btn-primary" id="toStep3" disabled data-i18n="booking.btn.next3">Next — Pick a Time →</button>
               </div>
             </div>
 
             <!-- Step 3: Time Selection -->
             <div class="step-panel" id="panel-3">
-              <h3>Pick a Time</h3>
+              <h3 data-i18n="booking.s3.h3">Pick a Time</h3>
               <p class="step-desc" id="timeDesc">Available slots for your selected date.</p>
               <div id="timeSlots"><div class="slots-loading">Loading available times...</div></div>
 
               <div class="step-actions">
                 <button class="btn-back" onclick="goToStep(2)">&larr; Back</button>
-                <button class="btn btn-primary" id="toStep4" disabled>Next — Your Info &rarr;</button>
+                <button class="btn btn-primary" id="toStep4" disabled data-i18n="booking.btn.next4">Next — Your Info →</button>
               </div>
             </div>
 
             <!-- Step 4: Personal Info -->
             <div class="step-panel" id="panel-4">
-              <h3>Your Information</h3>
-              <p class="step-desc">Almost done — just a few details.</p>
+              <h3 data-i18n="booking.s4.h3">Your Information</h3>
+              <p class="step-desc" data-i18n="booking.s4.desc">Almost done — just a few details.</p>
 
               <!-- 재방문 손님 감지 배너 -->
               <div id="returningBanner" style="display:none; background:var(--green-light); border:1px solid var(--green-mid); border-radius:12px; padding:14px 18px; margin-bottom:20px; display:none; justify-content:space-between; align-items:center; gap:12px;">
@@ -529,46 +533,46 @@
               <div class="booking-summary" id="bookingSummary"></div>
 
               <div class="form-group">
-                <label for="clientName">Full Name *</label>
-                <input type="text" id="clientName" placeholder="Your full name" required />
+                <label for="clientName" data-i18n="booking.label.name">Full Name *</label>
+                <input type="text" id="clientName" placeholder="Your full name" data-i18n-ph="booking.ph.name" required />
               </div>
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="clientPhone">Phone *</label>
+                  <label for="clientPhone" data-i18n="booking.label.phone">Phone *</label>
                   <input type="tel" id="clientPhone" placeholder="604-XXX-XXXX" required />
                 </div>
                 <div class="form-group">
-                  <label for="clientDob">Date of Birth *</label>
+                  <label for="clientDob" data-i18n="booking.label.dob">Date of Birth *</label>
                   <input type="date" id="clientDob" required />
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="clientEmail">Email *</label>
+                <label for="clientEmail" data-i18n="booking.label.email">Email *</label>
                 <input type="email" id="clientEmail" placeholder="your@email.com" required />
               </div>
 
               <div class="form-group">
-                <label for="clientReferral">How did you hear about me? *</label>
+                <label for="clientReferral" data-i18n="booking.label.ref">How did you hear about me? *</label>
                 <select id="clientReferral" required>
-                  <option value="" disabled selected>Select an option</option>
-                  <option>Instagram (@kaylees_van)</option>
-                  <option>Google Search</option>
-                  <option>Friend / Word of Mouth</option>
-                  <option>Returning Client</option>
-                  <option>Other</option>
+                  <option value="" disabled selected data-i18n="booking.select">Select an option</option>
+                  <option data-i18n="booking.ref.ig">Instagram (@kaylees_van)</option>
+                  <option data-i18n="booking.ref.google">Google Search</option>
+                  <option data-i18n="booking.ref.friend">Friend / Word of Mouth</option>
+                  <option data-i18n="booking.ref.ret">Returning Client</option>
+                  <option data-i18n="booking.ref.other">Other</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="clientNotes">Notes <span style="font-weight:300; text-transform:none; letter-spacing:0;">(optional)</span></label>
-                <textarea id="clientNotes" placeholder="Skin concerns, allergies, or anything we should know..."></textarea>
+                <label for="clientNotes" data-i18n="booking.label.notes">Notes</label>
+                <textarea id="clientNotes" placeholder="Skin concerns, allergies, or anything we should know..." data-i18n-ph="booking.ph.notes"></textarea>
               </div>
 
               <div class="step-actions">
                 <button class="btn-back" onclick="goToStep(3)">&larr; Back</button>
-                <button class="btn btn-primary" id="submitBooking" onclick="submitBooking()">Confirm Booking</button>
+                <button class="btn btn-primary" id="submitBooking" onclick="submitBooking()" data-i18n="booking.btn.confirm">Confirm Booking</button>
               </div>
             </div>
 
@@ -577,9 +581,9 @@
               <div class="success-icon">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <h3>Request Received!</h3>
-              <p>Thank you! We'll review and confirm your appointment shortly.<br>A confirmation email will be sent to you once approved.</p>
-              <a href="index.html" class="btn btn-outline" style="margin-top: 28px;">Back to Home</a>
+              <h3 data-i18n="booking.ok.h3">Request Received!</h3>
+              <p data-i18n="booking.ok.p">Thank you! We'll review and confirm your appointment shortly. A confirmation email will be sent to you once approved.</p>
+              <a href="index.html" class="btn btn-outline" style="margin-top: 28px;" data-i18n="booking.ok.back">Back to Home</a>
             </div>
 
           </div><!-- end wizard -->
@@ -635,6 +639,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
   <script>
   // =============================================
   // ⚙️ APPS_SCRIPT_URL은 main.js에 정의되어 있음

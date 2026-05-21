@@ -73,12 +73,16 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaylees</a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
       </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
       <button class="nav-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -88,9 +92,9 @@
   <!-- ======= PAGE HERO ======= -->
   <div class="page-hero" style="padding-bottom: 40px;">
     <div class="container">
-      <span class="script">insights & guides</span>
-      <h1>Journal</h1>
-      <p>Expert knowledge on K-beauty, massage therapy, and taking care of your skin — from Kaylee's studio to you.</p>
+      <span class="script" data-i18n="journal.eyebrow">insights & guides</span>
+      <h1 data-i18n="journal.h1">Journal</h1>
+      <p data-i18n="journal.p">Expert knowledge on K-beauty, massage therapy, and taking care of your skin — from Kaylee's studio to you.</p>
     </div>
   </div>
 
@@ -203,5 +207,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>
