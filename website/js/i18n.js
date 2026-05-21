@@ -269,30 +269,30 @@
       'svc.label.facial':    '페이셜',
       'svc.label.body':      '바디 마사지',
       'svc.bamboo.desc':     '페이셜 자연 리프팅, 림프 순환 개선, 건강한 글로우를 위한 시그니처 뱀부 테크닉.',
-      'svc.firming.name':    '퍼밍 & 리프팅',
+      // svc.firming.name — kept in English (service brand name)
       'svc.firming.desc':    '뱀부로 피부를 탄탄하게 끌어올려 선명하고 탄력 있게',
-      'svc.dewdrop.name':    '이슬방울 수분 케어',
+      // svc.dewdrop.name — kept in English
       'svc.dewdrop.desc':    '집중 수분 공급으로 촉촉하고 탱글탱글한 피부로',
-      'svc.glow.name':       '글로우 브라이트닝',
+      // svc.glow.name — kept in English
       'svc.glow.desc':       '피부톤을 균일하게 밝혀주는 브라이트닝 트리트먼트',
       'svc.kcon.desc':       '선명한 윤곽, 페이셜 하모니, 자연스러운 슬리밍을 위한 K-뷰티 페이셜 컨투어링 테크닉.',
-      'svc.vline.name':      'V라인 페이셜',
+      // svc.vline.name — kept in English
       'svc.vline.desc':      '선명하고 갸름한 턱선을 만드는 컨투어링 트리트먼트',
-      'svc.balanced.name':   '밸런스드 컨투어 페이셜',
+      // svc.balanced.name — kept in English
       'svc.balanced.desc':   '대칭과 리프팅을 위한 풀 페이셜 하모니 트리트먼트',
       'svc.kaylees.desc':    '머리부터 발끝까지 — 핸드 테크닉으로 근육 긴장을 풀고 몸 전체에 깊은 릴랙스를 선사합니다.',
-      'svc.advanced.name':   '어드밴스드 바디 마사지',
+      // svc.advanced.name — kept in English
       'svc.advanced.desc':   '여유로운 케어 시간으로 전신을 깊이 이완',
-      'svc.essential.name':  '에센셜 바디 마사지',
+      // svc.essential.name — kept in English
       'svc.essential.desc':  '클래식 전신 릴랙스 마사지',
-      'svc.relax.name':      '릴랙스 바디 마사지',
+      // svc.relax.name — kept in English
       'svc.relax.desc':      '지친 몸을 빠르게 재충전하는 익스프레스 세션',
       'svc.bamboo.body.desc':'특정 부위에 집중하는 뱀부 테크닉으로 근육 이완, 순환 개선, 슬리밍 효과를 동시에.',
-      'svc.shoulder.name':   '어깨 & 팔 리프트',
+      // svc.shoulder.name — kept in English
       'svc.shoulder.desc':   '어깨와 팔의 긴장 해소 & 라인 정돈',
-      'svc.lightlegs.name':  '라이트 레그',
+      // svc.lightlegs.name — kept in English
       'svc.lightlegs.desc':  '다리 림프 드레이나지로 붓기 완화 & 슬리밍',
-      'svc.backrelief.name': '딥 백 릴리프',
+      // svc.backrelief.name — kept in English
       'svc.backrelief.desc': '뭉친 등 근육을 집중적으로 풀어주는 딥 뱀부 케어',
       'svc.cta.script':      '함께 시작해요',
       'svc.cta.h2':          '예약 준비 되셨나요?',
