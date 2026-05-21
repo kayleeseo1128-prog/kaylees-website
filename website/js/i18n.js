@@ -1,6 +1,6 @@
 // ============================================================
 // js/i18n.js — Kaylees Massage & Skincare Language Toggle
-// EN ↔ KO toggle stored in localStorage
+// EN ↔ KO | Flags + text | Korean font (Noto Sans/Serif KR)
 // ============================================================
 
 (function () {
@@ -193,6 +193,7 @@
       'reviews.cta.btn':     'Book Your Session',
     },
 
+    // ==========================================================
     ko: {
       // NAV
       'nav.home':     '홈',
@@ -202,8 +203,8 @@
       'nav.book':     '예약하기',
 
       // FOOTER
-      'footer.tagline':    'K-뷰티 마사지 & 스킨케어 — 메트로 밴쿠버. 자연스럽고 따뜻하게, 매번 진심을 담아.',
-      'footer.tagline.b':  'K-뷰티 마사지 & 스킨케어 — 버나비 & 코퀴틀람. 자연스럽고 따뜻하게, 매번 진심을 담아.',
+      'footer.tagline':    'K-뷰티 마사지 & 스킨케어 — 메트로 밴쿠버. 따뜻하고 자연스럽게, 매번 진심을 담아.',
+      'footer.tagline.b':  'K-뷰티 마사지 & 스킨케어 — 버나비 & 코퀴틀람. 따뜻하고 자연스럽게, 매번 진심을 담아.',
       'footer.h.services': '서비스',
       'footer.h.quick':    '빠른 링크',
       'footer.h.contact':  '연락처',
@@ -214,34 +215,34 @@
 
       // INDEX
       'home.eyebrow':        'K-뷰티 · 메트로 밴쿠버',
-      'home.hero.title':     '나만의 피부,<br><em>자연스럽게</em><br>빛나게.',
-      'home.hero.desc':      'K-뷰티 페이셜 컨투어링과 뱀부 바디 테라피의 예술을 경험하세요 — 깊은 이완, 회복, 그리고 자연스러운 글로우를 위해 설계되었습니다.',
+      'home.hero.title':     '당신의 피부,<br><em>자연스럽게</em><br>빛나게.',
+      'home.hero.desc':      'K-뷰티 페이셜 컨투어링과 뱀부 바디 테라피로 깊은 이완, 회복, 그리고 자연스러운 글로우를 경험하세요.',
       'home.hero.book':      '세션 예약하기',
       'home.hero.services':  '서비스 보기',
       'home.usp.kbeauty.h':  'K-뷰티 전문성',
-      'home.usp.kbeauty.p':  '페이셜 컨투어링 & 림프 관리를 위한 한국 테크닉',
+      'home.usp.kbeauty.p':  '경락 마사지부터 림프 케어까지, 검증된 한국 테크닉',
       'home.usp.bamboo.h':   '뱀부 테라피',
-      'home.usp.bamboo.p':   '리프팅, 글로우 & 릴랙스를 위한 시그니처 뱀부 테크닉',
+      'home.usp.bamboo.p':   '리프팅·글로우·릴랙스를 위한 시그니처 뱀부 테크닉',
       'home.usp.medical.h':  '메디컬 등급 제품',
       'home.usp.medical.p':  '한국 에스테틱 등급 스킨케어 — Histolab, L-Iancell 외',
       'home.svc.label':      '서비스 소개',
       'home.svc.title':      '당신을 위한 서비스,<br><em class="script">피부와 마음</em>',
-      'home.svc.subtitle':   '긴장 완화 바디 마사지부터 K-뷰티 페이셜 컨투어링까지 — 모든 트리트먼트는 당신의 웰빙을 위해 정성껏 준비됩니다.',
+      'home.svc.subtitle':   '전신 릴랙스 마사지부터 K-뷰티 페이셜 컨투어링까지 — 모든 트리트먼트가 당신의 웰빙을 위해 준비됩니다.',
       'home.svc.body.h':     '바디 마사지',
-      'home.svc.body.p':     '긴장을 녹여주는 핸드 마사지부터 근육 이완과 슬리밍 효과를 위한 뱀부 바디 테라피까지 — 몸이 필요로 하는 것에 맞춰 드립니다.',
+      'home.svc.body.p':     '긴장을 녹여주는 핸드 마사지부터 뱀부 바디 테라피까지 — 근육 이완, 슬리밍, 깊은 릴랙스를 몸의 필요에 맞게 맞춤 제공합니다.',
       'home.svc.body.link':  '자세히 보기',
       'home.svc.bamboo.h':   '뱀부 페이셜 테라피',
-      'home.svc.bamboo.p':   '페이셜 리프팅, 수분 보충, 림프 순환을 위한 시그니처 뱀부 테크닉. 내면에서 빛나세요.',
+      'home.svc.bamboo.p':   '페이셜 리프팅, 수분, 림프 순환을 위한 시그니처 뱀부 테크닉. 안에서 밖으로 빛나세요.',
       'home.svc.bamboo.link':'자세히 보기',
       'home.svc.kcon.h':     'K-컨투어 페이셜',
-      'home.svc.kcon.p':     '선명함과 페이셜 하모니를 위한 K-뷰티 페이셜 컨투어링. 자연스러운 V라인을 완성하세요.',
+      'home.svc.kcon.p':     '페이셜 컨투어링으로 선명하고 균형 잡힌 얼굴선을. 자연스러운 V라인을 완성하세요.',
       'home.svc.kcon.link':  '자세히 보기',
       'home.svc.all':        '전체 서비스 & 가격 보기',
       'home.about.label':    'Kaylee 소개',
-      'home.about.title':    '한국 전문성,<br><em class="script">따뜻함으로.</em>',
-      'home.about.p1':       '안녕하세요, Kaylee입니다 — 페이셜 및 바디 케어 분야에서 5년 이상의 실무 경험을 쌓은 한국 면허 피부관리사입니다. 그 중 3년 이상을 한국의 대표 프리미엄 스파 브랜드인 약손명가에서 K-뷰티 컨투어링과 뱀부 테라피 기술을 연마하며 보냈습니다.',
-      'home.about.p2':       '매일 저를 움직이는 것은 단순합니다: 더 자신감 있고, 편안하며, 자신의 피부가 편안하게 느껴지는 상태로 돌아가는 고객을 보는 것. 그 변화의 순간 — 안에서 밖으로 빛나는 고객을 볼 때 — 이것이 제가 이 일을 하는 이유이며, 절대 익숙해지지 않습니다.',
-      'home.about.p3':       '현재 버나비에 기반을 두고, 한국 메디컬 등급 제품과 각 개인에 맞춤화된 정통 테크닉으로 메트로 밴쿠버에 동일한 정성과 전문성을 제공합니다.',
+      'home.about.title':    '한국의 전문성,<br><em class="script">따뜻함으로.</em>',
+      'home.about.p1':       '안녕하세요, Kaylee예요. 피부관리사로 5년 넘게 일해 왔고, 그 중 3년 이상은 한국의 프리미엄 스파 브랜드 약손명가에서 K-뷰티 컨투어링과 뱀부 테라피를 전문적으로 배우고 익혔어요.',
+      'home.about.p2':       '세션을 마치고 "얼굴이 달라 보여요", "몸이 가벼워졌어요" 하는 말을 들을 때가 가장 보람 있어요. 그 작은 변화의 순간이 매번 새롭고, 이 일을 계속하게 만드는 원동력이에요.',
+      'home.about.p3':       '지금은 버나비에 스튜디오를 두고 메트로 밴쿠버 전역의 고객들을 만나고 있어요. 한국 메디컬 등급 제품과 정통 테크닉으로, 한 분 한 분에게 꼭 맞는 케어를 드립니다.',
       'home.about.cred1':    '한국 피부관리사 자격증 보유',
       'home.about.cred2':    '약손명가 3년+ 근무 — 한국 프리미엄 K-뷰티 스파',
       'home.about.cred3':    '메디컬 등급 제품 사용 — Histolab, L-Iancell, 약손명가',
@@ -254,61 +255,61 @@
       'home.cta.btn':        '자리 예약하기',
       'home.ig.label':       '팔로우하기',
       'home.ig.subtitle':    '인스타그램에서 최신 트리트먼트, 스킨케어 팁, 비하인드를 확인하세요.',
-      'home.ig.follow':      '트리트먼트, 팁 & 비하인드를 팔로우하세요',
+      'home.ig.follow':      '트리트먼트·팁·비하인드를 팔로우하세요',
       'home.ig.btn':         '인스타그램 팔로우',
 
       // SERVICES
       'svc.eyebrow':         '트리트먼트 안내',
       'svc.h1':              '서비스 & 가격',
-      'svc.h1.p':            '각 트리트먼트는 균형 회복, 자연스러운 글로우 표현, 깊은 릴랙스를 위해 정성껏 설계되었습니다.',
+      'svc.h1.p':            '균형 회복, 자연스러운 글로우, 깊은 릴랙스를 위해 정성껏 설계된 트리트먼트를 만나보세요.',
       'svc.th.treatment':    '트리트먼트',
       'svc.th.duration':     '시간',
       'svc.th.price':        '가격',
       'svc.book':            '예약',
       'svc.label.facial':    '페이셜',
       'svc.label.body':      '바디 마사지',
-      'svc.bamboo.desc':     '페이셜 자연 리프팅, 림프 순환 개선, 건강하고 빛나는 글로우를 위한 시그니처 뱀부 테크닉.',
-      'svc.firming.name':    '피르밍 & 리프팅',
-      'svc.firming.desc':    '더 탄탄하고 선명한 피부를 위한 딥 뱀부 리프팅',
+      'svc.bamboo.desc':     '페이셜 자연 리프팅, 림프 순환 개선, 건강한 글로우를 위한 시그니처 뱀부 테크닉.',
+      'svc.firming.name':    '퍼밍 & 리프팅',
+      'svc.firming.desc':    '뱀부로 피부를 탄탄하게 끌어올려 선명하고 탄력 있게',
       'svc.dewdrop.name':    '이슬방울 수분 케어',
-      'svc.dewdrop.desc':    '풍성하고 촉촉한 피부를 위한 집중 수분 공급',
+      'svc.dewdrop.desc':    '집중 수분 공급으로 촉촉하고 탱글탱글한 피부로',
       'svc.glow.name':       '글로우 브라이트닝',
-      'svc.glow.desc':       '광채 있고 균일한 피부톤을 위한 브라이트닝 트리트먼트',
-      'svc.kcon.desc':       '선명함, 페이셜 하모니, 자연스러운 슬리밍을 위한 K-뷰티 페이셜 컨투어링 테크닉.',
+      'svc.glow.desc':       '피부톤을 균일하게 밝혀주는 브라이트닝 트리트먼트',
+      'svc.kcon.desc':       '선명한 윤곽, 페이셜 하모니, 자연스러운 슬리밍을 위한 K-뷰티 페이셜 컨투어링 테크닉.',
       'svc.vline.name':      'V라인 페이셜',
-      'svc.vline.desc':      '선명하고 슬림한 턱선을 위한 컨투어링 트리트먼트',
+      'svc.vline.desc':      '선명하고 갸름한 턱선을 만드는 컨투어링 트리트먼트',
       'svc.balanced.name':   '밸런스드 컨투어 페이셜',
       'svc.balanced.desc':   '대칭과 리프팅을 위한 풀 페이셜 하모니 트리트먼트',
-      'svc.kaylees.desc':    '몸 전체를 깊이 이완하고 근육 긴장을 풀어주며 머리부터 발끝까지 평온함을 되찾아주는 핸드 마사지 테크닉.',
+      'svc.kaylees.desc':    '머리부터 발끝까지 — 핸드 테크닉으로 근육 긴장을 풀고 몸 전체에 깊은 릴랙스를 선사합니다.',
       'svc.advanced.name':   '어드밴스드 바디 마사지',
-      'svc.advanced.desc':   '연장 케어로 전신 깊은 이완',
+      'svc.advanced.desc':   '여유로운 케어 시간으로 전신을 깊이 이완',
       'svc.essential.name':  '에센셜 바디 마사지',
       'svc.essential.desc':  '클래식 전신 릴랙스 마사지',
       'svc.relax.name':      '릴랙스 바디 마사지',
-      'svc.relax.desc':      '빠른 재충전을 위한 익스프레스 세션',
-      'svc.bamboo.body.desc':'근육 이완, 순환 개선, 슬리밍 효과를 위해 특정 부위에 집중하는 뱀부 마사지 테크닉.',
+      'svc.relax.desc':      '지친 몸을 빠르게 재충전하는 익스프레스 세션',
+      'svc.bamboo.body.desc':'특정 부위에 집중하는 뱀부 테크닉으로 근육 이완, 순환 개선, 슬리밍 효과를 동시에.',
       'svc.shoulder.name':   '어깨 & 팔 리프트',
-      'svc.shoulder.desc':   '어깨와 팔의 집중 이완 및 토닝',
+      'svc.shoulder.desc':   '어깨와 팔의 긴장 해소 & 라인 정돈',
       'svc.lightlegs.name':  '라이트 레그',
-      'svc.lightlegs.desc':  '다리를 위한 림프 드레이나지 및 슬리밍',
+      'svc.lightlegs.desc':  '다리 림프 드레이나지로 붓기 완화 & 슬리밍',
       'svc.backrelief.name': '딥 백 릴리프',
-      'svc.backrelief.desc': '등 긴장과 뭉침을 집중 케어하는 딥 뱀부 트리트먼트',
+      'svc.backrelief.desc': '뭉친 등 근육을 집중적으로 풀어주는 딥 뱀부 케어',
       'svc.cta.script':      '함께 시작해요',
       'svc.cta.h2':          '예약 준비 되셨나요?',
-      'svc.cta.p':           '온라인으로 세션을 예약하거나 인스타그램 DM으로 문의하세요.',
+      'svc.cta.p':           '온라인으로 예약하거나 인스타그램 DM으로 편하게 문의하세요.',
       'svc.cta.btn':         '세션 예약하기',
 
       // JOURNAL
       'journal.eyebrow':     '인사이트 & 가이드',
       'journal.h1':          '저널',
-      'journal.p':           "K-뷰티, 마사지 테라피, 피부 관리에 대한 전문 지식 — Kaylee의 스튜디오에서 여러분에게.",
+      'journal.p':           'K-뷰티, 마사지 테라피, 피부 관리에 대한 전문 지식 — Kaylee 스튜디오에서 여러분에게.',
 
       // BOOKING
       'booking.eyebrow':     '세션 예약하기',
       'booking.h1':          '예약하기',
-      'booking.p':           '서비스를 선택하고, 날짜와 시간을 고르면 완료입니다.',
+      'booking.p':           '서비스를 선택하고 날짜·시간을 고르면 끝이에요.',
       'booking.info.h2':     '<em class="script">예약</em> 안내',
-      'booking.info.p':      '예약이 접수되면 Kaylee가 확인 이메일을 보내드립니다.',
+      'booking.info.p':      '예약이 접수되면 Kaylee가 확인 연락을 드립니다.',
       'booking.loc':         '위치',
       'booking.contact':     '연락처',
       'booking.hours':       '운영 시간',
@@ -320,20 +321,20 @@
       'booking.step3':       '시간',
       'booking.step4':       '정보',
       'booking.s1.h3':       '서비스 선택',
-      'booking.s1.desc':     '한 세션에 최대 2가지 트리트먼트를 선택할 수 있습니다.',
+      'booking.s1.desc':     '최대 2가지 트리트먼트를 한 세션에 조합할 수 있어요.',
       'booking.s2.h3':       '날짜 선택',
-      'booking.s2.desc':     '월, 수, 금, 토에 이용 가능합니다.',
+      'booking.s2.desc':     '월 · 수 · 금 · 토에 운영합니다.',
       'booking.s3.h3':       '시간 선택',
       'booking.s4.h3':       '고객 정보',
-      'booking.s4.desc':     '거의 다 됐어요 — 몇 가지만 더 입력해 주세요.',
+      'booking.s4.desc':     '거의 다 됐어요 — 마지막으로 정보만 입력해 주세요.',
       'booking.label.name':  '이름 *',
       'booking.label.phone': '전화번호 *',
       'booking.label.dob':   '생년월일 *',
       'booking.label.email': '이메일 *',
-      'booking.label.ref':   '어디서 알게 되셨나요? *',
+      'booking.label.ref':   '어떻게 알게 되셨나요? *',
       'booking.label.notes': '메모',
-      'booking.ph.name':     '이름을 입력하세요',
-      'booking.ph.notes':    '피부 고민, 알레르기, 또는 알려주실 사항...',
+      'booking.ph.name':     '이름을 입력해 주세요',
+      'booking.ph.notes':    '피부 고민, 알레르기, 또는 알려주실 내용...',
       'booking.select':      '선택해 주세요',
       'booking.ref.ig':      'Instagram (@kaylees_van)',
       'booking.ref.google':  '구글 검색',
@@ -344,8 +345,8 @@
       'booking.btn.next3':   '다음 — 시간 선택 →',
       'booking.btn.next4':   '다음 — 정보 입력 →',
       'booking.btn.confirm': '예약 확인',
-      'booking.ok.h3':       '예약 신청 완료!',
-      'booking.ok.p':        '감사합니다! 예약을 검토 후 곧 확인해 드리겠습니다. 승인되면 확인 이메일을 보내드립니다.',
+      'booking.ok.h3':       '예약 신청이 완료됐어요!',
+      'booking.ok.p':        '감사해요! 예약 내용을 확인한 후 곧 연락 드릴게요. 확정되면 이메일로 안내해 드립니다.',
       'booking.ok.back':     '홈으로 돌아가기',
       'booking.grp.bamboo':  '페이셜 — 뱀부 스킨케어 테라피',
       'booking.grp.kcon':    '페이셜 — K-컨투어',
@@ -355,45 +356,84 @@
       // REVIEWS
       'reviews.eyebrow':     '고객들의 이야기',
       'reviews.h1':          '리뷰',
-      'reviews.p':           '실제 고객들의 진솔한 경험 — 모든 세션이 자랑스럽습니다.',
+      'reviews.p':           '실제 고객들의 솔직한 이야기 — 모든 세션이 자랑스럽습니다.',
       'reviews.form.label':  '경험 공유하기',
       'reviews.form.h2':     '<em class="script">리뷰</em> 남기기',
-      'reviews.form.sub':    'Kaylee와 함께한 세션이 있으신가요? 어떠셨는지 알려주세요.',
+      'reviews.form.sub':    'Kaylee와 세션을 경험하셨나요? 어떠셨는지 들려주세요.',
       'reviews.label.name':  '이름 *',
       'reviews.label.svc':   '받으신 서비스 *',
       'reviews.label.rating':'평점 *',
       'reviews.label.review':'리뷰 *',
       'reviews.ph.name':     '예: 김지수',
-      'reviews.ph.review':   '세션 경험을 알려주세요 — 어떤 점이 좋으셨나요? 세션 후 어떤 느낌이셨나요?',
-      'reviews.select':      '서비스 선택',
+      'reviews.ph.review':   '세션은 어떠셨나요? 느낀 점이나 변화가 있었다면 편하게 적어주세요.',
+      'reviews.select':      '서비스를 선택해 주세요',
       'reviews.grp.facial':  '페이셜',
       'reviews.grp.body':    '바디 마사지',
       'reviews.submit':      '리뷰 제출',
       'reviews.note':        '검토 후 이 페이지에 게시됩니다.',
       'reviews.cta.script':  '이제 당신 차례',
       'reviews.cta.h2':      '직접 경험해 보세요',
-      'reviews.cta.p':       '버나비 & 코퀴틀람의 성장하는 행복한 고객 커뮤니티에 합류하세요.',
+      'reviews.cta.p':       '버나비 & 코퀴틀람의 행복한 고객 커뮤니티에 합류하세요.',
       'reviews.cta.btn':     '세션 예약하기',
     }
   };
 
   // ----------------------------------------------------------
-  // INJECT CSS for language toggle button
+  // INJECT CSS — toggle button + Korean font rules
   // ----------------------------------------------------------
   var css = document.createElement('style');
   css.textContent = [
-    '.lang-toggle{display:flex;align-items:center;gap:2px;margin-left:16px;',
-    'background:var(--beige);border-radius:20px;padding:3px;',
-    'border:1px solid var(--beige-dark);}',
-    '.lang-btn{background:none;border:none;cursor:pointer;font-size:11px;',
-    'font-family:var(--font-body);letter-spacing:0.5px;font-weight:700;',
-    'color:var(--text-light);padding:4px 10px;border-radius:16px;',
-    'transition:all 0.2s;line-height:1;}',
+    /* ---- Language toggle ---- */
+    '.lang-toggle{display:flex;align-items:center;gap:3px;margin-left:12px;',
+    'background:var(--beige);border-radius:24px;padding:3px;',
+    'border:1px solid var(--beige-dark);flex-shrink:0;}',
+
+    '.lang-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;',
+    'font-size:12px;font-family:var(--font-body);font-weight:600;letter-spacing:0;',
+    'color:var(--text-light);padding:5px 12px;border-radius:20px;',
+    'transition:all 0.2s;line-height:1;white-space:nowrap;}',
     '.lang-btn:hover{color:var(--green-dark);}',
     '.lang-btn.active{background:var(--green-dark);color:white;}',
-    '@media(max-width:768px){.lang-toggle{margin-left:8px;}}'
+
+    /* hide text label on narrow screens, keep flag */
+    '@media(max-width:840px){.lang-text{display:none;}.lang-btn{padding:5px 9px;font-size:16px;}}',
+    '@media(max-width:768px){.lang-toggle{margin-left:6px;}}',
+
+    /* ---- Korean font overrides ---- */
+    "html[lang='ko'] body{",
+    "font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;",
+    'word-break:keep-all;line-height:1.85;}',
+
+    "html[lang='ko'] h1,html[lang='ko'] h2,html[lang='ko'] h3,html[lang='ko'] h4{",
+    "font-family:'Noto Serif KR',Georgia,serif;",
+    'word-break:keep-all;line-height:1.35;}',
+
+    "html[lang='ko'] .hero-title{line-height:1.3;}",
+    "html[lang='ko'] .section-subtitle{font-size:16px;line-height:1.9;}",
+    "html[lang='ko'] .post-excerpt{font-size:17px;}",
+    "html[lang='ko'] .post-body p{font-size:15.5px;line-height:1.9;}",
+
+    /* Script font — use Noto Serif KR italic in Korean mode */
+    "html[lang='ko'] .script{font-family:'Noto Serif KR',Georgia,serif;font-style:italic;}",
+
+    /* Nav links tighter in Korean */
+    "html[lang='ko'] .nav-links{gap:24px;}",
+    "html[lang='ko'] .nav-links a{font-size:12px;letter-spacing:0.5px;}",
   ].join('');
   document.head.appendChild(css);
+
+  // ----------------------------------------------------------
+  // INJECT Korean Google Fonts (lazy — only once)
+  // ----------------------------------------------------------
+  var _koFontLoaded = false;
+  function loadKoFont() {
+    if (_koFontLoaded) return;
+    _koFontLoaded = true;
+    var link = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@400;600&display=swap';
+    document.head.appendChild(link);
+  }
 
   // ----------------------------------------------------------
   // APPLY LANGUAGE
@@ -403,6 +443,8 @@
 
     try { localStorage.setItem('kaylees_lang', lang); } catch (e) {}
     document.documentElement.lang = lang;
+
+    if (lang === 'ko') loadKoFont();
 
     // Plain text
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
@@ -422,31 +464,33 @@
       if (t[key] !== undefined) el.placeholder = t[key];
     });
 
-    // optgroup labels
+    // optgroup labels (select in reviews / booking)
     document.querySelectorAll('[data-i18n-label]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-label');
       if (t[key] !== undefined) el.label = t[key];
     });
 
-    // Toggle button state
+    // Toggle button active state
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
   }
 
   // ----------------------------------------------------------
-  // INIT
+  // INIT — inject flag buttons + bind events
   // ----------------------------------------------------------
   function init() {
-    var saved;
-    try { saved = localStorage.getItem('kaylees_lang'); } catch (e) {}
-    var lang = saved || 'en';
-
+    // Set flag + text on each toggle button
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      var flag = btn.dataset.lang === 'en' ? '🇺🇸' : '🇰🇷';
+      var text = btn.dataset.lang === 'en' ? 'English' : '한국어';
+      btn.innerHTML = flag + ' <span class="lang-text">' + text + '</span>';
       btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
     });
 
-    applyLang(lang);
+    var saved;
+    try { saved = localStorage.getItem('kaylees_lang'); } catch (e) {}
+    applyLang(saved || 'en');
   }
 
   if (document.readyState === 'loading') {
