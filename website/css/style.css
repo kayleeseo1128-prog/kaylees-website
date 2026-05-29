@@ -171,7 +171,8 @@ section    { padding: 80px 0; }
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 
-.nav-links .btn { margin-left: 8px; padding: 10px 24px; font-size: 12px; }
+.nav-links .btn { margin-left: 8px; padding: 10px 20px; font-size: 12px; white-space: nowrap; }
+.nav-links { gap: 28px; }
 .nav-links .btn-primary { color: var(--white); }
 .nav-links .btn-primary:hover { color: var(--white); }
 
