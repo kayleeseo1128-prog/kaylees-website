@@ -150,10 +150,10 @@
     if (!token || !email) {
       showError('Invalid sign-in link. Please request a new one.');
     } else {
-      verifyToken(token, email);
+      verifyToken(token, email, 0);
     }
 
-    function verifyToken(token, email) {
+    function verifyToken(token, email, attempt) {
       jsonp(APPS_SCRIPT_URL, { action: 'verifyMagicToken', token: token, email: email }, function(res) {
         if (res.success && res.member) {
           saveSession(res.member);
@@ -164,12 +164,20 @@
         } else {
           const msg = res.error || 'Sign-in failed. Please try again.';
           if (msg.includes('expired')) {
-            showError('This sign-in link has expired (links are valid for 15 minutes). Please request a new one.');
+            showErrorWithTitle('Link expired', 'This sign-in link has expired (links are valid for 60 minutes). Please request a new one.');
           } else if (msg.includes('already used')) {
-            showError('This sign-in link has already been used. Please request a new one.');
+            // 서버에서 이미 처리됐을 가능성 — 새 링크 요청 안내
+            showErrorWithTitle('Already used', 'This link was already used. Please request a new sign-in link.');
           } else {
-            showError(msg);
+            showErrorWithTitle('Something went wrong', msg);
           }
+        }
+      }, function() {
+        // onerror — 자동 재시도 (최대 2회)
+        if (attempt < 2) {
+          setTimeout(function() { verifyToken(token, email, attempt + 1); }, 1500);
+        } else {
+          showErrorWithTitle('Connection issue', 'Could not connect to the server. Please check your internet and try requesting a new sign-in link.');
         }
       });
     }
@@ -187,14 +195,18 @@
     function showSuccess(nameOrEmail) {
       setState('success');
       if (nameOrEmail && nameOrEmail !== nameOrEmail.toLowerCase()) {
-        // 이름이 있으면 표시
         document.getElementById('welcomeName').textContent = 'Welcome, ' + nameOrEmail + ' 💚';
       }
     }
 
-    function showError(msg) {
+    function showErrorWithTitle(title, desc) {
+      document.querySelector('#stateError .auth-title').textContent = title;
       setState('error');
-      document.getElementById('errorDesc').textContent = msg;
+      document.getElementById('errorDesc').textContent = desc;
+    }
+
+    function showError(msg) {
+      showErrorWithTitle('Something went wrong', msg);
     }
 
     function setState(state) {
@@ -204,8 +216,8 @@
       document.getElementById('state' + state.charAt(0).toUpperCase() + state.slice(1)).classList.add('active');
     }
 
-    // ── JSONP 헬퍼 ─────────────────────────────
-    function jsonp(url, params, cb) {
+    // ── JSONP 헬퍼 (onerror 콜백 추가) ───────────
+    function jsonp(url, params, cb, errCb) {
       const cbName = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
       const qs = Object.entries({ ...params, callback: cbName })
         .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
@@ -216,7 +228,10 @@
       };
       script.src = url + '?' + qs;
       script.onerror = function() {
-        if (!done) { done = true; delete window[cbName]; script.remove(); showError('Network error. Please try again.'); }
+        if (!done) {
+          done = true; delete window[cbName]; script.remove();
+          if (errCb) errCb(); else showError('Network error. Please try again.');
+        }
       };
       document.head.appendChild(script);
     }

@@ -873,8 +873,8 @@
     const slotTimeout = setTimeout(function() {
       delete window[cbName];
       document.getElementById('slotsScript') && document.getElementById('slotsScript').remove();
-      container.innerHTML = '<div class="no-slots">Request timed out. Please try again.</div>';
-    }, 20000);
+      container.innerHTML = '<div class="no-slots">Taking longer than expected…<br><button onclick="loadTimeSlots()" style="margin-top:12px;padding:10px 24px;background:var(--green-dark);color:white;border:none;border-radius:20px;cursor:pointer;font-size:13px;">Try Again</button></div>';
+    }, 30000);
 
     window[cbName] = function(data) {
       clearTimeout(slotTimeout);
