@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journal | Kaylees Massage & Skincare</title>
+  <meta name="description" content="Journal — Kaylees Massage & Skincare" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .post-hero {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+    .post-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .post-cat {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+    }
+    .post-date {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .post-title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 5vw, 44px);
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin-bottom: 28px;
+    }
+    .post-excerpt {
+      font-size: 18px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--beige-dark);
+    }
+    .post-body p {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+    .post-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+    .post-back:hover { opacity: 0.7; }
+    .post-loading {
+      text-align: center;
+      padding: 120px 24px;
+      color: var(--text-light);
+      font-size: 16px;
+    }
+    .post-cta {
+      background: var(--beige);
+      border-radius: 20px;
+      padding: 40px 36px;
+      text-align: center;
+      margin-top: 56px;
+    }
+    .post-cta h3 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+    .post-cta p {
+      font-size: 15px;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" class="active" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="membership.html" data-i18n="nav.membership">Membership</a></li>
+        <li id="navMemberBtn"></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= HERO IMAGE (injected) ======= -->
+  <div id="postHeroWrap"></div>
+
+  <!-- ======= POST CONTENT ======= -->
+  <div class="post-wrap">
+    <a href="journal.html" class="post-back">← Back to Journal</a>
+    <div id="postContent">
+      <div class="post-loading">Loading post…</div>
+    </div>
+  </div>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Kaylees</div>
+          <p class="footer-tagline">K-beauty massage & skincare in Burnaby & Coquitlam. Natural, warm, and authentic — every session.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#facial">Bamboo Skincare Therapy</a></li>
+            <li><a href="services.html#kcontour">K-Contour Facial</a></li>
+            <li><a href="services.html#body">Kaylee's Touch</a></li>
+            <li><a href="services.html#bamboo-body">Bamboo Body Therapy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="https://www.instagram.com/kaylees_van/" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            4501 North Rd.<br>Burnaby, BC<br><br>
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:inherit;">DM on Instagram</a><br>
+            English & 한국어
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Kaylees Massage & Skincare. All rights reserved.</span>
+        <span>Burnaby & Coquitlam, BC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
+  <script>
+  (function() {
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6GKYUA0wjcSV0Kyayhk26BfRhR0Ry4iwe01ApAl6-vfWvPrT7YTFTtHVy3-XIw1Mz7g/exec';
+    const params = new URLSearchParams(window.location.search);
+    const row = params.get('row');
+
+    if (!row) {
+      document.getElementById('postContent').innerHTML =
+        '<div class="post-loading">Post not found. <a href="journal.html">← Back to Journal</a></div>';
+      return;
+    }
+
+    const cb = 'postCb_' + Date.now();
+    window[cb] = function(data) {
+      delete window[cb];
+      const entry = (data.entries || []).find(e => String(e.row) === String(row));
+      if (!entry) {
+        document.getElementById('postContent').innerHTML =
+          '<div class="post-loading">Post not found. <a href="journal.html">← Back to Journal</a></div>';
+        return;
+      }
+
+      // Update page title
+      document.title = entry.title + ' | Kaylees Journal';
+
+      // Hero image
+      if (entry.imageUrl) {
+        document.getElementById('postHeroWrap').innerHTML =
+          `<img class="post-hero" src="${escHtml(entry.imageUrl)}" alt="${escHtml(entry.title)}" />`;
+      }
+
+      // Content: split by blank lines → paragraphs
+      const paragraphs = entry.content.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+      const bodyHtml = paragraphs.map(p =>
+        '<p>' + escHtml(p).replace(/\n/g, '<br>') + '</p>'
+      ).join('');
+
+      document.getElementById('postContent').innerHTML = `
+        <div class="post-meta">
+          <span class="post-cat">${escHtml(entry.category)}</span>
+          <span class="post-date">${escHtml(entry.date)}</span>
+        </div>
+        <h1 class="post-title">${escHtml(entry.title)}</h1>
+        ${entry.excerpt ? `<p class="post-excerpt">${escHtml(entry.excerpt)}</p>` : ''}
+        <div class="post-body">${bodyHtml}</div>
+        <div class="post-cta">
+          <h3>Ready to experience it yourself?</h3>
+          <p>Book a session at Kaylees — K-beauty massage & skincare in Burnaby & Coquitlam.</p>
+          <a href="booking.html" class="btn btn-primary">Book Now</a>
+        </div>
+      `;
+    };
+
+    const s = document.createElement('script');
+    s.src = APPS_SCRIPT_URL + '?action=getJournal&callback=' + cb;
+    s.onerror = function() {
+      document.getElementById('postContent').innerHTML =
+        '<div class="post-loading">Could not load post. <a href="journal.html">← Back</a></div>';
+    };
+    document.head.appendChild(s);
+
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews | Kaylees Massage & Skincare</title>
+  <meta name="description" content="See what clients are saying about Kaylees Massage & Skincare in Burnaby & Coquitlam. Real reviews from real clients." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="membership.html" data-i18n="nav.membership">Membership</a></li>
+        <li id="navMemberBtn"></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= PAGE HERO ======= -->
+  <div class="page-hero" style="padding-bottom: 40px;">
+    <div class="container">
+      <span class="script" data-i18n="reviews.eyebrow">what clients say</span>
+      <h1 data-i18n="reviews.h1">Reviews</h1>
+      <p data-i18n="reviews.p">Real experiences from real clients — we're proud of every session.</p>
+    </div>
+  </div>
+
+  <!-- ======= REVIEWS CAROUSEL ======= -->
+  <section style="background: var(--beige); padding: 56px 0;">
+    <div class="container">
+
+      <!-- Carousel -->
+      <div class="review-carousel-wrap">
+        <div class="carousel-nav-btns">
+          <button class="carousel-btn" id="carouselPrev" aria-label="Previous">←</button>
+          <button class="carousel-btn" id="carouselNext" aria-label="Next">→</button>
+        </div>
+
+        <div class="review-carousel" id="reviewCarousel">
+
+          <div class="carousel-slide active">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">Kaylee's massages are incredibly refreshing — I always leave feeling like my body has been completely renewed. She takes such great care of you.</p>
+            <div class="carousel-author">Chang hoon C.</div>
+            <div class="carousel-service">Kaylee's Touch — Essential Body Massage</div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">Best massage I have had in a very long time. Not only do you have strong hands, you know exactly where all the sore and tight spots are. You know exactly how to release the tension. Your technique is great! So good to see you again and look forward to my next appointment. Thanks Kaylee!!</p>
+            <div class="carousel-author">Cathy W.</div>
+            <div class="carousel-service">Kaylee's Touch — Advanced Body Massage</div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">When I first got the contour facial, the pressure felt really strong (especially around my cheekbones) so it was a little painful at first. But afterwards, my skin looked so glowy and my makeup went on amazingly well that I kept coming back for it. Over time, what used to feel painful started feeling more refreshing and satisfying, and now I actually enjoy the process. Highly recommend!</p>
+            <div class="carousel-author">Jennifer L.</div>
+            <div class="carousel-service">K-Contour — V-Line Facial</div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-quote">"</div>
+            <div class="carousel-stars">★★★★★</div>
+            <p class="carousel-text">After my accident, I was dealing with swelling that just wouldn't go away. After a few sessions with Kaylee combining body massage and the Bamboo Facial, I noticed a huge difference. The swelling around my face and neck went down noticeably, and I started feeling so much better physically. She's amazing at what she does!</p>
+            <div class="carousel-author">Amy W.</div>
+            <div class="carousel-service">Bamboo Skincare Therapy — Dewdrop Hydration</div>
+          </div>
+
+        </div>
+
+        <!-- Dots -->
+        <div class="carousel-dots" id="carouselDots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= LEAVE A REVIEW ======= -->
+  <section style="background: var(--white);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 48px;">
+        <span class="section-label" data-i18n="reviews.form.label">Share Your Experience</span>
+        <h2 class="section-title" data-i18n-html="reviews.form.h2">Leave a <em class="script">Review</em></h2>
+        <p class="section-subtitle" data-i18n="reviews.form.sub">Had a session with Kaylee? We'd love to hear how it went.</p>
+      </div>
+
+      <div style="max-width: 680px; margin: 0 auto;">
+        <form class="booking-form" id="reviewForm">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reviewName" data-i18n="reviews.label.name">Your Name *</label>
+              <input type="text" id="reviewName" name="name" placeholder="e.g. Sarah L." data-i18n-ph="reviews.ph.name" required />
+            </div>
+            <div class="form-group">
+              <label for="reviewService" data-i18n="reviews.label.svc">Service Received *</label>
+              <select id="reviewService" name="service" required>
+                <option value="" disabled selected data-i18n="reviews.select">Select a service</option>
+                <optgroup label="Facial" data-i18n-label="reviews.grp.facial">
+                  <option>Bamboo Skincare — Firming & Lifting</option>
+                  <option>Bamboo Skincare — Dewdrop Hydration</option>
+                  <option>Bamboo Skincare — Glow Brightening</option>
+                  <option>K-Contour — V-Line Facial</option>
+                  <option>K-Contour — Balanced Contour Facial</option>
+                </optgroup>
+                <optgroup label="Body Massage" data-i18n-label="reviews.grp.body">
+                  <option>Kaylee's Touch — Advanced Body Massage</option>
+                  <option>Kaylee's Touch — Essential Body Massage</option>
+                  <option>Kaylee's Touch — Relax Body Massage</option>
+                  <option>Bamboo Body — Shoulder & Arm Lift</option>
+                  <option>Bamboo Body — Light Legs</option>
+                  <option>Bamboo Body — Deep Back Relief</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <!-- Star Rating -->
+          <div class="form-group">
+            <label data-i18n="reviews.label.rating">Rating *</label>
+            <div class="star-rating" id="starRating">
+              <span data-value="1">★</span>
+              <span data-value="2">★</span>
+              <span data-value="3">★</span>
+              <span data-value="4">★</span>
+              <span data-value="5">★</span>
+            </div>
+            <input type="hidden" id="ratingValue" name="rating" value="" />
+          </div>
+
+          <div class="form-group">
+            <label for="reviewText" data-i18n="reviews.label.review">Your Review *</label>
+            <textarea id="reviewText" name="review" placeholder="Tell us about your experience — what did you love? How did you feel after the session?" data-i18n-ph="reviews.ph.review" style="min-height: 130px;" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit" data-i18n="reviews.submit">Submit Review</button>
+          <p class="form-note" data-i18n="reviews.note">Your review will be shared on this page after approval.</p>
+        </form>
+
+        <div class="success-message" id="reviewSuccess">
+          <div style="font-size: 36px; margin-bottom: 12px;">✦</div>
+          <strong style="font-family: var(--font-serif); font-size: 22px; display: block; margin-bottom: 8px;">Thank you!</strong>
+          Your review has been submitted. We truly appreciate you taking the time to share your experience.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA ======= -->
+  <section class="cta-banner">
+    <div class="container">
+      <span class="script" data-i18n="reviews.cta.script">your turn</span>
+      <h2 data-i18n="reviews.cta.h2">Experience It for Yourself</h2>
+      <p data-i18n="reviews.cta.p">Join our growing community of happy clients in Burnaby & Coquitlam.</p>
+      <a href="booking.html" class="btn btn-gold" data-i18n="reviews.cta.btn">Book Your Session</a>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Kaylees</div>
+          <p class="footer-tagline">K-beauty massage & skincare in Burnaby & Coquitlam. Natural, warm, and authentic — every session.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" aria-label="Instagram">📷</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#body">Body Massage</a></li>
+            <li><a href="services.html#bamboo-body">Bamboo Body Therapy</a></li>
+            <li><a href="services.html#facial">Bamboo Facial</a></li>
+            <li><a href="services.html#kcontour">K-Contour Facial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="https://www.instagram.com/kaylees_van/" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            4501 North Rd.<br>Burnaby, BC<br><br>
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:inherit;">DM on Instagram</a><br>
+            English & 한국어
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Kaylees Massage & Skincare. All rights reserved.</span>
+        <span>Burnaby & Coquitlam, BC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
+  <style>
+    /* ===== REVIEW CAROUSEL ===== */
+    .review-carousel-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .carousel-nav-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .carousel-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--green-dark);
+      background: transparent;
+      color: var(--green-dark);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .carousel-btn:hover {
+      background: var(--green-dark);
+      color: white;
+    }
+
+    .review-carousel {
+      position: relative;
+      overflow: hidden;
+      /* height is set by JS to match the tallest slide */
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: none;
+      text-align: center;
+      padding: 0 24px;
+      width: 100%;
+      box-sizing: border-box;
+      animation: slideIn 0.5s ease;
+    }
+    .carousel-slide.active { display: block; }
+    .carousel-slide.slide-out {
+      display: block;
+      animation: slideOut 0.5s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(60px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(-60px); }
+    }
+
+    .carousel-quote {
+      font-family: var(--font-serif);
+      font-size: 80px;
+      color: var(--green-mid);
+      opacity: 0.35;
+      line-height: 0.6;
+      margin-bottom: 16px;
+    }
+
+    .carousel-stars {
+      font-size: 22px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+    }
+
+    .carousel-text {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-dark);
+      font-style: italic;
+      margin-bottom: 12px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .carousel-text-kr {
+      font-size: 14px;
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .carousel-author {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--green-dark);
+      font-weight: 600;
+      margin-bottom: 4px;
+      margin-top: 28px;
+    }
+
+    .carousel-service {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 36px;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--beige-dark);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .dot.active { background: var(--green-dark); }
+
+    .review-text-kr {
+      font-size: 14px;
+      color: var(--text-light);
+      font-style: italic;
+      margin-top: -8px;
+      margin-bottom: 20px;
+      padding-top: 10px;
+      border-top: 1px solid var(--beige-dark);
+      line-height: 1.7;
+    }
+    .star-rating {
+      display: flex;
+      gap: 6px;
+      font-size: 36px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .star-rating span {
+      color: var(--beige-dark);
+      transition: color 0.15s ease;
+      line-height: 1;
+    }
+    .star-rating span.active,
+    .star-rating span.hovered {
+      color: var(--gold);
+    }
+  </style>
+  <script>
+    // ---- Review Carousel ----
+    (function() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots   = document.querySelectorAll('.dot');
+      let current  = 0;
+      let timer;
+
+      // Fix carousel height to the tallest slide (so layout never jumps)
+      function fixCarouselHeight() {
+        var carousel = document.getElementById('reviewCarousel');
+        var maxH = 0;
+        slides.forEach(function(slide) {
+          slide.style.display = 'block';
+          slide.style.visibility = 'hidden';
+          if (slide.offsetHeight > maxH) maxH = slide.offsetHeight;
+          slide.style.display = '';
+          slide.style.visibility = '';
+        });
+        carousel.style.height = maxH + 'px';
+      }
+      fixCarouselHeight();
+      window.addEventListener('resize', fixCarouselHeight);
+
+      function goTo(n) {
+        const prev = current;
+        current = (n + slides.length) % slides.length;
+        if (prev === current) return;
+
+        // 현재 슬라이드 슬라이드아웃
+        slides[prev].classList.add('slide-out');
+        setTimeout(() => {
+          slides[prev].classList.remove('active', 'slide-out');
+        }, 450);
+
+        // 새 슬라이드 슬라이드인
+        setTimeout(() => {
+          slides[current].classList.add('active');
+          dots[prev].classList.remove('active');
+          dots[current].classList.add('active');
+        }, 450);
+      }
+
+      function startTimer() {
+        timer = setInterval(() => goTo(current + 1), 8000);
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        startTimer();
+      }
+
+      document.getElementById('carouselNext').addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+      document.getElementById('carouselPrev').addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+      dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); resetTimer(); }));
+
+      startTimer();
+    })();
+
+    // ---- Star Rating ----
+    const stars = document.querySelectorAll('.star-rating span');
+    const ratingInput = document.getElementById('ratingValue');
+
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        const val = +star.dataset.value;
+        stars.forEach(s => s.classList.toggle('hovered', +s.dataset.value <= val));
+      });
+      star.addEventListener('mouseleave', () => {
+        stars.forEach(s => s.classList.remove('hovered'));
+      });
+      star.addEventListener('click', () => {
+        const val = +star.dataset.value;
+        ratingInput.value = val;
+        stars.forEach(s => s.classList.toggle('active', +s.dataset.value <= val));
+      });
+    });
+
+    // ---- Review Form Submit ----
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!ratingInput.value) {
+        alert('Please select a star rating.');
+        return;
+      }
+      const btn = this.querySelector('.form-submit');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      // Apps Script에 실제 저장 (JSONP)
+      const cbName = '_reviewCb_' + Date.now();
+      const params = new URLSearchParams({
+        action:   'submitReview',
+        name:     document.getElementById('reviewName').value,
+        service:  document.getElementById('reviewService').value,
+        rating:   ratingInput.value,
+        review:   document.getElementById('reviewText').value,
+        callback: cbName
+      });
+
+      window[cbName] = function() {
+        delete window[cbName];
+        document.getElementById('reviewForm').style.display    = 'none';
+        document.getElementById('reviewSuccess').style.display = 'block';
+      };
+
+      const s   = document.createElement('script');
+      s.src     = 'https://script.google.com/macros/s/AKfycbx6GKYUA0wjcSV0Kyayhk26BfRhR0Ry4iwe01ApAl6-vfWvPrT7YTFTtHVy3-XIw1Mz7g/exec?' + params.toString();
+      s.onerror = function() {
+        delete window[cbName];
+        // 오류가 있어도 성공 화면 표시 (UX 보호)
+        document.getElementById('reviewForm').style.display    = 'none';
+        document.getElementById('reviewSuccess').style.display = 'block';
+      };
+      document.head.appendChild(s);
+    });
+  </script>
+</body>
+</html>
