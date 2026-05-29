@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership | Kaylees Wellness</title>
+  <meta name="description" content="Join Kaylees Wellness membership. Pre-load credits and save 10% on every service — facial, body massage, and more." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero ── */
+    .membership-hero {
+      background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      color: var(--white);
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .membership-hero .section-label { color: rgba(255,255,255,0.7); }
+    .membership-hero .section-title { color: var(--white); font-size: clamp(36px,6vw,58px); }
+    .membership-hero p {
+      color: rgba(255,255,255,0.85);
+      font-size: 17px;
+      max-width: 520px;
+      margin: 16px auto 0;
+      line-height: 1.7;
+    }
+
+    /* ── 혜택 Strip ── */
+    .benefits-strip {
+      background: var(--beige);
+      padding: 48px 0;
+      border-bottom: 1px solid var(--beige-dark);
+    }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+    .benefit-item {}
+    .benefit-icon {
+      width: 52px; height: 52px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .benefit-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--green-dark);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .benefit-item h4 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+    .benefit-item p {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* ── 패키지 카드 ── */
+    .packages-section { padding: 80px 0; background: var(--white); }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .package-card {
+      border: 1.5px solid var(--beige-dark);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+    }
+    .package-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+    }
+    .package-card.featured {
+      border-color: var(--green-mid);
+      box-shadow: 0 4px 24px rgba(91,140,106,0.18);
+    }
+
+    .package-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .package-header {
+      background: var(--beige);
+      padding: 32px 32px 24px;
+    }
+    .package-card.featured .package-header {
+      background: linear-gradient(135deg, var(--green-light) 0%, #ddeee3 100%);
+    }
+
+    .package-name {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .package-tagline {
+      font-size: 13px;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
+    }
+
+    .package-pricing {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .package-price {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      color: var(--text-dark);
+      line-height: 1;
+    }
+    .package-price-sub {
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .credit-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 16px;
+    }
+    .credit-highlight .bonus {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+
+    .package-body { padding: 28px 32px 32px; }
+
+    .package-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .package-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+    .package-features li::before {
+      content: '';
+      width: 18px; height: 18px;
+      min-width: 18px;
+      background: var(--green-light);
+      border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233D6347' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 11px;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-top: 2px;
+    }
+
+    .btn-package {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 40px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-package.primary {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+    .btn-package.primary:hover { background: var(--green-mid); }
+    .btn-package.outline {
+      background: transparent;
+      color: var(--green-dark);
+      border: 1.5px solid var(--green-dark);
+    }
+    .btn-package.outline:hover { background: var(--green-dark); color: var(--white); }
+    .btn-package:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ── 크레딧 사용 방법 ── */
+    .how-section {
+      background: var(--beige);
+      padding: 80px 0;
+    }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-top: 48px;
+      counter-reset: step-counter;
+    }
+    .how-step {
+      text-align: center;
+      counter-increment: step-counter;
+    }
+    .how-step-num {
+      width: 48px; height: 48px;
+      background: var(--green-dark);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 22px;
+      margin: 0 auto 16px;
+    }
+    .how-step h4 { font-size: 17px; margin-bottom: 8px; }
+    .how-step p  { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+
+    /* ── FAQ ── */
+    .faq-section { padding: 80px 0; }
+    .faq-list { margin-top: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 20px 0;
+    }
+    .faq-q {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-q::after {
+      content: '+';
+      font-size: 22px;
+      color: var(--green-mid);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .faq-item.open .faq-q::after { content: '−'; }
+    .faq-a {
+      display: none;
+      padding-top: 12px;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── CTA ── */
+    .membership-cta {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      padding: 80px 0;
+      text-align: center;
+      color: var(--white);
+    }
+    .membership-cta h2 { color: var(--white); font-size: clamp(28px,4vw,44px); margin-bottom: 16px; }
+    .membership-cta p  { color: rgba(255,255,255,0.85); font-size: 16px; margin-bottom: 32px; }
+
+    /* ── 알림 토스트 ── */
+    .toast {
+      position: fixed;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text-dark);
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 640px) {
+      .packages-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="membership.html" style="color:var(--green-dark);font-weight:700;">Membership</a></li>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= HERO ======= -->
+  <section class="membership-hero">
+    <div class="container">
+      <span class="section-label">Kaylees Membership</span>
+      <h1 class="section-title">Invest in your <em class="script" style="color:rgba(255,255,255,0.9);">wellness</em></h1>
+      <p>Pre-load credits and enjoy 10% more with every purchase. Use your credits across any service, anytime — no expiry.</p>
+    </div>
+  </section>
+
+  <!-- ======= 혜택 STRIP ======= -->
+  <div class="benefits-strip">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h4>10% Bonus Credits</h4>
+          <p>Every purchase gives you 10% extra to spend on any service</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4>No Expiry</h4>
+          <p>Your credits never expire — use them at your own pace</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h4>All Services Included</h4>
+          <p>Use credits for body massage, facial, K-contour, and more</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Secure Payments</h4>
+          <p>Powered by Stripe — your payment info is always safe</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= 패키지 ======= -->
+  <section class="packages-section" id="packages">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">Choose Your Package</span>
+        <h2 class="section-title">Credit <em class="script">packages</em></h2>
+        <p class="section-subtitle">1 credit = $1 CAD. Credits apply to any service on the menu.</p>
+      </div>
+
+      <div class="packages-grid">
+
+        <!-- Glow Pack -->
+        <div class="package-card">
+          <div class="package-header">
+            <div class="package-name">Glow Pack</div>
+            <div class="package-tagline">Perfect for trying out a few sessions</div>
+            <div class="package-pricing">
+              <span class="package-price">$600</span>
+              <span class="package-price-sub">CAD</span>
+            </div>
+            <div class="credit-highlight">
+              660 credits
+              <span class="bonus">+10% bonus</span>
+            </div>
+          </div>
+          <div class="package-body">
+            <ul class="package-features">
+              <li>$660 credit value — 10% bonus included</li>
+              <li>Use across any service (facial, body massage, K-contour)</li>
+              <li>Credits never expire</li>
+              <li>Instant credit after payment</li>
+            </ul>
+            <button class="btn-package outline" onclick="handlePackagePurchase('glow')" id="btn-glow">
+              Get Glow Pack
+            </button>
+          </div>
+        </div>
+
+        <!-- Wellness Pack -->
+        <div class="package-card featured">
+          <div class="package-badge">Best Value</div>
+          <div class="package-header">
+            <div class="package-name">Wellness Pack</div>
+            <div class="package-tagline">For dedicated self-care routines</div>
+            <div class="package-pricing">
+              <span class="package-price">$1,200</span>
+              <span class="package-price-sub">CAD</span>
+            </div>
+            <div class="credit-highlight">
+              1,320 credits
+              <span class="bonus">+$120 bonus</span>
+            </div>
+          </div>
+          <div class="package-body">
+            <ul class="package-features">
+              <li>$1,320 credit value — $120 bonus included</li>
+              <li>Equivalent to ~11 sessions (based on $120 service)</li>
+              <li>Use across any service — mix and match freely</li>
+              <li>Credits never expire</li>
+              <li>Instant credit after payment</li>
+            </ul>
+            <button class="btn-package primary" onclick="handlePackagePurchase('wellness')" id="btn-wellness">
+              Get Wellness Pack
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 결제 취소 안내 -->
+      <p id="cancelledNote" style="display:none;text-align:center;margin-top:24px;color:var(--text-light);font-size:14px;">
+        Payment was cancelled. You can try again whenever you're ready.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======= HOW IT WORKS ======= -->
+  <section class="how-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Simple <em class="script">steps</em></h2>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-num">1</div>
+          <h4>Sign In</h4>
+          <p>Enter your email to create an account — no password needed.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">2</div>
+          <h4>Choose a Package</h4>
+          <p>Select the pack that fits your routine and pay securely with Stripe.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">3</div>
+          <h4>Credits Added Instantly</h4>
+          <p>Your credits appear in your account right after payment.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">4</div>
+          <h4>Book & Enjoy</h4>
+          <p>Book any service and credits are deducted after each visit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FAQ ======= -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-label">Questions</span>
+        <h2 class="section-title">FAQ</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">Do credits expire?</div>
+          <div class="faq-a">No — your credits never expire. Use them at your own pace, whenever you feel ready.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I use credits for any service?</div>
+          <div class="faq-a">Yes. Credits apply to all services — body massage, bamboo facial therapy, and K-contour facial. 1 credit equals $1 CAD.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do I use credits when I book?</div>
+          <div class="faq-a">Just let Kaylee know at the time of your appointment that you'd like to pay with credits. Credits are deducted from your account after the session.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I check my credit balance?</div>
+          <div class="faq-a">Yes — sign in to your account to view your current balance and full transaction history anytime.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What payment methods are accepted?</div>
+          <div class="faq-a">All major credit and debit cards are accepted through Stripe (Visa, Mastercard, Amex). Your payment information is securely handled by Stripe.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I purchase more than one package?</div>
+          <div class="faq-a">Yes. You can purchase as many packages as you'd like — credits accumulate in your account and never expire.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA ======= -->
+  <section class="membership-cta">
+    <div class="container">
+      <h2>Ready to <em class="script" style="color:rgba(255,255,255,0.9);">start?</em></h2>
+      <p>Sign in and choose your package to get started today.</p>
+      <a href="#packages" class="btn btn-gold">View Packages</a>
+    </div>
+  </section>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9IGsyE5C5x0h5TAn3zp6qpIQfMJYo-Z6HBLFPoYydGs728-8mmmODJw/exec';
+
+    // 결제 취소 안내
+    if (new URLSearchParams(window.location.search).get('checkout') === 'cancelled') {
+      document.getElementById('cancelledNote').style.display = 'block';
+    }
+
+    function handlePackagePurchase(packageId) {
+      const session = getSession();
+
+      if (!session) {
+        // 로그인 후 이 페이지로 돌아오도록
+        window.location.href = 'login.html?redirect=' + encodeURIComponent('membership.html#packages');
+        return;
+      }
+
+      const btn = document.getElementById('btn-' + packageId);
+      btn.disabled    = true;
+      btn.textContent = 'Processing…';
+
+      jsonp(APPS_SCRIPT_URL, {
+        action:       'createCheckoutSession',
+        packageId:    packageId,
+        email:        session.email,
+        sessionToken: session.token
+      }, function(res) {
+        if (res.success && res.url) {
+          window.location.href = res.url;
+        } else {
+          btn.disabled    = false;
+          btn.textContent = packageId === 'glow' ? 'Get Glow Pack' : 'Get Wellness Pack';
+          showToast(res.error || 'Something went wrong. Please try again.');
+        }
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 3500);
+    }
+
+    // FAQ 토글
+    document.querySelectorAll('.faq-q').forEach(function(q) {
+      q.addEventListener('click', function() {
+        const item = q.closest('.faq-item');
+        item.classList.toggle('open');
+      });
+    });
+
+    // ── 세션 헬퍼 ──────────────────────────────
+    function getSession() {
+      try {
+        const raw = localStorage.getItem('kaylees_member');
+        if (!raw) return null;
+        const s = JSON.parse(raw);
+        if (!s || !s.token || !s.email) return null;
+        if (new Date(s.expires) < new Date()) { localStorage.removeItem('kaylees_member'); return null; }
+        return s;
+      } catch(e) { return null; }
+    }
+
+    // ── JSONP 헬퍼 ─────────────────────────────
+    function jsonp(url, params, cb) {
+      const cbName = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      const qs = Object.entries({ ...params, callback: cbName })
+        .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
+      const script = document.createElement('script');
+      let done = false;
+      window[cbName] = function(data) {
+        done = true; delete window[cbName]; script.remove(); cb(data);
+      };
+      script.src = url + '?' + qs;
+      script.onerror = function() {
+        if (!done) { done = true; delete window[cbName]; script.remove(); cb({ success: false, error: 'Network error' }); }
+      };
+      document.head.appendChild(script);
+    }
+  </script>
+</body>
+</html>

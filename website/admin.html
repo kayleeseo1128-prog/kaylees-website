@@ -288,6 +288,7 @@
       <div class="admin-tab" onclick="switchTab('reviews')">Reviews</div>
       <div class="admin-tab" onclick="switchTab('clients')">Clients</div>
       <div class="admin-tab" onclick="switchTab('journal')">Journal</div>
+      <div class="admin-tab" onclick="switchTab('membership')">Membership 💳</div>
     </div>
 
     <div class="admin-content">
@@ -704,6 +705,73 @@
 
       </div>
 
+      <!-- ======= MEMBERSHIP ======= -->
+      <div class="admin-panel" id="panel-membership">
+
+        <!-- 크레딧 차감 카드 -->
+        <div class="admin-card" style="margin-bottom:24px;">
+          <h3>Deduct Credits (After Service)</h3>
+          <p class="card-desc">서비스 완료 후 고객 크레딧을 차감합니다. 이메일은 회원가입 이메일과 동일하게 입력하세요.</p>
+          <div class="f-row2" style="gap:16px;margin-bottom:16px;">
+            <div class="f-group">
+              <label class="f-label">Member Email</label>
+              <input type="email" class="f-input" id="deductEmail" placeholder="client@example.com" />
+            </div>
+            <div class="f-group">
+              <label class="f-label">Amount (credits)</label>
+              <input type="number" class="f-input" id="deductAmount" placeholder="e.g. 120" min="1" />
+            </div>
+          </div>
+          <div class="f-group" style="margin-bottom:16px;">
+            <label class="f-label">Service Description</label>
+            <input type="text" class="f-input" id="deductDesc" placeholder="e.g. Essential Body Massage 60min" />
+          </div>
+          <button class="f-btn" onclick="deductCredit()" style="background:#B91C1C;">Deduct Credits</button>
+          <div id="deductResult" style="margin-top:12px;font-size:13px;"></div>
+        </div>
+
+        <!-- 크레딧 수동 추가 -->
+        <div class="admin-card" style="margin-bottom:24px;">
+          <h3>Manual Credit Adjustment</h3>
+          <p class="card-desc">크레딧을 수동으로 추가하거나 조정합니다. 환불, 보너스 등에 사용하세요.</p>
+          <div class="f-row2" style="gap:16px;margin-bottom:16px;">
+            <div class="f-group">
+              <label class="f-label">Member Email</label>
+              <input type="email" class="f-input" id="adjustEmail" placeholder="client@example.com" />
+            </div>
+            <div class="f-group">
+              <label class="f-label">Amount (+ add / − deduct)</label>
+              <input type="number" class="f-input" id="adjustAmount" placeholder="e.g. 100 or -50" />
+            </div>
+          </div>
+          <div class="f-group" style="margin-bottom:16px;">
+            <label class="f-label">Reason / Note</label>
+            <input type="text" class="f-input" id="adjustDesc" placeholder="e.g. Refund, Bonus, Correction" />
+          </div>
+          <button class="f-btn" onclick="adjustCredit()">Apply Adjustment</button>
+          <div id="adjustResult" style="margin-top:12px;font-size:13px;"></div>
+        </div>
+
+        <!-- 회원 목록 -->
+        <div class="admin-card">
+          <h3>Members</h3>
+          <p class="card-desc">전체 회원 목록과 크레딧 잔액을 확인합니다.</p>
+          <div id="membersTableWrap">
+            <p style="color:var(--text-light);font-size:14px;">Loading…</p>
+          </div>
+        </div>
+
+        <!-- 전체 거래 내역 -->
+        <div class="admin-card" style="margin-top:24px;">
+          <h3>All Transactions</h3>
+          <p class="card-desc">전체 크레딧 거래 내역 (최신순)</p>
+          <div id="allTxTableWrap">
+            <p style="color:var(--text-light);font-size:14px;">Loading…</p>
+          </div>
+        </div>
+
+      </div>
+
     </div><!-- /admin-content -->
   </div><!-- /admin-page -->
 
@@ -740,14 +808,15 @@
     // =====================
     // Tab Switching
     // =====================
-    const TAB_NAMES = ['overview','banner','bookings','reviews','clients','journal'];
+    const TAB_NAMES = ['overview','banner','bookings','reviews','clients','journal','membership'];
     function switchTab(tab) {
       document.querySelectorAll('.admin-tab').forEach((el, i) => {
         el.classList.toggle('active', TAB_NAMES[i] === tab);
       });
       document.querySelectorAll('.admin-panel').forEach(el => el.classList.remove('active'));
       document.getElementById('panel-' + tab).classList.add('active');
-      if (tab === 'journal') loadJournal();
+      if (tab === 'journal')    loadJournal();
+      if (tab === 'membership') loadMembers();
     }
 
     // =====================
@@ -1362,6 +1431,145 @@
     }
     function escHtml(s) {
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // =====================
+    // 🌿 Membership
+    // =====================
+    function loadMembers() {
+      api({ action: 'getMembers', admin_key: ADMIN_KEY }, function(res) {
+        renderMembersTable(res.success ? res.members : []);
+      });
+      api({ action: 'getAllTransactions', admin_key: ADMIN_KEY }, function(res) {
+        renderAllTxTable(res.success ? res.transactions : []);
+      });
+    }
+
+    function renderMembersTable(members) {
+      const wrap = document.getElementById('membersTableWrap');
+      if (!members || members.length === 0) {
+        wrap.innerHTML = '<p style="color:var(--text-light);font-size:14px;">No members yet.</p>';
+        return;
+      }
+      wrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>Email</th><th>Name</th>
+              <th style="text-align:right;">Credits</th>
+              <th>Joined</th><th>Last Login</th>
+            </tr></thead>
+            <tbody>${members.map(m => `
+              <tr>
+                <td>${escHtml(m.email)}</td>
+                <td>${escHtml(m.name || '—')}</td>
+                <td style="text-align:right;font-weight:700;color:${m.credits > 0 ? 'var(--green-dark)' : 'var(--text-light)'};">
+                  ${m.credits.toLocaleString()} cr
+                </td>
+                <td>${fmtIso(m.joinedAt)}</td>
+                <td>${fmtIso(m.lastLogin)}</td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function renderAllTxTable(txList) {
+      const wrap = document.getElementById('allTxTableWrap');
+      if (!txList || txList.length === 0) {
+        wrap.innerHTML = '<p style="color:var(--text-light);font-size:14px;">No transactions yet.</p>';
+        return;
+      }
+      wrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>Email</th><th>Type</th>
+              <th style="text-align:right;">Amount</th>
+              <th style="text-align:right;">Balance</th>
+              <th>Description</th><th>Date</th>
+            </tr></thead>
+            <tbody>${txList.map(tx => `
+              <tr>
+                <td>${escHtml(tx.email)}</td>
+                <td><span style="color:${tx.type==='credit'?'var(--green-dark)':'#B91C1C'};font-weight:700;">
+                  ${tx.type === 'credit' ? '+ Credit' : '− Debit'}</span></td>
+                <td style="text-align:right;font-weight:700;color:${tx.type==='credit'?'var(--green-dark)':'#B91C1C'};">
+                  ${tx.amount > 0 ? '+' : ''}${tx.amount} cr
+                </td>
+                <td style="text-align:right;">${tx.balance} cr</td>
+                <td>${escHtml(tx.description)}</td>
+                <td>${fmtIso(tx.date)}</td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function deductCredit() {
+      const email  = document.getElementById('deductEmail').value.trim();
+      const amount = parseFloat(document.getElementById('deductAmount').value);
+      const desc   = document.getElementById('deductDesc').value.trim() || 'Service';
+      const result = document.getElementById('deductResult');
+
+      if (!email || !amount || amount <= 0) {
+        result.style.color = '#B91C1C';
+        result.textContent = 'Please fill in email and amount.';
+        return;
+      }
+      result.style.color = 'var(--text-light)';
+      result.textContent = 'Processing…';
+
+      api({ action: 'useCredit', admin_key: ADMIN_KEY, email, amount, description: desc }, function(res) {
+        if (res.success) {
+          result.style.color = 'var(--green-dark)';
+          result.textContent = '✓ Deducted ' + amount + ' credits. New balance: ' + res.balance + ' credits.';
+          document.getElementById('deductEmail').value  = '';
+          document.getElementById('deductAmount').value = '';
+          document.getElementById('deductDesc').value   = '';
+          loadMembers(); // 목록 갱신
+        } else {
+          result.style.color = '#B91C1C';
+          result.textContent = 'Error: ' + (res.error || 'Unknown error');
+        }
+      });
+    }
+
+    function adjustCredit() {
+      const email  = document.getElementById('adjustEmail').value.trim();
+      const amount = parseFloat(document.getElementById('adjustAmount').value);
+      const desc   = document.getElementById('adjustDesc').value.trim() || 'Manual adjustment';
+      const result = document.getElementById('adjustResult');
+
+      if (!email || isNaN(amount)) {
+        result.style.color = '#B91C1C';
+        result.textContent = 'Please fill in email and amount.';
+        return;
+      }
+      result.style.color = 'var(--text-light)';
+      result.textContent = 'Processing…';
+
+      api({ action: 'adjustCredit', admin_key: ADMIN_KEY, email, amount, description: desc }, function(res) {
+        if (res.success) {
+          result.style.color = 'var(--green-dark)';
+          result.textContent = '✓ Adjusted ' + amount + ' credits. New balance: ' + res.balance + ' credits.';
+          document.getElementById('adjustEmail').value  = '';
+          document.getElementById('adjustAmount').value = '';
+          document.getElementById('adjustDesc').value   = '';
+          loadMembers();
+        } else {
+          result.style.color = '#B91C1C';
+          result.textContent = 'Error: ' + (res.error || 'Unknown error');
+        }
+      });
+    }
+
+    function fmtIso(iso) {
+      try {
+        if (!iso) return '—';
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+      } catch(e) { return String(iso).slice(0,10); }
     }
   </script>
 </body>
