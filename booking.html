@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Session | Kaylees Massage & Skincare</title>
+  <meta name="description" content="Book your facial or body massage session at Kaylees in Metro Vancouver." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* =============================================
+       BOOKING SYSTEM STYLES
+       ============================================= */
+
+    .booking-wizard {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* --- Progress Steps --- */
+    .booking-steps {
+      display: flex;
+      background: var(--beige);
+      border-bottom: 1px solid var(--beige-dark);
+    }
+
+    .step {
+      flex: 1;
+      padding: 18px 12px;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .step.active   { color: var(--green-dark); font-weight: 700; }
+    .step.done     { color: var(--green-mid); }
+
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--beige-dark);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 6px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .step.active .step-num { border-color: var(--green-dark); color: var(--green-dark); background: white; }
+    .step.done .step-num   { border-color: var(--green-mid); background: var(--green-mid); color: white; }
+
+    /* --- Step Panels --- */
+    .step-panel { display: none; padding: 40px; }
+    .step-panel.active { display: block; }
+
+    .step-panel h3 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .step-panel .step-desc {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    /* --- Service Picker --- */
+    .service-group { margin-bottom: 24px; }
+
+    .service-group-label {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .service-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .service-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border: 1.5px solid var(--beige-dark);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+
+    .service-option:hover { border-color: var(--green-mid); background: var(--green-light); }
+    .service-option.selected { border-color: var(--green-dark); background: var(--green-light); }
+
+    /* 네이티브 체크박스 숨기기 */
+    .service-option input[type="radio"],
+    .service-option input[type="checkbox"] { display: none; }
+
+    /* 커스텀 체크박스 인디케이터 */
+    .service-option::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border: 2px solid var(--beige-dark);
+      border-radius: 5px;
+      background: var(--white);
+      margin-right: 14px;
+      transition: all 0.15s ease;
+    }
+    .service-option.selected::before {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* 서비스 이름 왼쪽 정렬 + 공간 채우기 */
+    .service-option > div { flex: 1; text-align: left; }
+
+    .service-name { font-family: var(--font-serif); font-size: 17px; color: var(--text-dark); }
+    .service-meta { font-size: 13px; color: var(--text-light); }
+    .service-price { font-family: var(--font-serif); font-size: 18px; color: var(--green-dark); font-weight: 600; }
+
+    /* --- Calendar --- */
+    .calendar { max-width: 360px; }
+
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .cal-month {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--text-dark);
+    }
+
+    .cal-nav-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--beige-dark);
+      background: white;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      color: var(--text-mid);
+    }
+
+    .cal-nav-btn:hover { border-color: var(--green-mid); color: var(--green-dark); }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-dow {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: 6px 0;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .cal-day.available { color: var(--text-dark); font-weight: 600; }
+    .cal-day.available:hover { background: var(--green-light); color: var(--green-dark); }
+    .cal-day.selected  { background: var(--green-dark) !important; color: white !important; }
+    .cal-day.disabled  { color: var(--beige-dark); cursor: default; pointer-events: none; }
+    .cal-day.today     { border: 1.5px solid var(--green-mid); }
+    .cal-day.empty     { pointer-events: none; }
+
+    /* --- Time Slots --- */
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .time-slot {
+      padding: 12px 8px;
+      border: 1.5px solid var(--beige-dark);
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+      color: var(--text-dark);
+    }
+
+    .time-slot:hover    { border-color: var(--green-mid); background: var(--green-light); color: var(--green-dark); }
+    .time-slot.selected { border-color: var(--green-dark); background: var(--green-dark); color: white; }
+    .time-slot.booked   { background: var(--beige); color: var(--text-light); cursor: not-allowed; text-decoration: line-through; pointer-events: none; }
+
+    .slots-loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .no-slots {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    /* --- Info Form --- */
+    .booking-summary {
+      background: var(--green-light);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 1.8;
+    }
+
+    .booking-summary strong { color: var(--green-dark); }
+
+    /* --- Navigation Buttons --- */
+    .step-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--beige-dark);
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-back:hover { color: var(--text-dark); }
+
+    /* --- Success --- */
+    .booking-success {
+      display: none;
+      text-align: center;
+      padding: 60px 40px;
+    }
+
+    .booking-success .success-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .booking-success h3 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .booking-success p { color: var(--text-mid); font-size: 16px; line-height: 1.7; }
+
+    @media (max-width: 600px) {
+      .step-panel { padding: 24px 20px; }
+      .time-grid  { grid-template-columns: repeat(3, 1fr); }
+      .step span  { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="membership.html" data-i18n="nav.membership">Membership</a></li>
+        <li id="navMemberBtn"></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= PAGE HERO ======= -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="script" data-i18n="booking.eyebrow">reserve your session</span>
+      <h1 data-i18n="booking.h1">Book an Appointment</h1>
+      <p data-i18n="booking.p">Select your service, pick a date and time, and you're all set.</p>
+    </div>
+  </div>
+
+  <!-- ======= BOOKING SECTION ======= -->
+  <section class="booking-section">
+    <div class="container">
+      <div class="booking-grid">
+
+        <!-- Info Panel -->
+        <div class="booking-info">
+          <h2 data-i18n-html="booking.info.h2">What to <em class="script">expect</em></h2>
+          <p data-i18n="booking.info.p">Kaylee will send a confirmation email once your booking is received.</p>
+
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div><strong data-i18n="booking.loc">Location</strong>4501 North Rd., Burnaby, BC</div>
+          </div>
+
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div><strong data-i18n="booking.contact">Contact</strong><a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:var(--green-dark);">@kaylees_van</a> · English & 한국어</div>
+          </div>
+
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div><strong data-i18n="booking.hours">Hours</strong><span data-i18n="booking.hours.val">Mon · Wed · Fri · Sat, 10am – 7pm</span></div>
+          </div>
+
+          <div class="booking-detail">
+            <div class="booking-detail-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div><strong data-i18n="booking.payment">Payment</strong><span data-i18n="booking.pay.val">Stripe (card) or membership credits</span></div>
+          </div>
+        </div>
+
+        <!-- Booking Wizard -->
+        <div>
+          <div class="booking-wizard" id="bookingWizard">
+
+            <!-- Progress Steps -->
+            <div class="booking-steps">
+              <div class="step active" id="step-tab-1">
+                <div class="step-num">1</div>
+                <span data-i18n="booking.step1">Service</span>
+              </div>
+              <div class="step" id="step-tab-2">
+                <div class="step-num">2</div>
+                <span data-i18n="booking.step2">Date</span>
+              </div>
+              <div class="step" id="step-tab-3">
+                <div class="step-num">3</div>
+                <span data-i18n="booking.step3">Time</span>
+              </div>
+              <div class="step" id="step-tab-4">
+                <div class="step-num">4</div>
+                <span data-i18n="booking.step4">Info</span>
+              </div>
+            </div>
+
+            <!-- Step 1: Service Selection -->
+            <div class="step-panel active" id="panel-1">
+              <h3 data-i18n="booking.s1.h3">Choose a Service</h3>
+              <p class="step-desc" data-i18n="booking.s1.desc">Select up to 2 treatments to combine in one session.</p>
+
+              <div class="service-group">
+                <span class="service-group-label" data-i18n="booking.grp.bamboo">Facial — Bamboo Skincare Therapy</span>
+                <div class="service-options">
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Bamboo Skincare — Firming & Lifting" data-duration="60" data-price="140">
+                    <div><span class="service-name">Firming & Lifting</span><br><span class="service-meta">60 min</span></div>
+                    <span class="service-price">$140</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Bamboo Skincare — Dewdrop Hydration" data-duration="60" data-price="120">
+                    <div><span class="service-name">Dewdrop Hydration</span><br><span class="service-meta">60 min</span></div>
+                    <span class="service-price">$120</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Bamboo Skincare — Glow Brightening" data-duration="60" data-price="120">
+                    <div><span class="service-name">Glow Brightening</span><br><span class="service-meta">60 min</span></div>
+                    <span class="service-price">$120</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="service-group">
+                <span class="service-group-label" data-i18n="booking.grp.kcon">Facial — K-Contour</span>
+                <div class="service-options">
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="K-Contour — V-Line Facial" data-duration="70" data-price="170">
+                    <div><span class="service-name">V-Line Facial</span><br><span class="service-meta">70 min</span></div>
+                    <span class="service-price">$170</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="K-Contour — Balanced Contour Facial" data-duration="70" data-price="180">
+                    <div><span class="service-name">Balanced Contour Facial</span><br><span class="service-meta">70 min</span></div>
+                    <span class="service-price">$180</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="service-group">
+                <span class="service-group-label" data-i18n="booking.grp.kaylees">Body Massage — Kaylee's Touch</span>
+                <div class="service-options">
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Kaylee's Touch — Advanced Body Massage" data-duration="90" data-price="160">
+                    <div><span class="service-name">Advanced Body Massage</span><br><span class="service-meta">90 min</span></div>
+                    <span class="service-price">$160</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Kaylee's Touch — Essential Body Massage" data-duration="60" data-price="120">
+                    <div><span class="service-name">Essential Body Massage</span><br><span class="service-meta">60 min</span></div>
+                    <span class="service-price">$120</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Kaylee's Touch — Relax Body Massage" data-duration="45" data-price="100">
+                    <div><span class="service-name">Relax Body Massage</span><br><span class="service-meta">45 min</span></div>
+                    <span class="service-price">$100</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="service-group">
+                <span class="service-group-label" data-i18n="booking.grp.bb">Body Massage — Bamboo Body Therapy</span>
+                <div class="service-options">
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Bamboo Body — Shoulder & Arm Lift" data-duration="45" data-price="105">
+                    <div><span class="service-name">Shoulder & Arm Lift</span><br><span class="service-meta">45 min</span></div>
+                    <span class="service-price">$105</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Bamboo Body — Light Legs" data-duration="50" data-price="110">
+                    <div><span class="service-name">Light Legs</span><br><span class="service-meta">50 min</span></div>
+                    <span class="service-price">$110</span>
+                  </label>
+                  <label class="service-option">
+                    <input type="checkbox" name="service" value="Bamboo Body — Deep Back Relief" data-duration="50" data-price="110">
+                    <div><span class="service-name">Deep Back Relief</span><br><span class="service-meta">50 min</span></div>
+                    <span class="service-price">$110</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Selection summary bar -->
+              <div id="selectionBar" style="display:none; margin: 16px 0 4px; padding: 14px 18px; background: var(--beige); border-radius: 12px; border: 1px solid var(--beige-dark);">
+                <div id="selectionBarText" style="font-size: 14px; color: var(--text-dark); line-height: 1.6;"></div>
+              </div>
+
+              <div class="step-actions">
+                <span></span>
+                <button class="btn btn-primary" id="toStep2" disabled data-i18n="booking.btn.next2">Next — Pick a Date →</button>
+              </div>
+            </div>
+
+            <!-- Step 2: Date Selection -->
+            <div class="step-panel" id="panel-2">
+              <h3 data-i18n="booking.s2.h3">Pick a Date</h3>
+              <p class="step-desc" data-i18n="booking.s2.desc">Available on Mon, Wed, Fri & Sat.</p>
+
+              <div class="calendar" id="calendar"></div>
+
+              <div class="step-actions">
+                <button class="btn-back" onclick="goToStep(1)">&larr; Back</button>
+                <button class="btn btn-primary" id="toStep3" disabled data-i18n="booking.btn.next3">Next — Pick a Time →</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Time Selection -->
+            <div class="step-panel" id="panel-3">
+              <h3 data-i18n="booking.s3.h3">Pick a Time</h3>
+              <p class="step-desc" id="timeDesc">Available slots for your selected date.</p>
+              <div id="timeSlots"><div class="slots-loading">Loading available times...</div></div>
+
+              <div class="step-actions">
+                <button class="btn-back" onclick="goToStep(2)">&larr; Back</button>
+                <button class="btn btn-primary" id="toStep4" disabled data-i18n="booking.btn.next4">Next — Your Info →</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Personal Info -->
+            <div class="step-panel" id="panel-4">
+              <h3 data-i18n="booking.s4.h3">Your Information</h3>
+              <p class="step-desc" data-i18n="booking.s4.desc">Almost done — just a few details.</p>
+
+              <!-- 재방문 손님 감지 배너 -->
+              <div id="returningBanner" style="display:none; background:var(--green-light); border:1px solid var(--green-mid); border-radius:12px; padding:14px 18px; margin-bottom:20px; display:none; justify-content:space-between; align-items:center; gap:12px;">
+                <span style="font-size:14px; color:var(--green-dark);">👋 Welcome back, <strong id="returningName"></strong>! Your info has been filled in.</span>
+                <button onclick="clearSavedInfo()" style="background:none; border:none; font-size:12px; color:var(--text-light); cursor:pointer; white-space:nowrap; text-decoration:underline;">Not you?</button>
+              </div>
+
+              <div class="booking-summary" id="bookingSummary"></div>
+
+              <div class="form-group">
+                <label for="clientName" data-i18n="booking.label.name">Full Name *</label>
+                <input type="text" id="clientName" placeholder="Your full name" data-i18n-ph="booking.ph.name" required />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="clientPhone" data-i18n="booking.label.phone">Phone *</label>
+                  <input type="tel" id="clientPhone" placeholder="604-XXX-XXXX" required />
+                </div>
+                <div class="form-group">
+                  <label for="clientDob" data-i18n="booking.label.dob">Date of Birth *</label>
+                  <input type="date" id="clientDob" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="clientEmail" data-i18n="booking.label.email">Email *</label>
+                <input type="email" id="clientEmail" placeholder="your@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="clientReferral" data-i18n="booking.label.ref">How did you hear about me? *</label>
+                <select id="clientReferral" required>
+                  <option value="" disabled selected data-i18n="booking.select">Select an option</option>
+                  <option data-i18n="booking.ref.ig">Instagram (@kaylees_van)</option>
+                  <option data-i18n="booking.ref.google">Google Search</option>
+                  <option data-i18n="booking.ref.friend">Friend / Word of Mouth</option>
+                  <option data-i18n="booking.ref.ret">Returning Client</option>
+                  <option data-i18n="booking.ref.other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="clientNotes" data-i18n="booking.label.notes">Notes</label>
+                <textarea id="clientNotes" placeholder="Skin concerns, allergies, or anything we should know..." data-i18n-ph="booking.ph.notes"></textarea>
+              </div>
+
+              <!-- 크레딧 결제 옵션 (로그인 시) -->
+              <div id="creditPayOption" style="display:none; margin-bottom:20px; padding:16px 20px; background:var(--green-light); border:1px solid var(--green-mid); border-radius:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+                  <div>
+                    <div style="font-size:14px; color:var(--green-dark); font-weight:700;">💚 Pay with Credits</div>
+                    <div id="creditBalanceNote" style="font-size:13px; color:var(--text-light); margin-top:2px;"></div>
+                  </div>
+                  <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; color:var(--text-dark);">
+                    <input type="checkbox" id="useCreditsCheck" style="width:16px;height:16px;accent-color:var(--green-dark);">
+                    Use my credits
+                  </label>
+                </div>
+              </div>
+
+              <div class="step-actions">
+                <button class="btn-back" onclick="goToStep(3)">&larr; Back</button>
+                <button class="btn btn-primary" id="submitBooking" onclick="submitBooking()">Proceed to Payment →</button>
+              </div>
+            </div>
+
+            <!-- Success -->
+            <div class="booking-success" id="bookingSuccess">
+              <div class="success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h3 data-i18n="booking.ok.h3">Request Received!</h3>
+              <p data-i18n="booking.ok.p">Thank you! We'll review and confirm your appointment shortly. A confirmation email will be sent to you once approved.</p>
+              <a href="index.html" class="btn btn-outline" style="margin-top: 28px;" data-i18n="booking.ok.back">Back to Home</a>
+            </div>
+
+          </div><!-- end wizard -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Kaylees</div>
+          <p class="footer-tagline">K-beauty massage & skincare in Metro Vancouver. Natural, warm, and authentic — every session.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#facial">Bamboo Skincare Therapy</a></li>
+            <li><a href="services.html#kcontour">K-Contour Facial</a></li>
+            <li><a href="services.html#body">Kaylee's Touch</a></li>
+            <li><a href="services.html#bamboo-body">Bamboo Body Therapy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="https://www.instagram.com/kaylees_van/" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            4501 North Rd.<br>Burnaby, BC<br><br>
+            <a href="https://www.instagram.com/kaylees_van/" target="_blank" style="color:inherit;">DM on Instagram</a><br>
+            English &amp; 한국어
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 Kaylees Massage &amp; Skincare. All rights reserved.</span>
+        <span>Metro Vancouver, BC</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/i18n.js"></script>
+  <script>
+  // =============================================
+  // ⚙️ APPS_SCRIPT_URL은 main.js에 정의되어 있음
+  // =============================================
+
+  // 예약 가능 요일 (0=일, 1=월, 3=수, 5=금, 6=토)
+  const AVAILABLE_DAYS = [1, 3, 5, 6];
+
+  // =============================================
+  // STATE
+  // =============================================
+  let selectedServices = []; // [{ value, duration, price }, ...]
+  let selectedService  = null; // combined string for submission
+  let selectedDuration = null; // combined duration
+  let selectedDate     = null;
+  let selectedTime     = null;
+  let currentYear, currentMonth;
+
+  // =============================================
+  // STEP NAVIGATION
+  // =============================================
+  function goToStep(n) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`panel-${n}`).classList.add('active');
+
+    document.querySelectorAll('.step').forEach((s, i) => {
+      s.classList.remove('active', 'done');
+      if (i + 1 < n)  s.classList.add('done');
+      if (i + 1 === n) s.classList.add('active');
+    });
+
+    if (n === 2) renderCalendar();
+    if (n === 3) loadTimeSlots();
+    if (n === 4) renderSummary();
+  }
+
+  // =============================================
+  // STEP 1 — Service Selection (최대 2개 체크박스)
+  // =============================================
+  document.querySelectorAll('.service-option').forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      // 라벨 클릭 시 체크박스 토글
+      const cb = opt.querySelector('input[type="checkbox"]');
+
+      // 체크 해제인 경우는 항상 허용
+      if (!cb.checked) {
+        // 이미 2개 선택된 경우 추가 선택 차단
+        if (selectedServices.length >= 2) {
+          e.preventDefault();
+          return;
+        }
+      }
+
+      // 상태 업데이트는 브라우저가 체크 처리 후 실행
+      setTimeout(updateServiceSelection, 0);
+    });
+  });
+
+  function updateServiceSelection() {
+    const checkboxes = document.querySelectorAll('input[name="service"]');
+    selectedServices = [];
+
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        selectedServices.push({
+          value:    cb.value,
+          duration: parseInt(cb.dataset.duration),
+          price:    parseInt(cb.dataset.price)
+        });
+      }
+    });
+
+    // 선택된 라벨 스타일 업데이트
+    document.querySelectorAll('.service-option').forEach(opt => {
+      const cb = opt.querySelector('input[type="checkbox"]');
+      opt.classList.toggle('selected', cb.checked);
+    });
+
+    // 2개 이미 선택 시 나머지 흐리게 처리
+    const maxReached = selectedServices.length >= 2;
+    document.querySelectorAll('.service-option').forEach(opt => {
+      const cb = opt.querySelector('input[type="checkbox"]');
+      if (maxReached && !cb.checked) {
+        opt.style.opacity = '0.4';
+        opt.style.pointerEvents = 'none';
+      } else {
+        opt.style.opacity = '';
+        opt.style.pointerEvents = '';
+      }
+    });
+
+    // 합산 계산
+    const totalDuration = selectedServices.reduce((sum, s) => sum + s.duration, 0);
+    const totalPrice    = selectedServices.reduce((sum, s) => sum + s.price, 0);
+
+    // 선택 요약 바 업데이트
+    const bar  = document.getElementById('selectionBar');
+    const text = document.getElementById('selectionBarText');
+
+    if (selectedServices.length === 0) {
+      bar.style.display = 'none';
+    } else {
+      bar.style.display = 'block';
+      const names = selectedServices.map(s => s.value.split(' — ')[1] || s.value).join(' + ');
+      text.innerHTML = selectedServices.length === 2
+        ? `<strong>${names}</strong><br><span style="color:var(--text-light);">Total: ${totalDuration} min &nbsp;·&nbsp; $${totalPrice}</span>`
+        : `<strong>${names}</strong><br><span style="color:var(--text-light);">${totalDuration} min &nbsp;·&nbsp; $${totalPrice} &nbsp;·&nbsp; You can add one more service</span>`;
+    }
+
+    // 상태 업데이트
+    selectedService  = selectedServices.map(s => s.value).join(' + ');
+    selectedDuration = totalDuration;
+    document.getElementById('toStep2').disabled = selectedServices.length === 0;
+  }
+
+  document.getElementById('toStep2').addEventListener('click', () => goToStep(2));
+  document.getElementById('toStep3').addEventListener('click', () => goToStep(3));
+  document.getElementById('toStep4').addEventListener('click', () => goToStep(4));
+
+  // =============================================
+  // STEP 2 — Calendar
+  // =============================================
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  currentYear  = today.getFullYear();
+  currentMonth = today.getMonth();
+
+  function renderCalendar() {
+    const cal = document.getElementById('calendar');
+    const monthNames = ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
+    const dayNames   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    const firstDay  = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    let html = `
+      <div class="calendar-nav">
+        <button class="cal-nav-btn" id="calPrev">&#8592;</button>
+        <span class="cal-month">${monthNames[currentMonth]} ${currentYear}</span>
+        <button class="cal-nav-btn" id="calNext">&#8594;</button>
+      </div>
+      <div class="cal-grid">
+        ${dayNames.map(d => `<div class="cal-dow">${d}</div>`).join('')}
+        ${Array(firstDay).fill('<div class="cal-day empty"></div>').join('')}
+    `;
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date    = new Date(currentYear, currentMonth, d);
+      const dow     = date.getDay();
+      const isToday = date.getTime() === today.getTime();
+      const isPast  = date < today;
+      const isAvail = AVAILABLE_DAYS.includes(dow) && !isPast;
+      const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const isSelected = dateStr === selectedDate;
+
+      let cls = 'cal-day';
+      if (isAvail)    cls += ' available';
+      else            cls += ' disabled';
+      if (isToday)    cls += ' today';
+      if (isSelected) cls += ' selected';
+
+      html += `<div class="${cls}" data-date="${dateStr}">${d}</div>`;
+    }
+
+    html += '</div>';
+    cal.innerHTML = html;
+
+    // Day click
+    cal.querySelectorAll('.cal-day.available').forEach(cell => {
+      cell.addEventListener('click', () => {
+        cal.querySelectorAll('.cal-day').forEach(c => c.classList.remove('selected'));
+        cell.classList.add('selected');
+        selectedDate = cell.dataset.date;
+        selectedTime = null;
+        document.getElementById('toStep3').disabled = false;
+      });
+    });
+
+    // Month nav
+    document.getElementById('calPrev').addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+      renderCalendar();
+    });
+    document.getElementById('calNext').addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+      renderCalendar();
+    });
+  }
+
+  // =============================================
+  // STEP 3 — Time Slots
+  // =============================================
+  function loadTimeSlots() {
+    const container = document.getElementById('timeSlots');
+    const dateObj = new Date(selectedDate + 'T00:00:00');
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('timeDesc').textContent =
+      dateObj.toLocaleDateString('en-US', options);
+
+    container.innerHTML = '<div class="slots-loading">Loading available times...</div>';
+    document.getElementById('toStep4').disabled = true;
+    selectedTime = null;
+
+    // Demo mode (Apps Script URL not yet set)
+    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+      renderTimeSlots(generateDemoSlots(), []);
+      return;
+    }
+
+    // Apps Script 직접 JSONP 호출 (Netlify Function 불필요)
+    const cbName = 'getSlotsCallback_' + Date.now();
+    const slotTimeout = setTimeout(function() {
+      delete window[cbName];
+      document.getElementById('slotsScript') && document.getElementById('slotsScript').remove();
+      container.innerHTML = '<div class="no-slots">Request timed out. Please try again.</div>';
+    }, 20000);
+
+    window[cbName] = function(data) {
+      clearTimeout(slotTimeout);
+      delete window[cbName];
+      document.getElementById('slotsScript') && document.getElementById('slotsScript').remove();
+      if (data.success && data.slots && data.slots.length > 0) {
+        renderTimeSlots(data.slots, []);
+      } else if (data.success) {
+        container.innerHTML = '<div class="no-slots">No available times for this date.<br>Please choose another day.</div>';
+      } else {
+        container.innerHTML = '<div class="no-slots">Error loading times.<br>Please try again.</div>';
+      }
+    };
+
+    const slotsScript = document.createElement('script');
+    slotsScript.id  = 'slotsScript';
+    slotsScript.src = `${APPS_SCRIPT_URL}?action=getSlots&date=${selectedDate}&duration=${selectedDuration}&callback=${cbName}`;
+    document.head.appendChild(slotsScript);
+  }
+
+  function generateDemoSlots() {
+    const slots = [];
+    const slotsNeeded = Math.ceil(selectedDuration / 30);
+    for (let h = 10; h < 19; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const endMin = (h * 60 + m) + slotsNeeded * 30;
+        if (endMin <= 19 * 60) {
+          slots.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+        }
+      }
+    }
+    return slots;
+  }
+
+  function renderTimeSlots(available, booked) {
+    const container = document.getElementById('timeSlots');
+
+    if (available.length === 0) {
+      container.innerHTML = '<div class="no-slots">No available times for this date.<br>Please choose another day.</div>';
+      return;
+    }
+
+    // Generate all slots and mark availability
+    const slotsNeeded = Math.ceil(selectedDuration / 30);
+    let html = '<div class="time-grid">';
+
+    for (let h = 10; h < 19; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const endMin = (h * 60 + m) + slotsNeeded * 30;
+        if (endMin > 19 * 60) continue;
+
+        const timeStr = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+        const display = formatTime(timeStr);
+        const isAvail = available.includes(timeStr);
+        const cls = isAvail ? 'time-slot' : 'time-slot booked';
+        html += `<button class="${cls}" data-time="${timeStr}">${display}</button>`;
+      }
+    }
+
+    html += '</div>';
+    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+      html += '<p style="text-align:center;margin-top:16px;font-size:12px;color:var(--text-light);">Demo mode — connect Apps Script to show real availability</p>';
+    }
+
+    container.innerHTML = html;
+
+    container.querySelectorAll('.time-slot:not(.booked)').forEach(btn => {
+      btn.addEventListener('click', () => {
+        container.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedTime = btn.dataset.time;
+        document.getElementById('toStep4').disabled = false;
+      });
+    });
+  }
+
+  function formatTime(t) {
+    const [h, m] = t.split(':').map(Number);
+    const suffix = h >= 12 ? 'pm' : 'am';
+    const h12    = h > 12 ? h - 12 : h === 0 ? 12 : h;
+    return `${h12}:${String(m).padStart(2,'0')}${suffix}`;
+  }
+
+  // =============================================
+  // STEP 4 — Summary + Submit
+  // =============================================
+  function renderSummary() {
+    const dateObj  = new Date(selectedDate + 'T00:00:00');
+    const dateStr  = dateObj.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+    const totalPrice = selectedServices.reduce((sum, s) => sum + s.price, 0);
+    const serviceNames = selectedServices.map(s => s.value).join('<br>+ ');
+    document.getElementById('bookingSummary').innerHTML =
+      `<strong>${serviceNames}</strong><br>${dateStr} at ${formatTime(selectedTime)} · ${selectedDuration} min · <strong style="color:var(--green-dark);">$${totalPrice}</strong>`;
+
+    // 저장된 손님 정보 불러오기
+    try {
+      const saved = JSON.parse(localStorage.getItem('kaylees_client') || 'null');
+      if (saved && saved.name) {
+        document.getElementById('clientName').value     = saved.name;
+        document.getElementById('clientPhone').value    = saved.phone;
+        document.getElementById('clientDob').value      = saved.dob;
+        document.getElementById('clientEmail').value    = saved.email;
+        document.getElementById('clientReferral').value = 'Returning Client';
+
+        const banner = document.getElementById('returningBanner');
+        document.getElementById('returningName').textContent = saved.name.split(' ')[0];
+        banner.style.display = 'flex';
+      }
+    } catch(e) {}
+
+    // 멤버십 크레딧 확인
+    try {
+      const session = JSON.parse(localStorage.getItem('kaylees_member') || 'null');
+      if (session && session.token) {
+        const creditDiv = document.getElementById('creditPayOption');
+        const noteDiv   = document.getElementById('creditBalanceNote');
+        creditDiv.style.display = 'block';
+        // 잔액 조회
+        jsonp(APPS_SCRIPT_URL, { action:'getMemberInfo', email:session.email, sessionToken:session.token }, function(res) {
+          if (res.success && res.member) {
+            const bal = res.member.creditBalance || 0;
+            const totalPrice = selectedServices.reduce((sum, s) => sum + s.price, 0);
+            if (bal >= totalPrice) {
+              noteDiv.textContent = `Your balance: ${bal} credits ($${bal}) — enough to cover this session`;
+            } else {
+              noteDiv.textContent = `Your balance: ${bal} credits — not enough for this session ($${totalPrice})`;
+              document.getElementById('useCreditsCheck').disabled = true;
+            }
+          }
+        });
+      }
+    } catch(e) {}
+  }
+
+  function clearSavedInfo() {
+    localStorage.removeItem('kaylees_client');
+    ['clientName','clientPhone','clientDob','clientEmail'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('clientReferral').value = '';
+    document.getElementById('returningBanner').style.display = 'none';
+  }
+
+  function submitBooking() {
+    const name     = document.getElementById('clientName').value.trim();
+    const phone    = document.getElementById('clientPhone').value.trim();
+    const dob      = document.getElementById('clientDob').value.trim();
+    const email    = document.getElementById('clientEmail').value.trim();
+    const referral = document.getElementById('clientReferral').value.trim();
+    const notes    = document.getElementById('clientNotes').value.trim();
+    const totalPrice = selectedServices.reduce((sum, s) => sum + s.price, 0);
+
+    if (!name || !phone || !dob || !email || !referral) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    const btn = document.getElementById('submitBooking');
+    btn.textContent = 'Processing...';
+    btn.disabled = true;
+
+    // 크레딧 결제 선택 시
+    const useCredits = document.getElementById('useCreditsCheck')?.checked;
+    if (useCredits) {
+      payWithCredits(name, phone, dob, email, referral, notes, totalPrice, btn);
+      return;
+    }
+
+    // Stripe 결제로 이동
+    // 예약 데이터 localStorage에 임시 저장 (결제 후 돌아왔을 때 사용)
+    const bookingData = {
+      date: selectedDate, time: selectedTime,
+      duration: selectedDuration, service: selectedService,
+      name, phone, dob, email, referral, notes, price: totalPrice
+    };
+    localStorage.setItem('kaylees_pending_booking', JSON.stringify(bookingData));
+
+    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+      setTimeout(showSuccess, 1200);
+      return;
+    }
+
+    // Stripe Checkout 세션 생성
+    jsonp(APPS_SCRIPT_URL, {
+      action:    'createBookingCheckoutSession',
+      service:   selectedService,
+      price:     totalPrice,
+      name:      name,
+      email:     email,
+      returnUrl: window.location.origin + '/booking.html'
+    }, function(res) {
+      if (res.success && res.url) {
+        window.location.href = res.url;
+      } else {
+        btn.disabled    = false;
+        btn.textContent = 'Proceed to Payment →';
+        alert(res.error || 'Payment setup failed. Please try again.');
+      }
+    });
+  }
+
+  function payWithCredits(name, phone, dob, email, referral, notes, price, btn) {
+    const session = JSON.parse(localStorage.getItem('kaylees_member') || 'null');
+    if (!session) { btn.disabled = false; btn.textContent = 'Proceed to Payment →'; return; }
+
+    jsonp(APPS_SCRIPT_URL, {
+      action: 'submitBooking',
+      date: selectedDate, time: selectedTime,
+      duration: selectedDuration, service: selectedService,
+      name, phone, dob, email, referral, notes
+    }, function(data) {
+      // 크레딧 차감
+      jsonp(APPS_SCRIPT_URL, {
+        action: 'useCredit',
+        admin_key: '', // admin action은 아니므로 별도 처리 필요 — 일단 일반 deductCredit 사용
+        email: email, amount: price, description: 'Session: ' + selectedService
+      }, function() {});
+      saveClientInfo(name, phone, dob, email, referral);
+      showSuccess();
+    });
+  }
+
+  // Stripe 결제 완료 후 돌아왔을 때 처리
+  (function checkBookingReturn() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('booking_paid');
+    const cancelled = params.get('booking_cancelled');
+
+    if (cancelled) {
+      // URL 클리어
+      history.replaceState({}, '', window.location.pathname);
+      return;
+    }
+
+    if (!sessionId) return;
+
+    // URL 클리어
+    history.replaceState({}, '', window.location.pathname);
+
+    const pending = JSON.parse(localStorage.getItem('kaylees_pending_booking') || 'null');
+    if (!pending) { showSuccess(); return; }
+
+    // 결제 확인 + 예약 저장
+    jsonp(APPS_SCRIPT_URL, {
+      action:    'confirmBookingPayment',
+      sessionId: sessionId,
+      date:      pending.date,
+      time:      pending.time,
+      duration:  pending.duration,
+      service:   pending.service,
+      name:      pending.name,
+      phone:     pending.phone,
+      dob:       pending.dob,
+      email:     pending.email,
+      referral:  pending.referral,
+      notes:     pending.notes,
+      price:     pending.price
+    }, function(res) {
+      localStorage.removeItem('kaylees_pending_booking');
+      saveClientInfo(pending.name, pending.phone, pending.dob, pending.email, pending.referral);
+      showSuccess();
+    });
+  })();
+
+  function saveClientInfo(name, phone, dob, email, referral) {
+    const info = { name, phone, dob, email, referral };
+    if (info.name) localStorage.setItem('kaylees_client', JSON.stringify(info));
+  }
+
+  function showSuccess() {
+    saveClientInfo(
+      document.getElementById('clientName')?.value?.trim() || '',
+      document.getElementById('clientPhone')?.value?.trim() || '',
+      document.getElementById('clientDob')?.value?.trim() || '',
+      document.getElementById('clientEmail')?.value?.trim() || '',
+      document.getElementById('clientReferral')?.value?.trim() || ''
+    );
+    document.getElementById('bookingWizard').querySelectorAll('.booking-steps, .step-panel').forEach(el => el.style.display = 'none');
+    document.getElementById('bookingSuccess').style.display = 'block';
+  }
+
+  // JSONP 헬퍼
+  function jsonp(url, params, cb) {
+    const cbName = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const qs = Object.entries({ ...params, callback: cbName })
+      .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
+    const script = document.createElement('script');
+    let done = false;
+    window[cbName] = function(data) {
+      done = true; delete window[cbName]; script.remove(); cb(data);
+    };
+    script.src = url + '?' + qs;
+    script.onerror = function() {
+      if (!done) { done = true; delete window[cbName]; script.remove(); cb({ success: false, error: 'Network error' }); }
+    };
+    document.head.appendChild(script);
+  }
+  </script>
+</body>
+</html>
