@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Kaylees</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { background: var(--beige); }
+
+    /* ---- Login ---- */
+    .admin-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .login-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .login-logo  { font-family: var(--font-script); font-size: 40px; color: var(--green-dark); margin-bottom: 4px; }
+    .login-sub   { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 32px; }
+    .admin-input {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--beige-dark); border-radius: var(--radius);
+      font-size: 15px; font-family: var(--font-body);
+      margin-bottom: 14px; outline: none; transition: border-color 0.2s;
+    }
+    .admin-input:focus { border-color: var(--green-mid); }
+    .login-error { color: #e05252; font-size: 13px; margin-top: -6px; margin-bottom: 12px; display: none; }
+
+    /* ---- Admin Shell ---- */
+    .admin-page  { display: none; min-height: 100vh; }
+    .admin-header {
+      background: var(--green-dark); color: var(--white);
+      padding: 0 32px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-logo  { font-family: var(--font-script); font-size: 26px; }
+    .admin-badge { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .admin-logout {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); cursor: pointer; background: none; border: none;
+      transition: color 0.2s;
+    }
+    .admin-logout:hover { color: var(--white); }
+
+    /* ---- Tabs ---- */
+    .admin-tabs {
+      background: var(--white);
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 0 32px;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .admin-tab {
+      padding: 15px 24px; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--text-light); cursor: pointer;
+      border-bottom: 2px solid transparent; white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .admin-tab.active { color: var(--green-dark); border-bottom-color: var(--green-dark); }
+    .admin-tab:hover:not(.active) { color: var(--text-mid); }
+
+    /* ---- Content ---- */
+    .admin-content { padding: 32px; max-width: 1100px; margin: 0 auto; }
+    .admin-panel   { display: none; }
+    .admin-panel.active { display: block; }
+
+    /* ---- Stat Cards ---- */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card { background: var(--white); border-radius: 14px; padding: 24px 20px; box-shadow: var(--shadow); text-align: center; }
+    .stat-num  { font-family: var(--font-serif); font-size: 44px; color: var(--green-dark); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-light); }
+
+    /* ---- Admin Cards ---- */
+    .admin-card { background: var(--white); border-radius: 16px; padding: 28px 32px; box-shadow: var(--shadow); margin-bottom: 24px; }
+    .admin-card h3 { font-family: var(--font-serif); font-size: 22px; color: var(--text-dark); margin-bottom: 6px; }
+    .admin-card .card-desc { font-size: 13px; color: var(--text-light); margin-bottom: 24px; line-height: 1.6; }
+
+    /* ---- Form Fields ---- */
+    .f-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-group { margin-bottom: 16px; }
+    .f-group label {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: 6px;
+    }
+    .f-group input, .f-group select, .f-group textarea {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--beige-dark); border-radius: var(--radius);
+      font-size: 14px; font-family: var(--font-body); outline: none;
+      transition: border-color 0.2s; background: var(--white);
+    }
+    .f-group input:focus, .f-group select:focus { border-color: var(--green-mid); }
+
+    /* ---- Toggle ---- */
+    .toggle-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .toggle { position: relative; width: 48px; height: 26px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0;
+      background: var(--beige-dark); border-radius: 26px; cursor: pointer; transition: 0.3s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 20px; height: 20px; left: 3px; top: 3px;
+      background: var(--white); border-radius: 50%; transition: 0.3s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--green-mid); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(22px); }
+    .toggle-label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+
+    /* ---- Color Picker ---- */
+    .color-options { display: flex; gap: 10px; margin-top: 4px; }
+    .color-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 3px solid transparent; cursor: pointer; transition: border-color 0.2s, transform 0.1s;
+    }
+    .color-btn:hover { transform: scale(1.1); }
+    .color-btn.selected { border-color: var(--text-dark); }
+    .color-btn.clr-green { background: #3D6347; }
+    .color-btn.clr-gold  { background: #C4A35A; }
+    .color-btn.clr-rose  { background: #b06070; }
+
+    /* ---- Banner Preview ---- */
+    .banner-preview { border-radius: 10px; overflow: hidden; margin-top: 8px; }
+    .bp-inner {
+      padding: 12px 24px; display: flex; align-items: center;
+      justify-content: center; gap: 16px; font-size: 14px;
+      font-family: var(--font-body);
+    }
+    .bp-inner.clr-green { background: #3D6347; color: #fff; }
+    .bp-inner.clr-gold  { background: #C4A35A; color: #2A2A2A; }
+    .bp-inner.clr-rose  { background: #b06070; color: #fff; }
+    .bp-cta {
+      background: rgba(255,255,255,0.22); padding: 4px 14px;
+      border-radius: 20px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+    }
+
+    /* ---- Save Button ---- */
+    .save-btn {
+      background: var(--green-dark); color: var(--white); border: none;
+      padding: 12px 28px; border-radius: var(--radius);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .save-btn:hover { background: var(--green-mid); }
+    .save-msg {
+      display: inline-block; margin-left: 14px; font-size: 13px;
+      font-weight: 700; opacity: 0; transition: opacity 0.3s;
+    }
+    .save-msg.show { opacity: 1; }
+
+    /* ---- Filter Bar ---- */
+    .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-bar select, .filter-bar input {
+      padding: 8px 12px; border: 1.5px solid var(--beige-dark);
+      border-radius: var(--radius); font-size: 13px; font-family: var(--font-body);
+      outline: none; background: var(--white);
+    }
+    .filter-bar input { flex: 1; min-width: 160px; }
+
+    /* ---- Tables ---- */
+    .table-wrap { overflow-x: auto; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .admin-table th {
+      text-align: left; padding: 10px 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--text-light); border-bottom: 1px solid var(--beige-dark); white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 12px 14px; border-bottom: 1px solid var(--beige-dark);
+      color: var(--text-dark); vertical-align: top;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: var(--beige); }
+
+    /* ---- Badges ---- */
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .badge-confirmed { background: #e3f5e8; color: #2d7a45; }
+    .badge-cancelled { background: #fde8e8; color: #c04040; }
+    .badge-pending   { background: #fff3e0; color: #d07000; }
+    .badge-approved  { background: #e3f5e8; color: #2d7a45; }
+    .badge-rejected  { background: #fde8e8; color: #c04040; }
+
+    /* ---- Action Buttons ---- */
+    .act-btn {
+      padding: 4px 11px; border-radius: 6px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.03em; cursor: pointer; border: none; transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .act-btn + .act-btn { margin-top: 4px; }
+    .act-btn:hover { opacity: 0.8; }
+    .act-approve { background: var(--green-mid); color: #fff; }
+    .act-reject  { background: #e05252; color: #fff; }
+    .act-cancel  { background: var(--beige-dark); color: var(--text-dark); }
+
+    /* ---- States ---- */
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); font-size: 14px; }
+    .loading-state { color: var(--text-light); font-size: 14px; padding: 24px 0; }
+    .review-body { max-width: 300px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+    .stars { color: var(--gold); letter-spacing: 1px; }
+
+    /* ---- Client Chart ---- */
+    .client-list-item {
+      padding: 10px 14px; border-radius: 10px; cursor: pointer;
+      display: flex; align-items: center; gap: 12px; transition: background 0.15s;
+    }
+    .client-list-item:hover  { background: var(--beige); }
+    .client-list-item.active { background: var(--green-light); }
+    .client-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--green-mid); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 16px; font-weight: 700;
+      flex-shrink: 0; text-transform: uppercase;
+    }
+    .client-list-name { font-weight: 600; font-size: 14px; line-height: 1.3; }
+    .client-list-meta { font-size: 12px; color: var(--text-light); }
+
+    .chart-area-wrap { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+    .chart-diagram   { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .chart-diagram h4 {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); margin: 0;
+    }
+    .chart-svg-wrap {
+      border: 1.5px solid var(--beige-dark); border-radius: 12px;
+      padding: 14px 18px; background: var(--white); cursor: crosshair;
+      user-select: none;
+    }
+    .chart-marker { cursor: pointer; transition: opacity 0.15s; }
+    .chart-marker:hover { opacity: 0.4 !important; }
+    .chart-hint { font-size: 11px; color: var(--text-light); text-align: center; margin-top: 4px; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 720px) {
+      .admin-content { padding: 16px; }
+      .admin-header  { padding: 0 16px; }
+      .f-row2        { grid-template-columns: 1fr; }
+      .admin-card    { padding: 20px; }
+      .stat-num      { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= LOGIN ======= -->
+  <div class="admin-login" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">Kaylees</div>
+      <div class="login-sub">Admin Dashboard</div>
+      <input type="password" class="admin-input" id="adminKeyInput" placeholder="Admin password" />
+      <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+      <button class="btn btn-primary" style="width:100%; padding:13px;" onclick="doLogin()">Sign In</button>
+    </div>
+  </div>
+
+  <!-- ======= ADMIN PAGE ======= -->
+  <div class="admin-page" id="adminPage">
+
+    <div class="admin-header">
+      <div class="admin-logo">Kaylees</div>
+      <div class="admin-badge">Admin</div>
+      <button class="admin-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="switchTab('overview')">Overview</div>
+      <div class="admin-tab" onclick="switchTab('banner')">Promo Banner</div>
+      <div class="admin-tab" onclick="switchTab('bookings')">Bookings</div>
+      <div class="admin-tab" onclick="switchTab('reviews')">Reviews</div>
+      <div class="admin-tab" onclick="switchTab('clients')">Clients</div>
+      <div class="admin-tab" onclick="switchTab('journal')">Journal</div>
+      <div class="admin-tab" onclick="switchTab('membership')">Membership 💳</div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ======= OVERVIEW ======= -->
+      <div class="admin-panel active" id="panel-overview">
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="s-today">—</div>
+            <div class="stat-label">Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-week">—</div>
+            <div class="stat-label">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-total">—</div>
+            <div class="stat-label">All Bookings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-reviews">—</div>
+            <div class="stat-label">Pending Reviews</div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Upcoming Bookings</h3>
+          <div id="upcomingWrap" class="loading-state">Loading…</div>
+        </div>
+
+      </div>
+
+      <!-- ======= BANNER ======= -->
+      <div class="admin-panel" id="panel-banner">
+        <div class="admin-card">
+          <h3>Promotion Banner</h3>
+          <p class="card-desc">배너가 활성화되면 웹사이트 모든 페이지 상단에 자동으로 표시됩니다. 만료일을 설정하면 해당 날짜 이후 자동으로 숨겨집니다.</p>
+
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="bannerActive" onchange="updatePreview()" />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="toggleLabel">Banner Off</span>
+          </div>
+
+          <div class="f-row2">
+            <div class="f-group">
+              <label>Title (굵게 표시)</label>
+              <input type="text" id="bannerTitle" placeholder="e.g. May Special" oninput="updatePreview()" />
+            </div>
+            <div class="f-group">
+              <label>CTA Button Text</label>
+              <input type="text" id="bannerCta" placeholder="Book Now" oninput="updatePreview()" />
+            </div>
+          </div>
+
+          <div class="f-group">
+            <label>Description</label>
+            <input type="text" id="bannerText" placeholder="e.g. 20% off all facials this month — limited spots available." oninput="updatePreview()" />
+          </div>
+
+          <div class="f-row2">
+            <div class="f-group">
+              <label>Color</label>
+              <div class="color-options">
+                <div class="color-btn clr-green selected" onclick="selectColor('green',this)" title="Green"></div>
+                <div class="color-btn clr-gold"  onclick="selectColor('gold',this)"  title="Gold"></div>
+                <div class="color-btn clr-rose"  onclick="selectColor('rose',this)"  title="Rose"></div>
+              </div>
+              <input type="hidden" id="bannerColor" value="green" />
+            </div>
+            <div class="f-group">
+              <label>Expiry Date (선택)</label>
+              <input type="date" id="bannerExpiry" />
+            </div>
+          </div>
+
+          <div class="f-group">
+            <label>Preview</label>
+            <div class="banner-preview">
+              <div class="bp-inner clr-green" id="bannerPreview">
+                <span><strong>May Special</strong> — Enter your promotion description here.</span>
+                <span class="bp-cta">Book Now</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; display:flex; align-items:center;">
+            <button class="save-btn" onclick="saveBanner()">Save Banner</button>
+            <span class="save-msg" id="bannerMsg"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= BOOKINGS ======= -->
+      <div class="admin-panel" id="panel-bookings">
+        <div class="admin-card">
+          <h3>All Bookings</h3>
+          <div class="filter-bar">
+            <select id="bFilter" onchange="renderBookings()">
+              <option value="all">All</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="past">Past</option>
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+            <input type="text" id="bSearch" placeholder="Search name, service, email…" oninput="renderBookings()" />
+          </div>
+          <div class="table-wrap" id="bookingsWrap">
+            <div class="loading-state">Loading…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= REVIEWS ======= -->
+      <div class="admin-panel" id="panel-reviews">
+        <div class="admin-card">
+          <h3>Review Queue</h3>
+          <p class="card-desc">사이트 리뷰 폼을 통해 제출된 리뷰입니다. 승인된 리뷰는 <code>reviews.html</code>에 직접 복사해서 추가하세요.</p>
+          <div class="filter-bar">
+            <select id="rFilter" onchange="renderReviews()">
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+              <option value="all">All</option>
+            </select>
+          </div>
+          <div class="table-wrap" id="reviewsWrap">
+            <div class="loading-state">Loading…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= CLIENTS ======= -->
+      <div class="admin-panel" id="panel-clients">
+        <div style="display:grid; grid-template-columns:270px 1fr; gap:20px; align-items:start;">
+
+          <!-- Left: Client List -->
+          <div class="admin-card" style="padding:20px;">
+            <h3 style="margin-bottom:12px;">Clients</h3>
+            <input type="text" id="clientSearch" placeholder="Search name or phone…" oninput="filterClients()"
+              style="width:100%; padding:8px 12px; border:1.5px solid var(--beige-dark); border-radius:var(--radius); font-size:13px; font-family:var(--font-body); outline:none; margin-bottom:10px; box-sizing:border-box;"/>
+            <div id="clientListWrap" style="max-height:65vh; overflow-y:auto;">
+              <div class="loading-state">Loading…</div>
+            </div>
+          </div>
+
+          <!-- Right: Client Detail -->
+          <div id="clientDetail" style="display:none;">
+
+            <!-- Info Card -->
+            <div class="admin-card" style="margin-bottom:20px;">
+              <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div class="client-avatar" id="detailAvatar" style="width:52px;height:52px;font-size:20px;"></div>
+                <div>
+                  <div style="font-family:var(--font-serif); font-size:22px; margin-bottom:2px;" id="detailName"></div>
+                  <div style="font-size:13px; color:var(--text-light);" id="detailContact"></div>
+                </div>
+                <div class="stat-card" style="padding:10px 18px; margin-left:auto; text-align:center;">
+                  <div class="stat-num" style="font-size:32px;" id="detailVisits">0</div>
+                  <div class="stat-label">Visits</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:32px; flex-wrap:wrap; font-size:13px; color:var(--text-mid); line-height:2;">
+                <div id="detailDates"></div>
+                <div>
+                  <div style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-bottom:4px;">Services</div>
+                  <div id="detailServices" style="font-size:12px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visit History -->
+            <div class="admin-card" style="margin-bottom:20px;">
+              <h3 style="margin-bottom:14px;">Visit History</h3>
+              <div class="table-wrap" id="visitHistoryWrap"></div>
+            </div>
+
+            <!-- Treatment Charts -->
+            <div class="admin-card" style="margin-bottom:20px;">
+              <h3 style="margin-bottom:4px;">Treatment Chart</h3>
+              <p style="font-size:13px; color:var(--text-light); margin-bottom:20px;">클릭하여 시술 부위 표시 · 마커 클릭 시 삭제</p>
+              <div class="chart-area-wrap">
+
+                <!-- BODY SVG -->
+                <div class="chart-diagram">
+                  <h4>Body</h4>
+                  <div class="chart-svg-wrap">
+                    <svg id="bodyChart" viewBox="0 0 160 470" xmlns="http://www.w3.org/2000/svg" style="width:130px;height:383px;display:block;">
+                      <g stroke="#5c6f5e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- HEAD -->
+                        <ellipse cx="80" cy="38" rx="24" ry="28"/>
+                        <!-- HAIR arc -->
+                        <path d="M60,22 C64,6 76,3 80,3 C84,3 96,6 100,22"/>
+                        <!-- EARS -->
+                        <path d="M56,35 C51,37 48,43 48,50 C48,57 51,63 56,65"/>
+                        <path d="M104,35 C109,37 112,43 112,50 C112,57 109,63 104,65"/>
+                        <!-- NECK -->
+                        <path d="M70,64 C70,72 69,82 68,90"/>
+                        <path d="M90,64 C90,72 91,82 92,90"/>
+                        <!-- COLLARBONE -->
+                        <path d="M68,90 C72,96 80,98 92,90"/>
+                        <!-- SHOULDERS -->
+                        <path d="M68,90 C58,93 42,104 30,118 C24,127 20,140 20,155"/>
+                        <path d="M92,90 C102,93 118,104 130,118 C136,127 140,140 140,155"/>
+                        <!-- LEFT ARM outer -->
+                        <path d="M20,155 C17,178 15,206 16,232 C17,246 18,256 20,265"/>
+                        <!-- LEFT ARM inner -->
+                        <path d="M42,108 C40,138 38,170 38,200 C38,218 39,236 40,252"/>
+                        <!-- LEFT HAND -->
+                        <path d="M20,265 C18,275 20,283 27,285 L39,285 C43,284 43,278 40,268"/>
+                        <!-- RIGHT ARM outer -->
+                        <path d="M140,155 C143,178 145,206 144,232 C143,246 142,256 140,265"/>
+                        <!-- RIGHT ARM inner -->
+                        <path d="M118,108 C120,138 122,170 122,200 C122,218 121,236 120,252"/>
+                        <!-- RIGHT HAND -->
+                        <path d="M140,265 C142,275 140,283 133,285 L121,285 C117,284 117,278 120,268"/>
+                        <!-- LEFT TORSO side -->
+                        <path d="M42,108 C44,120 48,134 48,148 C48,162 44,173 42,186 C40,200 42,218 48,234"/>
+                        <!-- RIGHT TORSO side -->
+                        <path d="M118,108 C116,120 112,134 112,148 C112,162 116,173 118,186 C120,200 118,218 112,234"/>
+                        <!-- BUST (subtle) -->
+                        <path d="M48,130 C56,140 66,145 72,141 C77,137 80,130 80,126"/>
+                        <path d="M112,130 C104,140 94,145 88,141 C83,137 80,130 80,126"/>
+                        <!-- CENTER LINE dashed -->
+                        <line x1="80" y1="100" x2="80" y2="240" stroke-dasharray="2,5" stroke-width="0.8"/>
+                        <!-- NAVEL -->
+                        <circle cx="80" cy="220" r="2.5" stroke-width="1.2"/>
+                        <!-- WAIST TO HIPS -->
+                        <path d="M48,234 C44,252 44,272 54,290 C62,303 72,308 80,310 C88,308 98,303 106,290 C116,272 116,252 112,234"/>
+                        <!-- LEFT LEG outer -->
+                        <path d="M54,290 C50,318 48,350 47,382 L46,406"/>
+                        <!-- LEFT LEG inner -->
+                        <path d="M72,308 C71,336 70,364 70,390 L70,406"/>
+                        <!-- LEFT KNEE CAP -->
+                        <path d="M50,406 C53,401 58,399 64,400 C69,402 70,407 67,412 C63,416 53,416 49,412 C47,409 48,407 50,406 Z" stroke-width="1"/>
+                        <!-- LEFT LOWER LEG outer -->
+                        <path d="M46,406 C44,422 43,440 44,456 L45,462"/>
+                        <!-- LEFT LOWER LEG inner -->
+                        <path d="M70,406 C70,422 70,440 70,456 L70,462"/>
+                        <!-- LEFT FOOT -->
+                        <path d="M45,462 C43,468 39,470 33,470 L20,470 C16,468 16,464 20,462"/>
+                        <path d="M70,462 C72,467 72,469 70,470"/>
+                        <!-- RIGHT LEG outer -->
+                        <path d="M106,290 C110,318 112,350 113,382 L114,406"/>
+                        <!-- RIGHT LEG inner -->
+                        <path d="M88,308 C89,336 90,364 90,390 L90,406"/>
+                        <!-- RIGHT KNEE CAP -->
+                        <path d="M92,406 C95,401 100,399 106,400 C111,402 112,407 109,412 C105,416 95,416 91,412 C89,409 90,407 92,406 Z" stroke-width="1"/>
+                        <!-- RIGHT LOWER LEG outer -->
+                        <path d="M114,406 C116,422 117,440 116,456 L115,462"/>
+                        <!-- RIGHT LOWER LEG inner -->
+                        <path d="M90,406 C90,422 90,440 90,456 L90,462"/>
+                        <!-- RIGHT FOOT -->
+                        <path d="M115,462 C117,468 121,470 127,470 L140,470 C144,468 144,464 140,462"/>
+                        <path d="M90,462 C88,467 88,469 90,470"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="chart-hint">Click to mark · Click marker to remove</p>
+                </div>
+
+                <!-- FACE SVG -->
+                <div class="chart-diagram">
+                  <h4>Face</h4>
+                  <div class="chart-svg-wrap">
+                    <svg id="faceChart" viewBox="0 0 180 230" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:205px;display:block;">
+                      <g stroke="#5c6f5e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- HAIR / HEAD silhouette -->
+                        <path d="M44,90 C42,62 56,28 74,15 C80,10 90,8 90,8 C90,8 100,10 106,15 C124,28 138,62 136,90"/>
+                        <path d="M62,16 C70,6 80,3 90,3 C100,3 110,6 118,16"/>
+                        <path d="M44,90 C40,110 40,132 42,150"/>
+                        <path d="M136,90 C140,110 140,132 138,150"/>
+                        <!-- FACE OUTLINE -->
+                        <path d="M46,98 C44,118 46,142 54,164 C62,186 74,206 84,216 C87,219 90,221 90,221 C90,221 93,219 96,216 C106,206 118,186 126,164 C134,142 136,118 134,98 C130,80 116,72 90,72 C64,72 50,80 46,98 Z"/>
+                        <!-- EARS -->
+                        <path d="M46,112 C40,114 36,120 36,128 C36,136 40,142 46,144"/>
+                        <path d="M44,117 C40,120 38,124 38,130 C38,136 40,140 44,142"/>
+                        <path d="M134,112 C140,114 144,120 144,128 C144,136 140,142 134,144"/>
+                        <path d="M136,117 C140,120 142,124 142,130 C142,136 140,140 136,142"/>
+                        <!-- EYEBROWS -->
+                        <path d="M58,108 C66,102 75,100 85,103" stroke-width="2.2" stroke-linecap="round"/>
+                        <path d="M95,103 C105,100 114,102 122,108" stroke-width="2.2" stroke-linecap="round"/>
+                        <!-- LEFT EYE -->
+                        <path d="M58,124 C64,117 74,115 83,118 C89,121 91,126 89,131 C83,136 65,136 59,131 C56,128 57,125 58,124 Z"/>
+                        <circle cx="74" cy="125" r="6" stroke-width="1.2"/>
+                        <circle cx="74" cy="125" r="2.5" fill="#5c6f5e" stroke="none"/>
+                        <circle cx="76" cy="123" r="1" fill="white" stroke="none"/>
+                        <path d="M58,124 C62,118 68,115 74,114" stroke-width="1.5"/>
+                        <path d="M84,117 C87,116 89,117 91,120" stroke-width="1.5"/>
+                        <!-- RIGHT EYE -->
+                        <path d="M89,124 C95,117 106,115 115,118 C121,121 122,126 120,131 C114,136 97,136 91,131 C88,128 88,125 89,124 Z"/>
+                        <circle cx="106" cy="125" r="6" stroke-width="1.2"/>
+                        <circle cx="106" cy="125" r="2.5" fill="#5c6f5e" stroke="none"/>
+                        <circle cx="108" cy="123" r="1" fill="white" stroke="none"/>
+                        <path d="M89,124 C93,118 100,115 106,114" stroke-width="1.5"/>
+                        <path d="M116,117 C119,116 121,117 122,120" stroke-width="1.5"/>
+                        <!-- NOSE bridge -->
+                        <path d="M82,114 C81,124 79,136 78,144"/>
+                        <path d="M98,114 C99,124 101,136 102,144"/>
+                        <!-- NOSE tip & nostrils -->
+                        <path d="M78,144 C80,152 84,156 90,156 C96,156 100,152 102,144"/>
+                        <path d="M78,144 C74,146 72,150 74,154 C76,158 80,158 82,154"/>
+                        <path d="M102,144 C106,146 108,150 106,154 C104,158 100,158 98,154"/>
+                        <path d="M74,154 C80,158 90,159 90,159 C90,159 100,158 106,154"/>
+                        <!-- PHILTRUM -->
+                        <path d="M86,162 C87,167 88,170 90,172" stroke-width="0.9" opacity="0.6"/>
+                        <path d="M94,162 C93,167 92,170 90,172" stroke-width="0.9" opacity="0.6"/>
+                        <!-- LIPS upper -->
+                        <path d="M68,176 C74,170 82,167 90,169 C98,167 106,170 112,176"/>
+                        <!-- Cupid's bow crease -->
+                        <path d="M68,176 C74,173 83,175 90,173 C97,175 106,173 112,176" stroke-width="0.9"/>
+                        <!-- LIPS lower -->
+                        <path d="M68,176 C72,186 80,194 90,194 C100,194 108,186 112,176"/>
+                        <!-- CHIN subtle -->
+                        <path d="M86,218 C88,222 92,222 94,218" stroke-width="0.9" opacity="0.45"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="chart-hint">Click to mark · Click marker to remove</p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Memo -->
+            <div class="admin-card">
+              <h3 style="margin-bottom:12px;">Notes & Memo</h3>
+              <textarea id="clientMemoInput" placeholder="피부 타입, 특이사항, 알레르기, 시술 강도 선호도 등…"
+                style="width:100%; min-height:120px; padding:12px; border:1.5px solid var(--beige-dark); border-radius:var(--radius); font-size:14px; font-family:var(--font-body); resize:vertical; outline:none; box-sizing:border-box;"></textarea>
+              <div style="display:flex; align-items:center; gap:16px; margin-top:16px;">
+                <button class="save-btn" onclick="saveCurrentChart()">Save Chart</button>
+                <span class="save-msg" id="chartSaveMsg"></span>
+              </div>
+            </div>
+
+          </div><!-- /clientDetail -->
+        </div>
+      </div>
+
+      <!-- ======= JOURNAL ======= -->
+      <div class="admin-panel" id="panel-journal">
+
+        <!-- Form (hidden by default) -->
+        <div id="journalFormWrap" style="display:none; margin-bottom:24px;">
+          <div class="admin-card">
+            <h3 id="journalFormTitle" style="margin-bottom:20px;">New Journal Entry</h3>
+            <input type="hidden" id="jRow" value="0"/>
+            <div class="f-row2">
+              <div class="f-group">
+                <label>Date</label>
+                <input type="date" id="jDate" class="admin-input"/>
+              </div>
+              <div class="f-group">
+                <label>Category</label>
+                <select id="jCategory" class="admin-input">
+                  <option>Body Massage</option>
+                  <option>Facial</option>
+                  <option>Skincare Guide</option>
+                  <option>Session Guide</option>
+                  <option>K-beauty</option>
+                  <option>Studio Life</option>
+                </select>
+              </div>
+            </div>
+            <div class="f-group">
+              <label>Title</label>
+              <input type="text" id="jTitle" class="admin-input" placeholder="e.g. Why Bamboo Tools Change Everything"/>
+            </div>
+            <div class="f-group">
+              <label>Excerpt <span style="font-weight:400; text-transform:none; font-size:11px; color:var(--text-light);">— 1–2 줄 요약 (카드 미리보기용)</span></label>
+              <textarea id="jExcerpt" class="admin-input" rows="2" style="resize:vertical;" placeholder="Short summary shown on the journal grid…"></textarea>
+            </div>
+            <div class="f-group">
+              <label>Content <span style="font-weight:400; text-transform:none; font-size:11px; color:var(--text-light);">— 빈 줄로 단락 구분</span></label>
+              <textarea id="jContent" class="admin-input" rows="10" style="resize:vertical;" placeholder="Write your full journal post here…&#10;&#10;Use a blank line to separate paragraphs."></textarea>
+            </div>
+            <div class="f-group">
+              <label>Image URL <span style="font-weight:400; text-transform:none; font-size:11px; color:var(--text-light);">— Google Drive 공유 링크 or 이미지 URL</span></label>
+              <input type="text" id="jImageUrl" class="admin-input" placeholder="https://drive.google.com/file/d/…/view  or  https://…/image.jpg"/>
+              <div style="font-size:11px; color:var(--text-light); margin-top:6px;">💡 Google Drive: 파일 우클릭 → 공유 → 링크 복사</div>
+              <div id="jImagePreview" style="margin-top:10px; display:none;">
+                <img id="jPreviewImg" src="" alt="preview" style="max-height:160px; border-radius:10px; object-fit:cover;"/>
+              </div>
+            </div>
+            <div class="f-group">
+              <label>Status</label>
+              <select id="jStatus" class="admin-input">
+                <option value="Draft">Draft — 비공개</option>
+                <option value="Published">Published — 공개</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:12px; align-items:center; margin-top:8px;">
+              <button class="save-btn" onclick="submitJournalForm()">Save Entry</button>
+              <button onclick="closeJournalForm()" style="background:none; border:none; color:var(--text-light); font-size:13px; cursor:pointer;">Cancel</button>
+              <span id="journalSaveMsg" class="save-msg"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="admin-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="margin:0;">Journal Entries</h3>
+            <button class="save-btn" onclick="openJournalForm(null)" style="padding:10px 20px;">+ New Entry</button>
+          </div>
+          <div class="table-wrap" id="journalListWrap">
+            <div class="loading-state">Loading…</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======= MEMBERSHIP ======= -->
+      <div class="admin-panel" id="panel-membership">
+
+        <!-- 크레딧 차감 카드 -->
+        <div class="admin-card" style="margin-bottom:24px;">
+          <h3>Deduct Credits (After Service)</h3>
+          <p class="card-desc">서비스 완료 후 고객 크레딧을 차감합니다. 이메일은 회원가입 이메일과 동일하게 입력하세요.</p>
+          <div class="f-row2" style="gap:16px;margin-bottom:16px;">
+            <div class="f-group">
+              <label class="f-label">Member Email</label>
+              <input type="email" class="f-input" id="deductEmail" placeholder="client@example.com" />
+            </div>
+            <div class="f-group">
+              <label class="f-label">Amount (credits)</label>
+              <input type="number" class="f-input" id="deductAmount" placeholder="e.g. 120" min="1" />
+            </div>
+          </div>
+          <div class="f-group" style="margin-bottom:16px;">
+            <label class="f-label">Service Description</label>
+            <input type="text" class="f-input" id="deductDesc" placeholder="e.g. Essential Body Massage 60min" />
+          </div>
+          <button class="f-btn" onclick="deductCredit()" style="background:#B91C1C;">Deduct Credits</button>
+          <div id="deductResult" style="margin-top:12px;font-size:13px;"></div>
+        </div>
+
+        <!-- 크레딧 수동 추가 -->
+        <div class="admin-card" style="margin-bottom:24px;">
+          <h3>Manual Credit Adjustment</h3>
+          <p class="card-desc">크레딧을 수동으로 추가하거나 조정합니다. 환불, 보너스 등에 사용하세요.</p>
+          <div class="f-row2" style="gap:16px;margin-bottom:16px;">
+            <div class="f-group">
+              <label class="f-label">Member Email</label>
+              <input type="email" class="f-input" id="adjustEmail" placeholder="client@example.com" />
+            </div>
+            <div class="f-group">
+              <label class="f-label">Amount (+ add / − deduct)</label>
+              <input type="number" class="f-input" id="adjustAmount" placeholder="e.g. 100 or -50" />
+            </div>
+          </div>
+          <div class="f-group" style="margin-bottom:16px;">
+            <label class="f-label">Reason / Note</label>
+            <input type="text" class="f-input" id="adjustDesc" placeholder="e.g. Refund, Bonus, Correction" />
+          </div>
+          <button class="f-btn" onclick="adjustCredit()">Apply Adjustment</button>
+          <div id="adjustResult" style="margin-top:12px;font-size:13px;"></div>
+        </div>
+
+        <!-- 회원 목록 -->
+        <div class="admin-card">
+          <h3>Members</h3>
+          <p class="card-desc">전체 회원 목록과 크레딧 잔액을 확인합니다.</p>
+          <div id="membersTableWrap">
+            <p style="color:var(--text-light);font-size:14px;">Loading…</p>
+          </div>
+        </div>
+
+        <!-- 전체 거래 내역 -->
+        <div class="admin-card" style="margin-top:24px;">
+          <h3>All Transactions</h3>
+          <p class="card-desc">전체 크레딧 거래 내역 (최신순)</p>
+          <div id="allTxTableWrap">
+            <p style="color:var(--text-light);font-size:14px;">Loading…</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-page -->
+
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6GKYUA0wjcSV0Kyayhk26BfRhR0Ry4iwe01ApAl6-vfWvPrT7YTFTtHVy3-XIw1Mz7g/exec';
+    const ADMIN_KEY = 'kaylees2026';
+
+    let allBookings = [];
+    let allReviews  = [];
+    let selColor    = 'green';
+
+    // =====================
+    // Login / Logout
+    // =====================
+    function doLogin() {
+      if (document.getElementById('adminKeyInput').value === ADMIN_KEY) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPage').style.display   = 'block';
+        loadAll();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+    document.getElementById('adminKeyInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+    function doLogout() {
+      document.getElementById('adminPage').style.display   = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('adminKeyInput').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+
+    // =====================
+    // Tab Switching
+    // =====================
+    const TAB_NAMES = ['overview','banner','bookings','reviews','clients','journal','membership'];
+    function switchTab(tab) {
+      document.querySelectorAll('.admin-tab').forEach((el, i) => {
+        el.classList.toggle('active', TAB_NAMES[i] === tab);
+      });
+      document.querySelectorAll('.admin-panel').forEach(el => el.classList.remove('active'));
+      document.getElementById('panel-' + tab).classList.add('active');
+      if (tab === 'journal')    loadJournal();
+      if (tab === 'membership') loadMembers();
+    }
+
+    // =====================
+    // JSONP Helper
+    // =====================
+    function jsonp(url, cb) {
+      const name = '_cb_' + Math.random().toString(36).slice(2);
+      window[name] = function(data) {
+        delete window[name];
+        script.parentNode && script.parentNode.removeChild(script);
+        cb(data);
+      };
+      const script = document.createElement('script');
+      script.src   = url + (url.includes('?') ? '&' : '?') + 'callback=' + name;
+      document.head.appendChild(script);
+    }
+
+    // =====================
+    // Load All Data
+    // =====================
+    function loadAll() {
+      loadBookings();
+      loadReviews();
+      loadBanner();
+      loadClients();
+    }
+
+    function loadBookings() {
+      jsonp(APPS_SCRIPT_URL + '?action=getBookings&admin_key=' + ADMIN_KEY, data => {
+        if (data.success) {
+          allBookings = data.bookings;
+          renderStats();
+          renderUpcoming();
+          renderBookings();
+        }
+      });
+    }
+
+    function loadReviews() {
+      jsonp(APPS_SCRIPT_URL + '?action=getReviews&admin_key=' + ADMIN_KEY, data => {
+        if (data.success) {
+          allReviews = data.reviews;
+          document.getElementById('s-reviews').textContent =
+            allReviews.filter(r => r.status === 'Pending').length;
+          renderReviews();
+        }
+      });
+    }
+
+    function loadBanner() {
+      jsonp(APPS_SCRIPT_URL + '?action=getBanner', data => {
+        if (!data.success || !data.banner) return;
+        const b = data.banner;
+        document.getElementById('bannerActive').checked = b.banner_active === 'true';
+        document.getElementById('bannerTitle').value  = b.banner_title  || '';
+        document.getElementById('bannerText').value   = b.banner_text   || '';
+        document.getElementById('bannerCta').value    = b.banner_cta    || 'Book Now';
+        document.getElementById('bannerExpiry').value = b.banner_expiry || '';
+        const colorEl = document.querySelector('.color-btn.clr-' + (b.banner_color || 'green'));
+        selectColor(b.banner_color || 'green', colorEl);
+        updatePreview();
+      });
+    }
+
+    // =====================
+    // Stats
+    // =====================
+    function renderStats() {
+      const today   = todayStr();
+      const weekEnd = addDays(today, 7);
+      const active  = allBookings.filter(b => b.status !== 'Cancelled');
+
+      document.getElementById('s-today').textContent = active.filter(b => b.date === today).length;
+      document.getElementById('s-week').textContent  = active.filter(b => b.date >= today && b.date <= weekEnd).length;
+      document.getElementById('s-total').textContent = active.length;
+    }
+
+    // =====================
+    // Upcoming (Overview)
+    // =====================
+    function renderUpcoming() {
+      const today    = todayStr();
+      const upcoming = allBookings
+        .filter(b => b.date >= today && b.status !== 'Cancelled')
+        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+        .slice(0, 8);
+
+      const el = document.getElementById('upcomingWrap');
+      if (!upcoming.length) {
+        el.innerHTML = '<div class="empty-state">No upcoming bookings.</div>';
+        return;
+      }
+      el.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>
+            <th>Date</th><th>Time</th><th>Name</th><th>Service</th><th>Duration</th><th>Status</th>
+          </tr></thead>
+          <tbody>
+            ${upcoming.map(b => `
+              <tr>
+                <td>${b.date}</td>
+                <td><strong>${b.time}</strong></td>
+                <td>
+                  <strong>${b.name}</strong><br>
+                  <span style="font-size:11px; color:var(--text-light);">${b.phone}</span>
+                </td>
+                <td style="max-width:200px; font-size:12px;">${b.service}</td>
+                <td style="font-size:12px;">${b.duration} min</td>
+                <td><span class="badge badge-${b.status.toLowerCase()}">${b.status}</span></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    // =====================
+    // Bookings Table
+    // =====================
+    function renderBookings() {
+      const filter = document.getElementById('bFilter').value;
+      const search = document.getElementById('bSearch').value.toLowerCase();
+      const today  = todayStr();
+      let   list   = [...allBookings];
+
+      if      (filter === 'upcoming')   list = list.filter(b => b.date >= today);
+      else if (filter === 'past')       list = list.filter(b => b.date < today);
+      else if (filter === 'Confirmed' || filter === 'Cancelled') list = list.filter(b => b.status === filter);
+
+      if (search) list = list.filter(b =>
+        b.name.toLowerCase().includes(search) ||
+        b.service.toLowerCase().includes(search) ||
+        b.email.toLowerCase().includes(search) ||
+        b.phone.includes(search)
+      );
+
+      list.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+
+      const el = document.getElementById('bookingsWrap');
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-state">No bookings found.</div>';
+        return;
+      }
+      el.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>
+            <th>Date & Time</th><th>Client</th><th>Service</th><th>Status</th><th>Action</th>
+          </tr></thead>
+          <tbody>
+            ${list.map(b => `
+              <tr>
+                <td style="white-space:nowrap; min-width:110px;">
+                  <strong>${fmtBookingDate(b.date)}</strong><br>
+                  <span style="font-size:13px; color:var(--text-mid);">${fmtBookingTime(b.time)}</span>
+                </td>
+                <td style="min-width:140px;">
+                  <strong>${b.name}</strong><br>
+                  <span style="font-size:12px; color:var(--text-light);">${b.phone}</span><br>
+                  <span style="font-size:12px; color:var(--text-light);">${b.email}</span>
+                  ${b.dob ? '<br><span style="font-size:11px; color:var(--text-light);">DOB: ' + b.dob + '</span>' : ''}
+                </td>
+                <td style="font-size:12px; max-width:200px;">
+                  ${b.service}<br>
+                  <span style="color:var(--text-light);">${b.duration} min</span>
+                  ${b.notes ? '<br><em style="color:var(--text-light); font-size:11px;">' + escHtml(b.notes) + '</em>' : ''}
+                </td>
+                <td><span class="badge badge-${b.status.toLowerCase()}">${b.status}</span></td>
+                <td style="white-space:nowrap;">
+                  ${b.status === 'Pending'
+                    ? `<button class="act-btn act-approve" onclick="confirmBooking(${b.row}, this)" style="display:block; margin-bottom:4px;">Confirm</button>
+                       <button class="act-btn act-cancel" onclick="cancelBooking(${b.row}, this)">Cancel</button>`
+                    : b.status === 'Confirmed'
+                    ? `<button class="act-btn act-cancel" onclick="cancelBooking(${b.row}, this)">Cancel</button>`
+                    : '<span style="color:var(--text-light); font-size:11px;">—</span>'}
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function confirmBooking(row, btn) {
+      if (!confirm('이 예약을 컨펌하시겠어요?\n손님에게 컨펌 메일이 자동 발송됩니다.')) return;
+      btn.disabled = true; btn.textContent = '…';
+      jsonp(APPS_SCRIPT_URL + '?action=updateBooking&admin_key=' + ADMIN_KEY + '&row=' + row + '&status=Confirmed', data => {
+        if (data.success) {
+          const b = allBookings.find(b => b.row === row);
+          if (b) b.status = 'Confirmed';
+          renderBookings(); renderUpcoming(); renderStats();
+        } else { btn.disabled = false; btn.textContent = 'Confirm'; }
+      });
+    }
+
+    function cancelBooking(row, btn) {
+      if (!confirm('이 예약을 취소하시겠어요?')) return;
+      btn.disabled = true; btn.textContent = '…';
+      jsonp(APPS_SCRIPT_URL + '?action=updateBooking&admin_key=' + ADMIN_KEY + '&row=' + row + '&status=Cancelled', data => {
+        if (data.success) {
+          const b = allBookings.find(b => b.row === row);
+          if (b) b.status = 'Cancelled';
+          renderBookings(); renderUpcoming(); renderStats();
+        } else { btn.disabled = false; btn.textContent = 'Cancel'; }
+      });
+    }
+
+    // =====================
+    // Reviews Table
+    // =====================
+    function renderReviews() {
+      const filter = document.getElementById('rFilter').value;
+      let list = filter === 'all' ? [...allReviews] : allReviews.filter(r => r.status === filter);
+      list.sort((a, b) => b.row - a.row);
+
+      const el = document.getElementById('reviewsWrap');
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-state">No reviews in this category.</div>';
+        return;
+      }
+      el.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>
+            <th>Name</th><th>Service</th><th>Rating</th><th>Review</th><th>Submitted</th><th>Status</th><th>Action</th>
+          </tr></thead>
+          <tbody>
+            ${list.map(r => `
+              <tr>
+                <td><strong>${r.name}</strong></td>
+                <td style="font-size:12px; max-width:130px;">${r.service}</td>
+                <td class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</td>
+                <td><div class="review-body">${escHtml(r.review)}</div></td>
+                <td style="font-size:11px; color:var(--text-light); white-space:nowrap;">${fmtDate(r.submitted)}</td>
+                <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+                <td style="white-space:nowrap;">
+                  ${r.status !== 'Approved'
+                    ? `<button class="act-btn act-approve" onclick="setReview(${r.row},'Approved',this)">Approve</button><br>`
+                    : ''}
+                  ${r.status !== 'Rejected'
+                    ? `<button class="act-btn act-reject" onclick="setReview(${r.row},'Rejected',this)" style="margin-top:4px;">Reject</button>`
+                    : ''}
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function setReview(row, status, btn) {
+      btn.disabled = true; btn.textContent = '…';
+      jsonp(APPS_SCRIPT_URL + '?action=updateReview&admin_key=' + ADMIN_KEY + '&row=' + row + '&status=' + status, data => {
+        if (data.success) {
+          const r = allReviews.find(r => r.row === row);
+          if (r) r.status = status;
+          renderReviews();
+          document.getElementById('s-reviews').textContent =
+            allReviews.filter(r => r.status === 'Pending').length;
+        } else { btn.disabled = false; }
+      });
+    }
+
+    // =====================
+    // Banner
+    // =====================
+    function selectColor(color, el) {
+      selColor = color;
+      document.getElementById('bannerColor').value = color;
+      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+      if (el) el.classList.add('selected');
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const active = document.getElementById('bannerActive').checked;
+      document.getElementById('toggleLabel').textContent = active ? 'Banner On' : 'Banner Off';
+
+      const title  = document.getElementById('bannerTitle').value || 'Promotion Title';
+      const text   = document.getElementById('bannerText').value;
+      const cta    = document.getElementById('bannerCta').value || 'Book Now';
+
+      const el = document.getElementById('bannerPreview');
+      el.className = 'bp-inner clr-' + selColor;
+      el.innerHTML = `
+        <span>
+          <strong style="font-family:var(--font-serif);">${title}</strong>
+          ${text ? ' — ' + text : ''}
+        </span>
+        <span class="bp-cta">${cta}</span>`;
+    }
+
+    function saveBanner() {
+      const params = new URLSearchParams({
+        action:         'setBanner',
+        admin_key:      ADMIN_KEY,
+        banner_active:  document.getElementById('bannerActive').checked ? 'true' : 'false',
+        banner_title:   document.getElementById('bannerTitle').value,
+        banner_text:    document.getElementById('bannerText').value,
+        banner_cta:     document.getElementById('bannerCta').value,
+        banner_color:   selColor,
+        banner_expiry:  document.getElementById('bannerExpiry').value
+      });
+      const msg = document.getElementById('bannerMsg');
+      jsonp(APPS_SCRIPT_URL + '?' + params.toString(), data => {
+        msg.textContent  = data.success ? '✓ Saved!' : '✗ Error saving.';
+        msg.style.color  = data.success ? 'var(--green-mid)' : '#e05252';
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 3000);
+      });
+    }
+
+    // =====================
+    // Clients
+    // =====================
+    let allClients    = [];
+    let currentClient = null;
+    let chartData     = { b: [], f: [], m: '' };
+
+    function loadClients() {
+      jsonp(APPS_SCRIPT_URL + '?action=getClients&admin_key=' + ADMIN_KEY, data => {
+        if (data.success) { allClients = data.clients; renderClientList(allClients); }
+      });
+    }
+
+    function filterClients() {
+      const q = document.getElementById('clientSearch').value.toLowerCase();
+      renderClientList(q ? allClients.filter(c =>
+        c.name.toLowerCase().includes(q) || c.phone.includes(q)) : allClients);
+    }
+
+    function renderClientList(list) {
+      const wrap = document.getElementById('clientListWrap');
+      if (!list.length) { wrap.innerHTML = '<div class="empty-state">No clients found.</div>'; return; }
+      wrap.innerHTML = list.map(c => `
+        <div class="client-list-item ${currentClient && currentClient.key === c.key ? 'active' : ''}"
+             data-key="${escHtml(c.key)}">
+          <div class="client-avatar">${c.name.charAt(0)}</div>
+          <div>
+            <div class="client-list-name">${escHtml(c.name)}</div>
+            <div class="client-list-meta">${c.visits} visit${c.visits !== 1 ? 's' : ''} · ${c.lastVisit || '—'}</div>
+          </div>
+        </div>`).join('');
+      wrap.querySelectorAll('.client-list-item').forEach(el => {
+        el.addEventListener('click', () => selectClient(el.dataset.key));
+      });
+    }
+
+    function selectClient(key) {
+      currentClient = allClients.find(c => c.key === key);
+      if (!currentClient) return;
+      renderClientList(allClients);
+
+      document.getElementById('clientDetail').style.display = 'block';
+
+      // Avatar initials
+      const initials = currentClient.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('detailAvatar').textContent  = initials;
+      document.getElementById('detailName').textContent    = currentClient.name;
+      document.getElementById('detailContact').textContent = currentClient.phone + (currentClient.email ? ' · ' + currentClient.email : '');
+      document.getElementById('detailVisits').textContent  = currentClient.visits;
+      document.getElementById('detailDates').innerHTML =
+        (currentClient.firstVisit ? 'First visit: <strong>' + currentClient.firstVisit + '</strong><br>' : '') +
+        (currentClient.lastVisit  ? 'Last visit: <strong>'  + currentClient.lastVisit  + '</strong><br>' : '') +
+        (currentClient.dob        ? 'DOB: <strong>'         + currentClient.dob        + '</strong>' : '');
+      document.getElementById('detailServices').innerHTML =
+        currentClient.services.map(s => '· ' + escHtml(s)).join('<br>') || '—';
+
+      // Visit history from allBookings
+      const [cName, cPhone] = key.split('|');
+      const visits = allBookings
+        .filter(b => b.name === cName && b.phone === cPhone && b.status !== 'Cancelled')
+        .sort((a, b) => b.date.localeCompare(a.date));
+      document.getElementById('visitHistoryWrap').innerHTML = visits.length ? `
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Time</th><th>Service</th><th>Duration</th><th>Status</th></tr></thead>
+          <tbody>${visits.map(v => `
+            <tr>
+              <td>${fmtBookingDate(v.date)}</td>
+              <td>${fmtBookingTime(v.time)}</td>
+              <td style="font-size:12px;">${escHtml(v.service)}</td>
+              <td style="font-size:12px;">${v.duration} min</td>
+              <td><span class="badge badge-${v.status.toLowerCase()}">${v.status}</span></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : '<div class="empty-state">No visits yet.</div>';
+
+      // Reset chart
+      chartData = { b: [], f: [], m: '' };
+      document.getElementById('clientMemoInput').value = '';
+      initCharts();
+
+      // Load saved chart from server
+      jsonp(APPS_SCRIPT_URL + '?action=getChart&admin_key=' + ADMIN_KEY +
+        '&clientKey=' + encodeURIComponent(key), data => {
+        if (data.success && data.chart) {
+          chartData = data.chart;
+          document.getElementById('clientMemoInput').value = chartData.m || '';
+          renderMarkers('bodyChart', chartData.b || [], 'b');
+          renderMarkers('faceChart', chartData.f || [], 'f');
+        }
+      });
+    }
+
+    // ---- SVG Chart Interaction ----
+    function initCharts() {
+      [['bodyChart','b'], ['faceChart','f']].forEach(([svgId, type]) => {
+        const svg = document.getElementById(svgId);
+        if (!svg) return;
+        svg.querySelectorAll('.chart-marker').forEach(m => m.remove());
+        if (svg._chartClick) svg.removeEventListener('click', svg._chartClick);
+        svg._chartClick = function(e) {
+          if (e.target.classList.contains('chart-marker')) return;
+          const rect = svg.getBoundingClientRect();
+          const vb   = svg.viewBox.baseVal;
+          const x    = Math.round((e.clientX - rect.left) / rect.width  * vb.width);
+          const y    = Math.round((e.clientY - rect.top)  / rect.height * vb.height);
+          chartData[type] = chartData[type] || [];
+          chartData[type].push([x, y]);
+          addMarkerEl(svg, x, y, type, chartData[type].length - 1);
+        };
+        svg.addEventListener('click', svg._chartClick);
+      });
+    }
+
+    function addMarkerEl(svg, x, y, type, idx) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', '9');
+      c.setAttribute('fill', '#3D6347'); c.setAttribute('opacity', '0.75');
+      c.setAttribute('class', 'chart-marker');
+      c.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chartData[type].splice(idx, 1);
+        const svgEl = document.getElementById(type === 'b' ? 'bodyChart' : 'faceChart');
+        svgEl.querySelectorAll('.chart-marker').forEach(m => m.remove());
+        (chartData[type] || []).forEach((m, i) => addMarkerEl(svgEl, m[0], m[1], type, i));
+      });
+      svg.appendChild(c);
+    }
+
+    function renderMarkers(svgId, markers, type) {
+      const svg = document.getElementById(svgId);
+      if (!svg) return;
+      svg.querySelectorAll('.chart-marker').forEach(m => m.remove());
+      (markers || []).forEach((m, i) => addMarkerEl(svg, m[0], m[1], type, i));
+    }
+
+    function saveCurrentChart() {
+      if (!currentClient) return;
+      chartData.m = document.getElementById('clientMemoInput').value;
+      const msg = document.getElementById('chartSaveMsg');
+      jsonp(APPS_SCRIPT_URL + '?action=saveChart&admin_key=' + ADMIN_KEY +
+        '&clientKey=' + encodeURIComponent(currentClient.key) +
+        '&chartData=' + encodeURIComponent(JSON.stringify(chartData)), data => {
+        msg.textContent = data.success ? '✓ Saved!' : '✗ Error saving.';
+        msg.style.color = data.success ? 'var(--green-mid)' : '#e05252';
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 3000);
+      });
+    }
+
+    // =====================
+    // Journal
+    // =====================
+    let journalEntries = [];
+
+    function loadJournal() {
+      const el = document.getElementById('journalListWrap');
+      el.innerHTML = '<div class="loading-state">Loading…</div>';
+      jsonp(APPS_SCRIPT_URL + '?action=getJournalAdmin&admin_key=' + ADMIN_KEY, data => {
+        if (!data.success) { el.innerHTML = '<div class="loading-state">Error loading.</div>'; return; }
+        journalEntries = data.entries || [];
+        renderJournalList();
+      });
+    }
+
+    function renderJournalList() {
+      const el = document.getElementById('journalListWrap');
+      if (!journalEntries.length) {
+        el.innerHTML = '<div class="loading-state">No entries yet. Click "+ New Entry" to create one.</div>';
+        return;
+      }
+      el.innerHTML = `<table class="admin-table">
+        <thead><tr><th>Date</th><th>Category</th><th>Title</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>${journalEntries.map(e => `
+          <tr>
+            <td style="white-space:nowrap;">${escHtml(e.date)}</td>
+            <td><span style="font-size:11px; color:var(--green-mid); font-weight:700; text-transform:uppercase;">${escHtml(e.category)}</span></td>
+            <td style="max-width:300px;">${escHtml(e.title)}</td>
+            <td><span class="status-badge status-${e.status === 'Published' ? 'confirmed' : 'pending'}">${escHtml(e.status)}</span></td>
+            <td style="white-space:nowrap;">
+              <button data-jrow="${e.row}" class="j-edit-btn" style="font-size:12px; padding:6px 12px; background:var(--green-dark); color:white; border:none; border-radius:8px; cursor:pointer; margin-right:6px;">Edit</button>
+              <button data-jrow="${e.row}" class="j-del-btn" style="font-size:12px; padding:6px 12px; background:#e05252; color:white; border:none; border-radius:8px; cursor:pointer;">Delete</button>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+      el.querySelectorAll('.j-edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const entry = journalEntries.find(e => e.row === parseInt(btn.dataset.jrow));
+          if (entry) openJournalForm(entry);
+        });
+      });
+      el.querySelectorAll('.j-del-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!confirm('Delete this entry?')) return;
+          jsonp(APPS_SCRIPT_URL + '?action=deleteJournal&admin_key=' + ADMIN_KEY + '&row=' + btn.dataset.jrow, data => {
+            if (data.success) loadJournal();
+            else alert('Error deleting.');
+          });
+        });
+      });
+    }
+
+    function openJournalForm(entry) {
+      document.getElementById('journalFormWrap').style.display = 'block';
+      document.getElementById('journalFormWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('journalFormTitle').textContent = entry ? 'Edit Entry' : 'New Journal Entry';
+      document.getElementById('jRow').value       = entry ? entry.row : 0;
+      document.getElementById('jDate').value      = entry ? entry.date : new Date().toISOString().slice(0,10);
+      document.getElementById('jCategory').value  = entry ? entry.category : 'Body Massage';
+      document.getElementById('jTitle').value     = entry ? entry.title : '';
+      document.getElementById('jExcerpt').value   = entry ? entry.excerpt : '';
+      document.getElementById('jContent').value   = entry ? entry.content : '';
+      document.getElementById('jImageUrl').value  = entry ? entry.imageUrl : '';
+      document.getElementById('jStatus').value    = entry ? entry.status : 'Draft';
+      previewJournalImage();
+    }
+
+    function closeJournalForm() {
+      document.getElementById('journalFormWrap').style.display = 'none';
+    }
+
+    function previewJournalImage() {
+      const url = document.getElementById('jImageUrl').value.trim();
+      const wrap = document.getElementById('jImagePreview');
+      const img  = document.getElementById('jPreviewImg');
+      if (!url) { wrap.style.display = 'none'; return; }
+      const direct = driveUrl(url);
+      img.src = direct;
+      wrap.style.display = 'block';
+    }
+
+    // Google Drive 공유 링크 → 직접 이미지 URL 변환
+    function driveUrl(url) {
+      const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (m) return 'https://drive.google.com/uc?id=' + m[1];
+      return url;
+    }
+
+    // Image URL input에 이벤트 추가 (문서 로드 후)
+    document.addEventListener('DOMContentLoaded', () => {
+      const inp = document.getElementById('jImageUrl');
+      if (inp) inp.addEventListener('input', previewJournalImage);
+    });
+
+    function submitJournalForm() {
+      const title = document.getElementById('jTitle').value.trim();
+      const date  = document.getElementById('jDate').value.trim();
+      if (!title || !date) { alert('Title and date are required.'); return; }
+
+      const rawUrl  = document.getElementById('jImageUrl').value.trim();
+      const imgUrl  = rawUrl ? driveUrl(rawUrl) : '';
+      const content = document.getElementById('jContent').value;
+      const msg     = document.getElementById('journalSaveMsg');
+
+      const params = [
+        'action=saveJournal',
+        'admin_key=' + ADMIN_KEY,
+        'row='        + document.getElementById('jRow').value,
+        'date='       + encodeURIComponent(date),
+        'category='   + encodeURIComponent(document.getElementById('jCategory').value),
+        'title='      + encodeURIComponent(title),
+        'excerpt='    + encodeURIComponent(document.getElementById('jExcerpt').value),
+        'content='    + encodeURIComponent(content),
+        'imageUrl='   + encodeURIComponent(imgUrl),
+        'status='     + encodeURIComponent(document.getElementById('jStatus').value)
+      ].join('&');
+
+      msg.textContent = 'Saving…'; msg.style.color = 'var(--text-light)'; msg.classList.add('show');
+
+      jsonp(APPS_SCRIPT_URL + '?' + params, data => {
+        if (data.success) {
+          msg.textContent = '✓ Saved!'; msg.style.color = 'var(--green-mid)';
+          setTimeout(() => { closeJournalForm(); loadJournal(); }, 1200);
+        } else {
+          msg.textContent = '✗ Error: ' + (data.error || 'unknown');
+          msg.style.color = '#e05252';
+        }
+      });
+    }
+
+    // =====================
+    // Helpers
+    // =====================
+    function todayStr() { return new Date().toISOString().slice(0, 10); }
+    function addDays(str, n) {
+      const d = new Date(str + 'T00:00:00'); d.setDate(d.getDate() + n);
+      return d.toISOString().slice(0, 10);
+    }
+    function fmtDate(str) {
+      try { return new Date(str).toLocaleDateString('en-CA'); } catch(e) { return str; }
+    }
+    function fmtBookingDate(str) {
+      // str: 'yyyy-MM-dd'
+      try {
+        const d = new Date(str + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' });
+      } catch(e) { return str; }
+    }
+    function fmtBookingTime(str) {
+      // str: 'HH:mm'
+      try {
+        const [h, m] = str.split(':').map(Number);
+        const suffix = h >= 12 ? 'PM' : 'AM';
+        const h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+        return h12 + ':' + String(m).padStart(2,'0') + ' ' + suffix;
+      } catch(e) { return str; }
+    }
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // =====================
+    // 🌿 Membership
+    // =====================
+    function loadMembers() {
+      api({ action: 'getMembers', admin_key: ADMIN_KEY }, function(res) {
+        renderMembersTable(res.success ? res.members : []);
+      });
+      api({ action: 'getAllTransactions', admin_key: ADMIN_KEY }, function(res) {
+        renderAllTxTable(res.success ? res.transactions : []);
+      });
+    }
+
+    function renderMembersTable(members) {
+      const wrap = document.getElementById('membersTableWrap');
+      if (!members || members.length === 0) {
+        wrap.innerHTML = '<p style="color:var(--text-light);font-size:14px;">No members yet.</p>';
+        return;
+      }
+      wrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>Email</th><th>Name</th>
+              <th style="text-align:right;">Credits</th>
+              <th>Joined</th><th>Last Login</th>
+            </tr></thead>
+            <tbody>${members.map(m => `
+              <tr>
+                <td>${escHtml(m.email)}</td>
+                <td>${escHtml(m.name || '—')}</td>
+                <td style="text-align:right;font-weight:700;color:${m.credits > 0 ? 'var(--green-dark)' : 'var(--text-light)'};">
+                  ${m.credits.toLocaleString()} cr
+                </td>
+                <td>${fmtIso(m.joinedAt)}</td>
+                <td>${fmtIso(m.lastLogin)}</td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function renderAllTxTable(txList) {
+      const wrap = document.getElementById('allTxTableWrap');
+      if (!txList || txList.length === 0) {
+        wrap.innerHTML = '<p style="color:var(--text-light);font-size:14px;">No transactions yet.</p>';
+        return;
+      }
+      wrap.innerHTML = `
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>Email</th><th>Type</th>
+              <th style="text-align:right;">Amount</th>
+              <th style="text-align:right;">Balance</th>
+              <th>Description</th><th>Date</th>
+            </tr></thead>
+            <tbody>${txList.map(tx => `
+              <tr>
+                <td>${escHtml(tx.email)}</td>
+                <td><span style="color:${tx.type==='credit'?'var(--green-dark)':'#B91C1C'};font-weight:700;">
+                  ${tx.type === 'credit' ? '+ Credit' : '− Debit'}</span></td>
+                <td style="text-align:right;font-weight:700;color:${tx.type==='credit'?'var(--green-dark)':'#B91C1C'};">
+                  ${tx.amount > 0 ? '+' : ''}${tx.amount} cr
+                </td>
+                <td style="text-align:right;">${tx.balance} cr</td>
+                <td>${escHtml(tx.description)}</td>
+                <td>${fmtIso(tx.date)}</td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function deductCredit() {
+      const email  = document.getElementById('deductEmail').value.trim();
+      const amount = parseFloat(document.getElementById('deductAmount').value);
+      const desc   = document.getElementById('deductDesc').value.trim() || 'Service';
+      const result = document.getElementById('deductResult');
+
+      if (!email || !amount || amount <= 0) {
+        result.style.color = '#B91C1C';
+        result.textContent = 'Please fill in email and amount.';
+        return;
+      }
+      result.style.color = 'var(--text-light)';
+      result.textContent = 'Processing…';
+
+      api({ action: 'useCredit', admin_key: ADMIN_KEY, email, amount, description: desc }, function(res) {
+        if (res.success) {
+          result.style.color = 'var(--green-dark)';
+          result.textContent = '✓ Deducted ' + amount + ' credits. New balance: ' + res.balance + ' credits.';
+          document.getElementById('deductEmail').value  = '';
+          document.getElementById('deductAmount').value = '';
+          document.getElementById('deductDesc').value   = '';
+          loadMembers(); // 목록 갱신
+        } else {
+          result.style.color = '#B91C1C';
+          result.textContent = 'Error: ' + (res.error || 'Unknown error');
+        }
+      });
+    }
+
+    function adjustCredit() {
+      const email  = document.getElementById('adjustEmail').value.trim();
+      const amount = parseFloat(document.getElementById('adjustAmount').value);
+      const desc   = document.getElementById('adjustDesc').value.trim() || 'Manual adjustment';
+      const result = document.getElementById('adjustResult');
+
+      if (!email || isNaN(amount)) {
+        result.style.color = '#B91C1C';
+        result.textContent = 'Please fill in email and amount.';
+        return;
+      }
+      result.style.color = 'var(--text-light)';
+      result.textContent = 'Processing…';
+
+      api({ action: 'adjustCredit', admin_key: ADMIN_KEY, email, amount, description: desc }, function(res) {
+        if (res.success) {
+          result.style.color = 'var(--green-dark)';
+          result.textContent = '✓ Adjusted ' + amount + ' credits. New balance: ' + res.balance + ' credits.';
+          document.getElementById('adjustEmail').value  = '';
+          document.getElementById('adjustAmount').value = '';
+          document.getElementById('adjustDesc').value   = '';
+          loadMembers();
+        } else {
+          result.style.color = '#B91C1C';
+          result.textContent = 'Error: ' + (res.error || 'Unknown error');
+        }
+      });
+    }
+
+    function fmtIso(iso) {
+      try {
+        if (!iso) return '—';
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+      } catch(e) { return String(iso).slice(0,10); }
+    }
+  </script>
+</body>
+</html>

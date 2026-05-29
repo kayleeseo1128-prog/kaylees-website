@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | Kaylees Wellness</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .account-page {
+      background: var(--beige);
+      min-height: calc(100vh - 72px);
+      padding: 60px 0 80px;
+    }
+
+    /* ── 헤더 ── */
+    .account-header {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      padding: 48px 0 40px;
+      color: var(--white);
+      margin-bottom: -32px;
+    }
+    .account-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .account-greeting .label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 6px;
+    }
+    .account-greeting h1 {
+      font-size: clamp(26px,4vw,38px);
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .account-greeting .email-tag {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+    .btn-signout {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-signout:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── 크레딧 카드 ── */
+    .credit-card {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .credit-info {}
+    .credit-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+    .credit-amount {
+      font-family: var(--font-serif);
+      font-size: 52px;
+      color: var(--green-dark);
+      line-height: 1;
+    }
+    .credit-amount span {
+      font-size: 20px;
+      color: var(--text-light);
+      margin-left: 4px;
+    }
+    .credit-equiv {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    .btn-topup {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-topup:hover { background: var(--green-mid); color: var(--white); }
+
+    /* ── 섹션 카드 ── */
+    .section-card {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .section-card-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--beige-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-card-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--text-dark);
+    }
+    .section-card-body { padding: 0; }
+
+    /* ── 거래 내역 ── */
+    .tx-list {}
+    .tx-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      border-bottom: 1px solid var(--beige-dark);
+      gap: 16px;
+    }
+    .tx-item:last-child { border-bottom: none; }
+    .tx-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+    .tx-dot {
+      width: 36px; height: 36px; min-width: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tx-dot.credit { background: var(--green-light); }
+    .tx-dot.debit  { background: #FEF2F2; }
+    .tx-dot svg {
+      width: 16px; height: 16px;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .tx-dot.credit svg { stroke: var(--green-dark); }
+    .tx-dot.debit  svg { stroke: #B91C1C; }
+    .tx-desc {
+      font-size: 14px;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tx-date { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+    .tx-right { text-align: right; flex-shrink: 0; }
+    .tx-amount {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .tx-amount.credit { color: var(--green-dark); }
+    .tx-amount.debit  { color: #B91C1C; }
+    .tx-balance { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+    .tx-empty {
+      padding: 48px 32px;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 15px;
+    }
+    .tx-empty .script { font-size: 32px; display: block; margin-bottom: 8px; color: var(--green-mid); }
+
+    /* ── 로딩 ── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--beige) 25%, var(--beige-dark) 50%, var(--beige) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* ── 성공 배너 ── */
+    .success-banner {
+      display: none;
+      background: var(--green-light);
+      border: 1px solid rgba(91,140,106,0.35);
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--green-dark);
+      font-size: 15px;
+    }
+    .success-banner.hidden { display: none; }
+    .success-banner svg {
+      width: 22px; height: 22px; min-width: 22px;
+      stroke: var(--green-dark);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* ── 로그인 안내 ── */
+    .not-signed-in {
+      display: none;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .not-signed-in.active { display: block; }
+
+    @media (max-width: 640px) {
+      .credit-card { padding: 28px 24px; }
+      .tx-item { padding: 16px 20px; }
+      .section-card-header { padding: 20px 20px; }
+      .account-header { padding: 40px 0 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kaylees</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="membership.html">Membership</a></li>
+        <li><a href="journal.html">Journal</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한</button>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======= 로그인 안내 (비로그인 시) ======= -->
+  <div class="not-signed-in" id="notSignedIn">
+    <div class="container" style="max-width:480px;">
+      <div style="font-family:var(--font-script);font-size:52px;color:var(--green-mid);margin-bottom:16px;">Members</div>
+      <h2 class="section-title" style="margin-bottom:16px;">Sign in to view your account</h2>
+      <p style="color:var(--text-light);margin-bottom:32px;">Access your credit balance, transaction history, and membership details.</p>
+      <a href="login.html?redirect=account.html" class="btn btn-primary">Sign In</a>
+      <p style="margin-top:20px;font-size:14px;color:var(--text-light);">
+        New here? <a href="membership.html" style="color:var(--green-mid);font-weight:700;">Get a membership</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ======= 회원 대시보드 ======= -->
+  <div id="accountDashboard" style="display:none;">
+
+    <!-- 헤더 -->
+    <div class="account-header">
+      <div class="container">
+        <div class="account-header-inner">
+          <div class="account-greeting">
+            <div class="label">Welcome back</div>
+            <h1 id="greetingName">Loading…</h1>
+            <div class="email-tag" id="greetingEmail"></div>
+          </div>
+          <button class="btn-signout" onclick="signOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-page">
+      <div class="container" style="max-width:760px;">
+
+        <!-- 결제 완료 배너 -->
+        <div class="success-banner hidden" id="successBanner">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="successBannerText">Credits added to your account!</span>
+        </div>
+
+        <!-- 크레딧 카드 -->
+        <div class="credit-card">
+          <div class="credit-info">
+            <div class="credit-label">Your Credit Balance</div>
+            <div class="credit-amount" id="creditAmount">
+              <span class="skeleton" style="width:120px;height:52px;display:inline-block;"></span>
+            </div>
+            <div class="credit-equiv" id="creditEquiv"></div>
+          </div>
+          <a href="membership.html#packages" class="btn-topup">Top Up Credits</a>
+        </div>
+
+        <!-- 거래 내역 -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <div class="section-card-title">Transaction History</div>
+          </div>
+          <div class="section-card-body">
+            <div class="tx-list" id="txList">
+              <!-- 로딩 스켈레톤 -->
+              <div class="tx-item" id="txSkeleton">
+                <div class="tx-left">
+                  <div class="skeleton" style="width:36px;height:36px;border-radius:50%;"></div>
+                  <div>
+                    <div class="skeleton" style="width:180px;height:14px;margin-bottom:6px;"></div>
+                    <div class="skeleton" style="width:90px;height:12px;"></div>
+                  </div>
+                </div>
+                <div class="skeleton" style="width:60px;height:18px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 예약 안내 -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <div class="section-card-title">How to Use Your Credits</div>
+          </div>
+          <div class="section-card-body" style="padding:24px 32px;">
+            <p style="font-size:14px;color:var(--text-mid);line-height:1.8;margin-bottom:16px;">
+              When you come in for your appointment, simply let Kaylee know you'd like to pay with credits.
+              Credits are deducted after your session based on the service price.
+            </p>
+            <p style="font-size:14px;color:var(--text-mid);line-height:1.8;">
+              <strong>1 credit = $1 CAD.</strong> Credits never expire and can be used across any service.
+            </p>
+            <div style="margin-top:20px;">
+              <a href="booking.html" class="btn btn-outline" style="font-size:13px;">Book a Session</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6GKYUA0wjcSV0Kyayhk26BfRhR0Ry4iwe01ApAl6-vfWvPrT7YTFTtHVy3-XIw1Mz7g/exec';
+
+    // ── 세션 확인 ──────────────────────────────
+    const session = getSession();
+
+    if (!session) {
+      // 비로그인 상태
+      document.getElementById('notSignedIn').classList.add('active');
+    } else {
+      // 로그인 상태 — 대시보드 표시
+      document.getElementById('accountDashboard').style.display = 'block';
+      document.getElementById('notSignedIn').style.display = 'none';
+
+      // 인사말 설정
+      document.getElementById('greetingName').textContent = session.name || session.email.split('@')[0];
+      document.getElementById('greetingEmail').textContent = session.email;
+
+      // 결제 완료 파라미터 확인
+      const urlParams = new URLSearchParams(window.location.search);
+      const checkout  = urlParams.get('checkout');
+      const sessionId = urlParams.get('session_id');
+
+      if (checkout === 'success' && sessionId) {
+        handleCheckoutSuccess(sessionId);
+      } else {
+        loadMemberData();
+      }
+    }
+
+    // ── 결제 완료 처리 ─────────────────────────
+    function handleCheckoutSuccess(sessionId) {
+      jsonp(APPS_SCRIPT_URL, {
+        action:       'confirmPayment',
+        sessionId:    sessionId,
+        email:        session.email,
+        sessionToken: session.token
+      }, function(res) {
+        // URL에서 파라미터 제거 (새로고침 시 중복 처리 방지)
+        history.replaceState({}, '', 'account.html');
+
+        if (res.success) {
+          const banner = document.getElementById('successBanner');
+          document.getElementById('successBannerText').textContent =
+            '🎉 ' + res.credits + ' credits added! Your new balance: ' + res.balance + ' credits.';
+          banner.classList.remove('hidden');
+          setTimeout(function() { banner.classList.add('hidden'); }, 8000);
+        } else if (res.error && res.error.includes('already processed')) {
+          // 이미 처리된 결제 — 그냥 데이터 로드
+        } else {
+          // 결제 확인 오류 — 무시하고 데이터 로드
+          console.warn('Payment confirmation:', res.error);
+        }
+        loadMemberData();
+      });
+    }
+
+    // ── 회원 데이터 로드 ───────────────────────
+    function loadMemberData() {
+      // 크레딧 잔액
+      jsonp(APPS_SCRIPT_URL, {
+        action:       'getMemberInfo',
+        email:        session.email,
+        sessionToken: session.token
+      }, function(res) {
+        if (!res.success) {
+          if (res.error && res.error.includes('Session')) { signOut(); return; }
+          document.getElementById('creditAmount').textContent = '—';
+          return;
+        }
+        const m = res.member;
+        // 이름 업데이트
+        if (m.name) {
+          document.getElementById('greetingName').textContent = m.name;
+          updateSessionName(m.name);
+        }
+        renderBalance(m.credits);
+      });
+
+      // 거래 내역
+      jsonp(APPS_SCRIPT_URL, {
+        action:       'getTransactions',
+        email:        session.email,
+        sessionToken: session.token
+      }, function(res) {
+        if (res.success) renderTransactions(res.transactions);
+        else renderTransactions([]);
+      });
+    }
+
+    // ── 잔액 렌더링 ────────────────────────────
+    function renderBalance(credits) {
+      const el = document.getElementById('creditAmount');
+      el.innerHTML = credits.toLocaleString() + '<span>credits</span>';
+      document.getElementById('creditEquiv').textContent = '≈ $' + credits.toLocaleString() + ' CAD value';
+    }
+
+    // ── 거래 내역 렌더링 ───────────────────────
+    function renderTransactions(txList) {
+      const container = document.getElementById('txList');
+      if (!txList || txList.length === 0) {
+        container.innerHTML = '<div class="tx-empty"><span class="script">no history yet</span>Your transactions will appear here after your first purchase or session.</div>';
+        return;
+      }
+
+      container.innerHTML = txList.map(function(tx) {
+        const isCredit = tx.type === 'credit';
+        const sign     = isCredit ? '+' : '−';
+        const amount   = Math.abs(tx.amount);
+        const dateStr  = formatDate(tx.date);
+        const icon     = isCredit
+          ? '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+          : '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+
+        return `
+          <div class="tx-item">
+            <div class="tx-left">
+              <div class="tx-dot ${tx.type}">${icon}</div>
+              <div>
+                <div class="tx-desc">${escHtml(tx.description)}</div>
+                <div class="tx-date">${dateStr}</div>
+              </div>
+            </div>
+            <div class="tx-right">
+              <div class="tx-amount ${tx.type}">${sign}${amount} cr</div>
+              <div class="tx-balance">Balance: ${tx.balance} cr</div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // ── 로그아웃 ───────────────────────────────
+    function signOut() {
+      localStorage.removeItem('kaylees_member');
+      window.location.href = 'index.html';
+    }
+
+    // ── 헬퍼 ───────────────────────────────────
+    function getSession() {
+      try {
+        const raw = localStorage.getItem('kaylees_member');
+        if (!raw) return null;
+        const s = JSON.parse(raw);
+        if (!s || !s.token || !s.email) return null;
+        if (new Date(s.expires) < new Date()) { localStorage.removeItem('kaylees_member'); return null; }
+        return s;
+      } catch(e) { return null; }
+    }
+
+    function updateSessionName(name) {
+      try {
+        const raw = localStorage.getItem('kaylees_member');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        s.name = name;
+        localStorage.setItem('kaylees_member', JSON.stringify(s));
+      } catch(e) {}
+    }
+
+    function formatDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
+      } catch(e) { return iso ? String(iso).slice(0,10) : ''; }
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    function jsonp(url, params, cb) {
+      const cbName = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      const qs = Object.entries({ ...params, callback: cbName })
+        .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
+      const script = document.createElement('script');
+      let done = false;
+      window[cbName] = function(data) {
+        done = true; delete window[cbName]; script.remove(); cb(data);
+      };
+      script.src = url + '?' + qs;
+      script.onerror = function() {
+        if (!done) { done = true; delete window[cbName]; script.remove(); cb({ success: false, error: 'Network error' }); }
+      };
+      document.head.appendChild(script);
+    }
+  </script>
+</body>
+</html>
