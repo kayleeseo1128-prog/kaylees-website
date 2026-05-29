@@ -2,7 +2,7 @@
 // Kaylees Massage & Skincare — Main JS
 // =============================================
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9IGsyE5C5x0h5TAn3zp6qpIQfMJYo-Z6HBLFPoYydGs728-8mmmODJw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6GKYUA0wjcSV0Kyayhk26BfRhR0Ry4iwe01ApAl6-vfWvPrT7YTFTtHVy3-XIw1Mz7g/exec';
 
 // =============================================
 // Promo Banner (모든 페이지에서 자동 로딩)
@@ -124,6 +124,55 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 });
+
+// =============================================
+// 🌿 Member Nav Button (모든 페이지)
+// =============================================
+(function initMemberNav() {
+  const btn = document.getElementById('navMemberBtn');
+  if (!btn) return;
+
+  function getSession() {
+    try {
+      const raw = localStorage.getItem('kaylees_member');
+      if (!raw) return null;
+      const s = JSON.parse(raw);
+      if (!s || !s.token || !s.email) return null;
+      if (new Date(s.expires) < new Date()) { localStorage.removeItem('kaylees_member'); return null; }
+      return s;
+    } catch(e) { return null; }
+  }
+
+  const session = getSession();
+  if (session) {
+    // 로그인 상태 — 계정 버튼
+    const label = session.name ? session.name.split(' ')[0] : 'Account';
+    btn.innerHTML =
+      '<a href="account.html" style="' +
+        'display:inline-flex;align-items:center;gap:6px;' +
+        'background:var(--green-light);color:var(--green-dark);' +
+        'padding:8px 16px;border-radius:40px;font-size:13px;font-weight:700;' +
+        'letter-spacing:0.5px;white-space:nowrap;transition:all 0.2s;' +
+      '">' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' +
+      '</svg>' +
+      label + '</a>';
+  } else {
+    // 비로그인 상태 — Sign In 버튼
+    btn.innerHTML =
+      '<a href="login.html" style="' +
+        'display:inline-flex;align-items:center;gap:5px;' +
+        'color:var(--text-mid);font-size:13px;white-space:nowrap;' +
+        'transition:color 0.2s;' +
+      '">' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>' +
+        '<polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>' +
+      '</svg>' +
+      'Sign In</a>';
+  }
+})();
 
 // ---- Fade-in CSS ----
 const style = document.createElement('style');
