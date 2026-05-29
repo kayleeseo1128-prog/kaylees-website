@@ -320,12 +320,13 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaylees</a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="membership.html" style="color:var(--green-dark);font-weight:700;">Membership</a></li>
-        <li><a href="journal.html">Journal</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
-        <li><a href="booking.html" class="btn btn-primary">Book Now</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+        <li><a href="reviews.html" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="membership.html" data-i18n="nav.membership" style="color:var(--green-dark);font-weight:700;">Membership</a></li>
+        <li id="navMemberBtn"></li>
+        <li><a href="booking.html" class="btn btn-primary" data-i18n="nav.book">Book Now</a></li>
       </ul>
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="en">EN</button>
@@ -397,19 +398,19 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Glow Pack</div>
-            <div class="package-tagline">Perfect for trying out a few sessions</div>
+            <div class="package-tagline">Perfect for a consistent self-care routine</div>
             <div class="package-pricing">
-              <span class="package-price">$600</span>
+              <span class="package-price">$1,000</span>
               <span class="package-price-sub">CAD</span>
             </div>
             <div class="credit-highlight">
-              660 credits
-              <span class="bonus">+10% bonus</span>
+              1,100 credits
+              <span class="bonus">+$100 bonus</span>
             </div>
           </div>
           <div class="package-body">
             <ul class="package-features">
-              <li>$660 credit value — 10% bonus included</li>
+              <li>$1,100 credit value — $100 bonus included</li>
               <li>Use across any service (facial, body massage, K-contour)</li>
               <li>Credits never expire</li>
               <li>Instant credit after payment</li>
@@ -425,20 +426,20 @@
           <div class="package-badge">Best Value</div>
           <div class="package-header">
             <div class="package-name">Wellness Pack</div>
-            <div class="package-tagline">For dedicated self-care routines</div>
+            <div class="package-tagline">For dedicated long-term wellness</div>
             <div class="package-pricing">
-              <span class="package-price">$1,200</span>
+              <span class="package-price">$2,000</span>
               <span class="package-price-sub">CAD</span>
             </div>
             <div class="credit-highlight">
-              1,320 credits
-              <span class="bonus">+$120 bonus</span>
+              2,300 credits
+              <span class="bonus">+$300 bonus</span>
             </div>
           </div>
           <div class="package-body">
             <ul class="package-features">
-              <li>$1,320 credit value — $120 bonus included</li>
-              <li>Equivalent to ~11 sessions (based on $120 service)</li>
+              <li>$2,300 credit value — $300 bonus included</li>
+              <li>Equivalent to ~19 sessions (based on $120 service)</li>
               <li>Use across any service — mix and match freely</li>
               <li>Credits never expire</li>
               <li>Instant credit after payment</li>
@@ -540,7 +541,7 @@
 
   <script src="js/main.js"></script>
   <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQWWM2s_haW6N9IGsyE5C5x0h5TAn3zp6qpIQfMJYo-Z6HBLFPoYydGs728-8mmmODJw/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6GKYUA0wjcSV0Kyayhk26BfRhR0Ry4iwe01ApAl6-vfWvPrT7YTFTtHVy3-XIw1Mz7g/exec';
 
     // 결제 취소 안내
     if (new URLSearchParams(window.location.search).get('checkout') === 'cancelled') {
