@@ -472,9 +472,10 @@
     /* Script font — use Noto Serif KR italic in Korean mode */
     "html[lang='ko'] .script{font-family:'Noto Serif KR',Georgia,serif;font-style:italic;}",
 
-    /* Nav links tighter in Korean */
-    "html[lang='ko'] .nav-links{gap:24px;}",
-    "html[lang='ko'] .nav-links a{font-size:12px;letter-spacing:0.5px;}",
+    /* Nav — always English font regardless of language */
+    "html[lang='ko'] .nav-links a{font-family:'Lato',sans-serif;font-size:13px;letter-spacing:1.5px;}",
+    "html[lang='ko'] .nav-links .btn{font-family:'Lato',sans-serif;}",
+    "html[lang='ko'] .nav-logo{font-family:'Pinyon Script','Dancing Script',cursive;}",
   ].join('');
   document.head.appendChild(css);
 
