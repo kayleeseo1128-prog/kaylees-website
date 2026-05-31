@@ -341,9 +341,9 @@
   <!-- ======= HERO ======= -->
   <section class="membership-hero">
     <div class="container">
-      <span class="section-label">Kaylees Membership</span>
-      <h1 class="section-title">Invest in your <em class="script" style="color:rgba(255,255,255,0.9);">wellness</em></h1>
-      <p>Pre-load credits and enjoy 10% more with every purchase. Use your credits across any service, anytime — no expiry.</p>
+      <span class="section-label" data-i18n="mem.hero.label">Kaylees Membership</span>
+      <h1 class="section-title" data-i18n-html="mem.hero.h1">Invest in your <em class="script" style="color:rgba(255,255,255,0.9);">wellness</em></h1>
+      <p data-i18n="mem.hero.p">Pre-load credits and enjoy 10% more with every purchase. Use your credits across any service, anytime — no expiry.</p>
     </div>
   </section>
 
@@ -355,29 +355,29 @@
           <div class="benefit-icon">
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
-          <h4>10% Bonus Credits</h4>
-          <p>Every purchase gives you 10% extra to spend on any service</p>
+          <h4 data-i18n="mem.ben.bonus.h">10% Bonus Credits</h4>
+          <p data-i18n="mem.ben.bonus.p">Every purchase gives you 10% extra to spend on any service</p>
         </div>
         <div class="benefit-item">
           <div class="benefit-icon">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <h4>No Expiry</h4>
-          <p>Your credits never expire — use them at your own pace</p>
+          <h4 data-i18n="mem.ben.expiry.h">No Expiry</h4>
+          <p data-i18n="mem.ben.expiry.p">Your credits never expire — use them at your own pace</p>
         </div>
         <div class="benefit-item">
           <div class="benefit-icon">
             <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </div>
-          <h4>All Services Included</h4>
-          <p>Use credits for body massage, facial, K-contour, and more</p>
+          <h4 data-i18n="mem.ben.svc.h">All Services Included</h4>
+          <p data-i18n="mem.ben.svc.p">Use credits for body massage, facial, K-contour, and more</p>
         </div>
         <div class="benefit-item">
           <div class="benefit-icon">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h4>Secure Payments</h4>
-          <p>Powered by Stripe — your payment info is always safe</p>
+          <h4 data-i18n="mem.ben.secure.h">Secure Payments</h4>
+          <p data-i18n="mem.ben.secure.p">Powered by Stripe — your payment info is always safe</p>
         </div>
       </div>
     </div>
@@ -387,9 +387,9 @@
   <section class="packages-section" id="packages">
     <div class="container">
       <div class="text-center">
-        <span class="section-label">Choose Your Package</span>
-        <h2 class="section-title">Credit <em class="script">packages</em></h2>
-        <p class="section-subtitle">1 credit = $1 CAD. Credits apply to any service on the menu.</p>
+        <span class="section-label" data-i18n="mem.pkg.label">Choose Your Package</span>
+        <h2 class="section-title" data-i18n-html="mem.pkg.h2">Credit <em class="script">packages</em></h2>
+        <p class="section-subtitle" data-i18n="mem.pkg.sub">1 credit = $1 CAD. Credits apply to any service on the menu.</p>
       </div>
 
       <div class="packages-grid">
@@ -398,7 +398,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Glow Pack</div>
-            <div class="package-tagline">Perfect for a consistent self-care routine</div>
+            <div class="package-tagline" data-i18n="mem.pkg.glow.tag">Perfect for a consistent self-care routine</div>
             <div class="package-pricing">
               <span class="package-price">$1,000</span>
               <span class="package-price-sub">CAD</span>
@@ -410,12 +410,12 @@
           </div>
           <div class="package-body">
             <ul class="package-features">
-              <li>$1,100 credit value — $100 bonus included</li>
-              <li>Use across any service (facial, body massage, K-contour)</li>
-              <li>Credits never expire</li>
-              <li>Instant credit after payment</li>
+              <li data-i18n="mem.pkg.glow.f1">$1,100 credit value — $100 bonus included</li>
+              <li data-i18n="mem.pkg.f2">Use across any service (facial, body massage, K-contour)</li>
+              <li data-i18n="mem.pkg.f3">Credits never expire</li>
+              <li data-i18n="mem.pkg.f4">Instant credit after payment</li>
             </ul>
-            <button class="btn-package outline" onclick="handlePackagePurchase('glow')" id="btn-glow">
+            <button class="btn-package outline" onclick="handlePackagePurchase('glow')" id="btn-glow" data-i18n="mem.pkg.glow.btn">
               Get Glow Pack
             </button>
           </div>
@@ -423,10 +423,10 @@
 
         <!-- Wellness Pack -->
         <div class="package-card featured">
-          <div class="package-badge">Best Value</div>
+          <div class="package-badge" data-i18n="mem.pkg.badge">Best Value</div>
           <div class="package-header">
             <div class="package-name">Wellness Pack</div>
-            <div class="package-tagline">For dedicated long-term wellness</div>
+            <div class="package-tagline" data-i18n="mem.pkg.well.tag">For dedicated long-term wellness</div>
             <div class="package-pricing">
               <span class="package-price">$2,000</span>
               <span class="package-price-sub">CAD</span>
@@ -438,13 +438,13 @@
           </div>
           <div class="package-body">
             <ul class="package-features">
-              <li>$2,300 credit value — $300 bonus included</li>
-              <li>Equivalent to ~19 sessions (based on $120 service)</li>
-              <li>Use across any service — mix and match freely</li>
-              <li>Credits never expire</li>
-              <li>Instant credit after payment</li>
+              <li data-i18n="mem.pkg.well.f1">$2,300 credit value — $300 bonus included</li>
+              <li data-i18n="mem.pkg.well.f2">Equivalent to ~19 sessions (based on $120 service)</li>
+              <li data-i18n="mem.pkg.well.f3">Use across any service — mix and match freely</li>
+              <li data-i18n="mem.pkg.f3">Credits never expire</li>
+              <li data-i18n="mem.pkg.f4">Instant credit after payment</li>
             </ul>
-            <button class="btn-package primary" onclick="handlePackagePurchase('wellness')" id="btn-wellness">
+            <button class="btn-package primary" onclick="handlePackagePurchase('wellness')" id="btn-wellness" data-i18n="mem.pkg.well.btn">
               Get Wellness Pack
             </button>
           </div>
@@ -463,29 +463,29 @@
   <section class="how-section">
     <div class="container">
       <div class="text-center">
-        <span class="section-label">How It Works</span>
-        <h2 class="section-title">Simple <em class="script">steps</em></h2>
+        <span class="section-label" data-i18n="mem.how.label">How It Works</span>
+        <h2 class="section-title" data-i18n-html="mem.how.h2">Simple <em class="script">steps</em></h2>
       </div>
       <div class="how-steps">
         <div class="how-step">
           <div class="how-step-num">1</div>
-          <h4>Sign In</h4>
-          <p>Enter your email to create an account — no password needed.</p>
+          <h4 data-i18n="mem.how.s1.h">Sign In</h4>
+          <p data-i18n="mem.how.s1.p">Enter your email to create an account — no password needed.</p>
         </div>
         <div class="how-step">
           <div class="how-step-num">2</div>
-          <h4>Choose a Package</h4>
-          <p>Select the pack that fits your routine and pay securely with Stripe.</p>
+          <h4 data-i18n="mem.how.s2.h">Choose a Package</h4>
+          <p data-i18n="mem.how.s2.p">Select the pack that fits your routine and pay securely with Stripe.</p>
         </div>
         <div class="how-step">
           <div class="how-step-num">3</div>
-          <h4>Credits Added Instantly</h4>
-          <p>Your credits appear in your account right after payment.</p>
+          <h4 data-i18n="mem.how.s3.h">Credits Added Instantly</h4>
+          <p data-i18n="mem.how.s3.p">Your credits appear in your account right after payment.</p>
         </div>
         <div class="how-step">
           <div class="how-step-num">4</div>
-          <h4>Book & Enjoy</h4>
-          <p>Book any service and credits are deducted after each visit.</p>
+          <h4 data-i18n="mem.how.s4.h">Book &amp; Enjoy</h4>
+          <p data-i18n="mem.how.s4.p">Book any service and credits are deducted after each visit.</p>
         </div>
       </div>
     </div>
@@ -495,33 +495,33 @@
   <section class="faq-section">
     <div class="container">
       <div class="text-center">
-        <span class="section-label">Questions</span>
+        <span class="section-label" data-i18n="mem.faq.label">Questions</span>
         <h2 class="section-title">FAQ</h2>
       </div>
       <div class="faq-list">
         <div class="faq-item">
-          <div class="faq-q">Do credits expire?</div>
-          <div class="faq-a">No — your credits never expire. Use them at your own pace, whenever you feel ready.</div>
+          <div class="faq-q" data-i18n="mem.faq.q1">Do credits expire?</div>
+          <div class="faq-a" data-i18n="mem.faq.a1">No — your credits never expire. Use them at your own pace, whenever you feel ready.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Can I use credits for any service?</div>
-          <div class="faq-a">Yes. Credits apply to all services — body massage, bamboo facial therapy, and K-contour facial. 1 credit equals $1 CAD.</div>
+          <div class="faq-q" data-i18n="mem.faq.q2">Can I use credits for any service?</div>
+          <div class="faq-a" data-i18n="mem.faq.a2">Yes. Credits apply to all services — body massage, bamboo facial therapy, and K-contour facial. 1 credit equals $1 CAD.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">How do I use credits when I book?</div>
-          <div class="faq-a">Just let Kaylee know at the time of your appointment that you'd like to pay with credits. Credits are deducted from your account after the session.</div>
+          <div class="faq-q" data-i18n="mem.faq.q3">How do I use credits when I book?</div>
+          <div class="faq-a" data-i18n="mem.faq.a3">Just let Kaylee know at the time of your appointment that you'd like to pay with credits. Credits are deducted from your account after the session.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Can I check my credit balance?</div>
-          <div class="faq-a">Yes — sign in to your account to view your current balance and full transaction history anytime.</div>
+          <div class="faq-q" data-i18n="mem.faq.q4">Can I check my credit balance?</div>
+          <div class="faq-a" data-i18n="mem.faq.a4">Yes — sign in to your account to view your current balance and full transaction history anytime.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">What payment methods are accepted?</div>
-          <div class="faq-a">All major credit and debit cards are accepted through Stripe (Visa, Mastercard, Amex). Your payment information is securely handled by Stripe.</div>
+          <div class="faq-q" data-i18n="mem.faq.q5">What payment methods are accepted?</div>
+          <div class="faq-a" data-i18n="mem.faq.a5">All major credit and debit cards are accepted through Stripe (Visa, Mastercard, Amex). Your payment information is securely handled by Stripe.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Can I purchase more than one package?</div>
-          <div class="faq-a">Yes. You can purchase as many packages as you'd like — credits accumulate in your account and never expire.</div>
+          <div class="faq-q" data-i18n="mem.faq.q6">Can I purchase more than one package?</div>
+          <div class="faq-a" data-i18n="mem.faq.a6">Yes. You can purchase as many packages as you'd like — credits accumulate in your account and never expire.</div>
         </div>
       </div>
     </div>
@@ -530,9 +530,9 @@
   <!-- ======= CTA ======= -->
   <section class="membership-cta">
     <div class="container">
-      <h2>Ready to <em class="script" style="color:rgba(255,255,255,0.9);">start?</em></h2>
-      <p>Sign in and choose your package to get started today.</p>
-      <a href="#packages" class="btn btn-gold">View Packages</a>
+      <h2 data-i18n-html="mem.cta.h2">Ready to <em class="script" style="color:rgba(255,255,255,0.9);">start?</em></h2>
+      <p data-i18n="mem.cta.p">Sign in and choose your package to get started today.</p>
+      <a href="#packages" class="btn btn-gold" data-i18n="mem.cta.btn">View Packages</a>
     </div>
   </section>
 
