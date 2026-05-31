@@ -475,7 +475,7 @@
     /* Nav — always English font regardless of language */
     "html[lang='ko'] .nav-links a{font-family:'Lato',sans-serif;font-size:13px;letter-spacing:1.5px;}",
     "html[lang='ko'] .nav-links .btn{font-family:'Lato',sans-serif;}",
-    "html[lang='ko'] .nav-logo{font-family:'Pinyon Script','Dancing Script',cursive;}",
+    "html[lang='ko'] .nav-logo{font-family:'Great Vibes',cursive;}",
   ].join('');
   document.head.appendChild(css);
 
