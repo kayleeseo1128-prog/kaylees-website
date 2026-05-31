@@ -196,11 +196,11 @@
     // ==========================================================
     ko: {
       // NAV
-      'nav.home':     '홈',
-      'nav.services': '서비스',
-      'nav.journal':  '저널',
-      'nav.reviews':  '리뷰',
-      'nav.book':     '예약하기',
+      'nav.home':     'Home',
+      'nav.services': 'Services',
+      'nav.journal':  'Journal',
+      'nav.reviews':  'Reviews',
+      'nav.book':     'Book Now',
 
       // FOOTER
       'footer.tagline':    'K-뷰티 마사지 & 스킨케어 — 메트로 밴쿠버. 따뜻하고 자연스럽게, 매번 진심을 담아.',
