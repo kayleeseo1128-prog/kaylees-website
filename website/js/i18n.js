@@ -1,5 +1,5 @@
 // ============================================================
-// js/i18n.js — Kaylees Massage & Skincare Language Toggle
+// js/i18n.js — Kaylees Massage & Facial Language Toggle
 // EN ↔ KO | Flags + text | Korean font (Noto Sans/Serif KR)
 // ============================================================
 
@@ -27,7 +27,7 @@
       'footer.link.book':  'Book Now',
       'footer.link.reviews':'Reviews',
       'footer.contact.dm': 'DM on Instagram',
-      'footer.copyright':  '© 2026 Kaylees Massage & Skincare. All rights reserved.',
+      'footer.copyright':  '© 2026 Kaylees Massage & Facial. All rights reserved.',
 
       // INDEX
       'home.eyebrow':        'K-Beauty · Metro Vancouver',
@@ -211,7 +211,7 @@
       'footer.link.book':  '예약하기',
       'footer.link.reviews':'리뷰',
       'footer.contact.dm': '인스타그램 DM',
-      'footer.copyright':  '© 2026 Kaylees Massage & Skincare. All rights reserved.',
+      'footer.copyright':  '© 2026 Kaylees Massage & Facial. All rights reserved.',
 
       // INDEX
       'home.eyebrow':        'K-뷰티 · 메트로 밴쿠버',
